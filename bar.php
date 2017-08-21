@@ -4,6 +4,7 @@ session_start();
 include_once('tipo.php');
 
 ?>
++
 <!DOCTYPE html>
 <html lang="en">
 

@@ -20,7 +20,7 @@ input:-webkit-autofill {
 </head>
 <body>
   <div class="text-center" style="padding:50px 0">
-    <div class="logo">login</div>
+    <div class="logo">Inicio</div>
     <!-- Main Form -->
     <div class="login-form-1">
       <form id="login-form" class="text-left" action="signin.php">
@@ -35,20 +35,79 @@ input:-webkit-autofill {
               <label for="lg_password" class="sr-only">Contrasena</label>
               <input type="password" class="form-control" id="lg_password" name="contra" placeholder="password">
             </div>
-            <div class="form-group login-group-checkbox">
-              <input type="checkbox" id="lg_remember" name="lg_remember">
-              <label for="lg_remember">remember</label>
-            </div>
+              <div class="etc-login-form">
+
+                  <p><a data-toggle="modal" data-target="#myModal">Crear nuevo usuario</a></p>
+              </div>
           </div>
           <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
         </div>
-        <div class="etc-login-form">
 
-          <p><a href="#">Crear nuevo usuario</a></p>
-        </div>
       </form>
     </div>
     <!-- end:Main Form -->
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Registro de Usuario</h4>
+              </div>
+              <div class="modal-body">
+                  <form class="form-horizontal">
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="email">Email:</label>
+                          <div class="col-sm-10">
+                              <input type="email" class="form-control" id="email" placeholder="Ingresar email">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="pwd">Contrasena:</label>
+                          <div class="col-sm-10">
+                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar Contrasena">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="pwd">Repetir Contrasena:</label>
+                          <div class="col-sm-10">
+                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar Contrasena">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="pwd">Carnet de Identidad:</label>
+                          <div class="col-sm-10">
+                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar CI">
+                          </div>
+                      </div><div class="form-group">
+                          <label class="control-label col-sm-2" for="pwd">Nombre:</label>
+                          <div class="col-sm-10">
+                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar Nombre">
+                          </div>
+                      </div><div class="form-group">
+                          <label class="control-label col-sm-2" for="pwd">Apellido:</label>
+                          <div class="col-sm-10">
+                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar Apellido">
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="col-sm-offset-2 col-sm-10">
+                              <button type="submit" class="btn btn-default">Registrar</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+
+      </div>
   </div>
   <script src="js/jquery.js" charset="utf-8"></script>
   <script src="js/main.js" charset="utf-8"></script>
