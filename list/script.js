@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    // Delete 
+    // Delete
     $('.delete').click(function(){
         var el = this;
         var id = this.id;
@@ -8,7 +8,7 @@ $(document).ready(function(){
 
         // Delete id
         var deleteid = splitid[1];
-        
+
         // AJAX Request
         $.ajax({
             url: 'remove.php',
@@ -18,7 +18,7 @@ $(document).ready(function(){
 
                 // Removing row from HTML Table
                 $(el).closest('tr').css('background','tomato');
-                $(el).closest('tr').fadeOut(800, function(){      
+                $(el).closest('tr').fadeOut(800, function(){
                     $(this).remove();
                 });
             }
