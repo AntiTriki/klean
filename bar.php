@@ -92,9 +92,12 @@ min-height: 100%;
         <div class="container">
             <div class="navbar-header">
               <?php if (isset($_SESSION['name'])){ ?>
+                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
+                         <span class="icon-bar"></span>
+                             <span class="icon-bar"></span>
+                             <span class="icon-bar"></span>
 
-
-
+                </button>
         <?php } ?>
 
 

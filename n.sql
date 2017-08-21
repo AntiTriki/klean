@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   `nit` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `razon_social` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `sigla` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `contra` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+
   `direccion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `nivel` int(2) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL
