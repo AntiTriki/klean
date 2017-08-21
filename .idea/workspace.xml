@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6d1fb0ae-b977-4ea0-92c1-4904a4067ec6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/empresa_lista.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/025_58ea61f022502.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1104502160420172061.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1104609160420174266.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1104719160420177860.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1104822160420177871.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1162915160420179316.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1163439160420172019.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1163616160420174908.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/154312160420172326.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1_165831290520175590.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1_194532200620179158.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1_202246200620173956.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1_202424180420178417.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1_202613180420179920.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1_202818180420176740.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/2_202632200620179086.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/576092529.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/_165738290520171710.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bar.php" afterPath="$PROJECT_DIR$/bar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signin.php" afterPath="$PROJECT_DIR$/signin.php" />
-    </list>
+    <list default="true" id="6d1fb0ae-b977-4ea0-92c1-4904a4067ec6" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,16 +12,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="conexion.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conexion.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="signin.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/signin.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -104,12 +70,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="empresa_lista.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="empresa_lista.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/empresa_lista.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-326">
+            <state relative-caret-position="-255">
               <caret line="6" column="47" lean-forward="false" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jquery.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/jquery.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jquery-3.0.0.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/jquery-3.0.0.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -204,6 +194,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="n" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="n" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="n" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -305,15 +309,15 @@
       <option name="presentableId" value="Default" />
       <updated>1503321443021</updated>
       <workItem from="1503321445984" duration="3148000" />
-      <workItem from="1503336038627" duration="6515000" />
+      <workItem from="1503336038627" duration="6825000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9663000" />
+    <option name="totallyTimeSpent" value="9973000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27912253" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
@@ -450,9 +454,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/empresa_lista.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-326">
+        <state relative-caret-position="-255">
           <caret line="6" column="47" lean-forward="false" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery-3.0.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
