@@ -2,6 +2,7 @@
 include_once('bar.php');
 include_once('conexion.php');
 $id_usuario=$_SESSION['id_usuario'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,26 +34,30 @@ $id_usuario=$_SESSION['id_usuario'];
         <tbody>
         <?php
         $cxn = new mysqli($mysql_host,$mysql_user,$mysql_password,$my_database);
-        $query =sprintf('SELECT * FROM EMPRESA WHERE ID_USUARIO=$id_usuario');
+        $query =sprintf('SELECT * FROM EMPRESA WHERE ID_USUARIO=".$id_usuario."');
         $cxn -> set_charset("utf8");
         $result = mysqli_query($cxn,$query) or die ("Error:".mysqli_error($cxn));
+        $i=0;
+        while ($empresas=mysqli_fetch_array($result)){
+            echo '<tr>
+            <td class="col-sm-4">'.$empresas['razon_social'].'
+             </td>
+             
+             <td class="col-sm-4">'.$empresas['nit'].'
+             </td>
+             
+             <td class="col-sm-4">'.$empresas['direccion'].'
+             </td>
+            </tr>
+            ';
 
-        
+
+
+            }
+        echo $id_usuario;
         ?>
-        <tr>
-            <td class="col-sm-4">
-                <input type="text" name="name" class="form-control" />
-            </td>
-            <td class="col-sm-4">
-                <input type="mail" name="mail"  class="form-control"/>
-            </td>
-            <td class="col-sm-3">
-                <input type="text" name="phone"  class="form-control"/>
-            </td>
-            <td class="col-sm-2"><a class="deleteRow"></a>
 
-            </td>
-        </tr>
+
         </tbody>
         <tfoot>
         <tr>
