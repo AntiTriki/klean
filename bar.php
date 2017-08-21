@@ -4,7 +4,7 @@ session_start();
 include_once('tipo.php');
 
 ?>
-+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +12,7 @@ include_once('tipo.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="css/modern-business.css">
@@ -92,19 +92,13 @@ min-height: 100%;
         <div class="container">
             <div class="navbar-header">
               <?php if (isset($_SESSION['name'])){ ?>
-              <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <?php } else{?>
-          <button type="button" class="navbar-toggle"
 
-          <a href="#" data-toggle="modal" data-target=".bs-modal-sm"><span  class="glyphicon glyphicon-log-in"></span> Acceder</a>
-        </ul>
-      </button>
-          <?php } ?>
-                <a href="index.php" class="navbar-brand">B-On</a>
+
+
+        <?php } ?>
+
+
+                <a href="index.php" class="navbar-brand">ERP</a>
 
 
 
@@ -147,15 +141,11 @@ if (isset($_SESSION['name'])){
                             <li><a href="#">Configuracion de Cuenta <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
 
                             <li class="divider"></li>
-                            <li><a href="logout.php?logout">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                            <li><a href="logout.php?logout">Salir <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                         </ul>
                     </li>
                 </ul>
-              <?php }else{?>
-                <ul class="nav navbar-nav navbar-right">
-                <li ><a href="#" data-toggle="modal" data-target=".bs-modal-sm"><span  class="glyphicon glyphicon-log-in"></span> Acceder</a></li>
-              </ul>
-                <?php }?>
+              <?php }?>
             </div>
         </div>
     </div>
@@ -311,16 +301,18 @@ if (isset($_SESSION['name'])){
         </li>
         <?php }else{ ?>
           <li>
-              <a href="carrito.php">Mi Carrito</a>
+              <a >Empresas</a>
           </li>
         <?php } ?>
         <li class="visible-xs">
-            <a href="logout.php?logout">Log out</a>
+            <a href="logout.php?logout">Salir</a>
         </li>
 
       </ul>
 
     </div>
+
+
     <?php
   }?>
     <script src="js/jquery.js" charset="utf-8"></script>

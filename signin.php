@@ -15,7 +15,7 @@ $usra = mysqli_real_escape_string($link, $correo);
 						 u.nombre,
 						 u.apellido,
 						 u.logo,
-						 u.ci,
+						 u.ci
 						 
 
 						 FROM
@@ -23,7 +23,7 @@ $usra = mysqli_real_escape_string($link, $correo);
  						 WHERE
 						 u.correo='$usra'
 						 AND u.contra ='$pwda'
-						 AND u.activo = 1
+						 
 						 ");
              $link->set_charset("utf8");
 						$result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));

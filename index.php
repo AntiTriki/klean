@@ -23,7 +23,7 @@ input:-webkit-autofill {
     <div class="logo">Inicio</div>
     <!-- Main Form -->
     <div class="login-form-1">
-      <form id="login-form" class="text-left" action="signin.php">
+      <form id="login-form" class="text-left" action="signin.php" method="POST">
         <div class="login-form-main-message"></div>
         <div class="main-login-form">
           <div class="login-group">
@@ -63,13 +63,13 @@ input:-webkit-autofill {
                       <div class="form-group">
                           <label class="control-label col-sm-2" for="email">Email:</label>
                           <div class="col-sm-10">
-                              <input type="email" class="form-control" id="email" placeholder="Ingresar email">
+                              <input type="email" name="correo" class="form-control" id="email" placeholder="Ingresar email">
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="control-label col-sm-2" for="pwd">Contrasena:</label>
                           <div class="col-sm-10">
-                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar Contrasena">
+                              <input type="password" name="contra" class="form-control" id="pwd" placeholder="Ingresar Contrasena">
                           </div>
                       </div>
                       <div class="form-group">
