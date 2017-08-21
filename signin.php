@@ -16,19 +16,7 @@ $usra = mysqli_real_escape_string($link, $correo);
 						 u.apellido,
 						 u.logo,
 						 u.ci,
-						 u.fecha_nac,
-						 u.ciudad,
-						 u.estado_civil,
-						 u.ocupacion,
-						 u.activo,
-						 u.telefono,
-						 u.celular,
-						 u.sexo,
-						 u.nit,
-						 u.factura_nombre,
-						 u.correo_nombre,
-						 u.telefono_mp,
-						 u.nombre_mp
+						 
 
 						 FROM
              usuario u
