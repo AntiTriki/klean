@@ -1,5 +1,5 @@
 <?php
-include_once('bar.php');
+include_once('bar_single.php');
 include_once('conexion.php');
 $id_usuario=$_SESSION['id_usuario'];
 
@@ -28,13 +28,14 @@ $id_usuario=$_SESSION['id_usuario'];
         <tr>
             <td><h4>Empresa</h4> </td>
             <td><h4>NIT</h4></td>
-            <td><h4>Direccion</h4></td>
+            <td><h4>Sigla</h4></td>
         </tr>
         </thead>
         <tbody>
         <?php
         $cxn = new mysqli($mysql_host,$mysql_user,$mysql_password,$my_database);
-        $query =sprintf('SELECT * FROM EMPRESA WHERE ID_USUARIO=%d',$id_usuario);
+//        $query =sprintf('SELECT * FROM EMPRESA WHERE ID_USUARIO=%d',$id_usuario);
+        $query =sprintf('SELECT * FROM EMPRESA ');
         $cxn -> set_charset("utf8");
         $result = mysqli_query($cxn,$query) or die ("Error:".mysqli_error($cxn));
         $i=0;
@@ -46,7 +47,7 @@ $id_usuario=$_SESSION['id_usuario'];
              <td class="col-sm-4 clickable-row">'.$empresas['nit'].'
              </td>
 
-             <td class="col-sm-4 clickable-row">'.$empresas['direccion'].'
+             <td class="col-sm-4 clickable-row">'.$empresas['sigla'].'
              </td>
              <td>
              <a class="btn btn-danger delete " data-toggle="modal" role="button"
@@ -152,43 +153,40 @@ $('.table > tbody > tr').click(function() {
 $('#myTable').on('click', '.clickable-row', function(event) {
   $(this).addClass('active').siblings().removeClass('active');
 });
-    $("document").ready(function () {
-        $("#confirmar").click(function () {
-            $('#form').submit(function (e) {
-                e.preventDefault();
-                var informacion=$('#form').serialize();
-                var metodo='POST';
-                var peticion='empresaregister.php';
-                $.ajax({
-                    type: metodo,
-                    url: peticion,
-                    data:informacion,
-                    beforeSend: function(){
 
-                    },
-                    error: function(data) {
-                        $("#form").append(data);
-                    },
-                    success: function (data) {
-                        $("#form").fadeOut( "slow" );
-                    }
-                });
-                return false;
-            });
-        }); // Click effect
-
-
-    }); //Begin of Jquery Statement
 </script>
 <script src="js/jasny-bootstrap.min.js" charset="utf-8"></script>
 <script>
-function AgregarFila(){
 
-
-}
     $(document).ready(function () {
         var counter = 0;
+        function AgregarFila(){
 
+            var newRow = $("<tr>");
+            var cols = "";
+
+            cols += '<tr>
+                <td class="col-sm-4 clickable-row">
+            </td>
+
+            <td class="col-sm-4 clickable-row">
+            </td>
+
+            <td class="col-sm-4 clickable-row">
+            </td>
+            <td>
+            <a class="btn btn-danger delete " data-tog
+            gle="modal" role="button"
+            href="ambiente.php?id=''"><span id="" class="glyphicon glyphicon-chevron-right "></span></a>
+
+
+                </td>
+                </tr>
+                </tr>';
+            newRow.append(cols);
+            $("table.order-list").append(newRow);
+
+        }
         $('#submit').click( function () {
           $.ajax({
                   url: empresaregister.php,
@@ -196,7 +194,15 @@ function AgregarFila(){
                   data: $('#form').serialize(),
                   success: function(msg)
                   {
-                      alert('Email Sent');
+                      if(msg == 'fail') {
+                          alert('Ya existe una empresa con alguno de los datos ingresados');
+                      }else{
+
+                          AgregarFila();
+                          counter++;
+
+                      }
+
                   }
               });
 
