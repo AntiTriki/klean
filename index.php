@@ -81,17 +81,17 @@ input:-webkit-autofill {
                       <div class="form-group">
                           <label class="control-label col-sm-2" for="pwd">Carnet de Identidad:</label>
                           <div class="col-sm-10">
-                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar CI">
+                              <input type="text" class="form-control" id="pwd" placeholder="Ingresar CI">
                           </div>
                       </div><div class="form-group">
                           <label class="control-label col-sm-2" for="pwd">Nombre:</label>
                           <div class="col-sm-10">
-                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar Nombre">
+                              <input type="text" class="form-control" id="pwd" placeholder="Ingresar Nombre">
                           </div>
                       </div><div class="form-group">
                           <label class="control-label col-sm-2" for="pwd">Apellido:</label>
                           <div class="col-sm-10">
-                              <input type="password" class="form-control" id="pwd" placeholder="Ingresar Apellido">
+                              <input type="text" class="form-control" id="pwd" placeholder="Ingresar Apellido">
                           </div>
                       </div>
 

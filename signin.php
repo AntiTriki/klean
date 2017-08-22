@@ -16,14 +16,14 @@ $usra = mysqli_real_escape_string($link, $correo);
 						 u.apellido,
 						 u.logo,
 						 u.ci
-						 
+
 
 						 FROM
              usuario u
  						 WHERE
 						 u.correo='$usra'
 						 AND u.contra ='$pwda'
-						 
+
 						 ");
              $link->set_charset("utf8");
 						$result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
@@ -47,7 +47,7 @@ $usra = mysqli_real_escape_string($link, $correo);
 								mysqli_free_result($result_user);
 								mysqli_close($link);
 
-								header("Location:ambiente.php");
+								header("Location:empresa_lista.php");
 							}else{
 
 							}
