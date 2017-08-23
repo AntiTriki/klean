@@ -128,7 +128,7 @@ $id_usuario=$_SESSION['id_usuario'];
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button id="submit" type="submit" class="btn btn-default">Registrar</button>
+                            <button id="submit" type="button" class="btn btn-default">Registrar</button>
                         </div>
                     </div>
                 </form>
@@ -145,47 +145,10 @@ $id_usuario=$_SESSION['id_usuario'];
 <!--<script src="js/main.js" charset="utf-8"></script>-->
 <!--<script src="js/bootstrap.min.js" charset="utf-8"></script>-->
 <!--<script src="js/bootstrap-table.min.js" charset="utf-8"></script>-->
-<script>
-$('.table > tbody > tr').click(function() {
-    // row was clicked
-});
-$('#myTable').on('click', '.clickable-row', function(event) {
-  $(this).addClass('active').siblings().removeClass('active');
-});
-    $("document").ready(function () {
-        $("#confirmar").click(function () {
-            $('#form').submit(function (e) {
-                e.preventDefault();
-                var informacion=$('#form').serialize();
-                var metodo='POST';
-                var peticion='empresaregister.php';
-                $.ajax({
-                    type: metodo,
-                    url: peticion,
-                    data:informacion,
-                    beforeSend: function(){
 
-                    },
-                    error: function(data) {
-                        $("#form").append(data);
-                    },
-                    success: function (data) {
-                        $("#form").fadeOut( "slow" );
-                    }
-                });
-                return false;
-            });
-        }); // Click effect
-
-
-    }); //Begin of Jquery Statement
-</script>
 <script src="js/jasny-bootstrap.min.js" charset="utf-8"></script>
 <script>
-function AgregarFila(){
 
-
-}
     $(document).ready(function () {
         var counter = 0;
 
