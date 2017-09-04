@@ -37,7 +37,7 @@ input:-webkit-autofill {
             </div>
               <div class="etc-login-form">
 
-                  
+                  <p><a data-toggle="modal" data-target="#myModal">Crear nuevo usuario</a></p>
               </div>
           </div>
           <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
