@@ -12,12 +12,16 @@ $id_empresa=$_GET['id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" />
+    <!--	<link href="themes\lightcolor\gray\jtable.min.css" rel="stylesheet" type="text/css" />-->
+    <link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="css/modern-business.css">
     <!-- <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script> -->
+    <link rel="stylesheet" href="themes\metro\blue\jtable.min.css">
     <link rel="stylesheet" href="css/mainp2.css">
     <style media="screen">
     .profile-img{
@@ -304,7 +308,7 @@ if (isset($_SESSION['name'])){
         </li>
         <?php }else{ ?>
           <li>
-              <a >Empresas</a>
+              <a href="empresas.php" >Empresas</a>
           </li>
         <?php } ?>
         <li class="visible-xs">
@@ -319,40 +323,20 @@ if (isset($_SESSION['name'])){
     <?php
   }?>
     <!-- <script src="js/jquery.js" charset="utf-8"></script> -->
-    <script src="scripts/jquery-1.6.4.min.js" charset="utf-8"></script>
-    <script src="js/autohidingnavbar.min.js" charset="utf-8"></script>
-    <script src="js/main.js" charset="utf-8"></script>
+
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="js/jquery.jtable.min.js" type="text/javascript"></script>
+
+    <!--<script src="scripts/jquery-1.6.4.min.js" type="text/javascript"></script>-->
+
+
+    <script src="localization/jquery.jtable.es.js" type="text/javascript"></script>
+
+
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
-<script>
-$("document").ready(function () {
-    $("#confirmar").click(function () {
-        $('#form').submit(function (e) {
-          e.preventDefault();
-          var informacion=$('#form').serialize();
-          var metodo='POST';
-          var peticion='usuarioregister.php';
-          $.ajax({
-             type: metodo,
-             url: peticion,
-             data:informacion,
-             beforeSend: function(){
-
-             },
-             error: function(data) {
-$("#form").append(data);
-             },
-             success: function (data) {
-                 $("#form").fadeOut( "slow" );
-             }
-         });
-         return false;
-        });
-    }); // Click effect
 
 
-}); //Begin of Jquery Statement
-</script>
-    <script src="js/jasny-bootstrap.min.js" charset="utf-8"></script>
 
 </body>
 

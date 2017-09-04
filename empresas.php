@@ -2,7 +2,10 @@
 session_name('nilds');
 session_start();
 include_once('tipo.php');
-
+if(isset($_SESSION['id_emp']))
+{
+unset($_SESSION['id_emp']);
+}
 ?>
 <html>
   <head>
@@ -171,7 +174,7 @@ include_once('tipo.php');
       </div>
   </div>
   <div class="container" style="padding-top: 100px">
-	<div id="Productos" style="width: 60%;margin:auto"></div>
+      <div id="Productos" style="width: 60%;margin:auto"></div>
   </div>
 
 	<script type="text/javascript">
@@ -251,8 +254,7 @@ include_once('tipo.php');
                 data.form.find('input[name="sigla"]').addClass('validate[required]');
                 data.form.find('input[name="direccion"]').addClass('validate[required]');
                 data.form.find('input[name="nit"]').addClass('validate[required],custom[integer]');
-                data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7' +
-                    ']');
+                data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7]');
 
                 data.form.validationEngine();
                 data.form.css('width','300px');
@@ -276,6 +278,6 @@ include_once('tipo.php');
 		});
 
 	</script>
-
+  <script src="js/jasny-bootstrap.min.js" charset="utf-8"></script>
   </body>
 </html>
