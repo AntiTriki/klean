@@ -16,6 +16,19 @@ $id_usuario=$_SESSION['id_usuario'];
     <!-- <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script> -->
 <!--    <link rel="stylesheet" href="css/mainp2.css">-->
+<link href="themes/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+	<link href="Scripts/jtable/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />
+
+	<!--<script src="scripts/jquery-1.6.4.min.js" type="text/javascript"></script>-->
+	<!-- <script src="scripts/jquery-1.6.4.min.js" type="text/javascript"></script> -->
+    <script src="scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script src="Scripts/jtable/jquery.jtable.js" type="text/javascript"></script>
+    <script src="localization/jquery.jtable.es.js" type="text/javascript"></script>
+	<link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+
+<!-- Import Javascript files for validation engine (in Head section of HTML) -->
+<script type="text/javascript" src="js/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="js/jquery.validationEngine-es.js"></script>
 <style media="screen">
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
