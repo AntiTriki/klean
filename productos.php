@@ -1,4 +1,6 @@
 <?php
+session_name('nilds');
+session_start();
 try{
 	$con = mysql_connect("localhost","root","");
 	mysql_select_db("n", $con);
@@ -17,7 +19,10 @@ try{
 		$jTableResult['Records'] = $rows;
 		print json_encode($jTableResult);
 	}else if($_GET["accion"] == "crear"){
-		$result = mysql_query("INSERT INTO empresa VALUES(NULL,'".$_POST["nombre"]."',".$_POST["precio"].",".$_POST["cantidad"].",'". $_POST["proveedor"]."')");
+		$result = mysql_query("INSERT INTO empresa(correo, nit, razon_social,sigla,direccion,nivel,id_usuario) VALUES(
+'".$_POST["correo"]."','".$_POST["nit"]."','". $_POST["razon_social"]."','".$_POST["sigla"]."'
+,'".$_POST["direccion"]."',".$_POST["nivel"].",
+". $_SESSION["id_usuario"].")");
 		$result = mysql_query("SELECT * FROM empresa WHERE id = LAST_INSERT_ID();");
 		$row = mysql_fetch_array($result);
 		$jTableResult = array();
@@ -25,7 +30,8 @@ try{
 		$jTableResult['Record'] = $row;
 		print json_encode($jTableResult);
 	}else if($_GET["accion"] == "actualizar"){
-		$result = mysql_query("UPDATE empresa SET nombre='".$_POST["nombre"]."', precio=".$_POST["precio"].", cantidad=".$_POST["cantidad"].",proveedor='".$_POST["proveedor"]."' WHERE id=" . $_POST["id"] . ";");
+		$result = mysql_query("UPDATE empresa SET correo='".$_POST["correo"]."', nit='".$_POST["nit"]."', razon_social='".$_POST["razon_social"]."',
+		sigla='".$_POST["sigla"]."',direccion='".$_POST["direccion"]."', nivel=".$_POST["nivel"]." WHERE id=" . $_POST["id"] . ";");
 		$jTableResult = array();
 		$jTableResult['Result'] = "OK";
 		print json_encode($jTableResult);
