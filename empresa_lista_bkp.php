@@ -105,40 +105,47 @@ $id_usuario=$_SESSION['id_usuario'];
                         <div class="col-sm-6">
                             <input type="email" name="correo" class="form-control" id="email" placeholder="Ingresar email">
                         </div>
+                        <div class="col-sm-4 messages"></div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">NIT:</label>
                         <div class="col-sm-6">
                             <input type="number" name="nit" class="form-control" id="pwd" placeholder="Ingresar Nit">
                         </div>
+                        <div class="col-sm-4 messages"></div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">Razon Social:</label>
                         <div class="col-sm-6">
                             <input type="text" name="razon_social" class="form-control" id="pwd" placeholder="Ingresar Razon Social">
                         </div>
+                        <div class="col-sm-4 messages"></div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">Sigla:</label>
                         <div class="col-sm-6">
                             <input type="text" name="sigla" class="form-control" id="pwd" placeholder="Ingresar Sigla">
                         </div>
+                        <div class="col-sm-4 messages"></div>
                     </div><div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">Direccion:</label>
                         <div class="col-sm-6">
                             <input type="text" name="direccion" class="form-control" id="pwd" placeholder="Ingresar Direccion">
                         </div>
+                        <div class="col-sm-4 messages"></div>
                     </div><div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">Nivel:</label>
                         <div class="col-sm-6">
                             <input type="number" name="nivel" class="form-control" id="pwd" placeholder="Ingresar Nivel">
                         </div>
+                        <div class="col-sm-4 messages"></div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button id="submit" type="button" class="btn btn-info">Registrar</button>
                         </div>
+
                     </div>
                 </form>
             </div>

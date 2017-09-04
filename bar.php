@@ -107,7 +107,7 @@ min-height: 100%;
 
             </div>
             <div class="collapse navbar-collapse" id="nav-collapse">
-                
+
                 <?php
 if (isset($_SESSION['name'])){
                 ?>
@@ -318,7 +318,8 @@ if (isset($_SESSION['name'])){
 
     <?php
   }?>
-    <script src="js/jquery.js" charset="utf-8"></script>
+    <!-- <script src="js/jquery.js" charset="utf-8"></script> -->
+    <script src="scripts/jquery-1.6.4.min.js" charset="utf-8"></script>
     <script src="js/autohidingnavbar.min.js" charset="utf-8"></script>
     <script src="js/main.js" charset="utf-8"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script>

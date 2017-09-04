@@ -102,7 +102,7 @@ min-height: 100%;
 
             </div>
             <div class="collapse navbar-collapse" id="nav-collapse">
-                
+
                 <?php
 if (isset($_SESSION['name'])){
                 ?>
@@ -152,13 +152,17 @@ if (isset($_SESSION['name'])){
 
 
 
-    <script src="js/jquery.js" charset="utf-8"></script>
-    <script src="js/autohidingnavbar.min.js" charset="utf-8"></script>
+    <script src="js/jquery-3.0.0.js" charset="utf-8"></script>
+    <!-- <script src="js/autohidingnavbar.min.js" charset="utf-8"></script>
     <script src="js/main.js" charset="utf-8"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
 
-    <script src="js/jasny-bootstrap.min.js" charset="utf-8"></script>
-
+    <script src="js/jasny-bootstrap.min.js" charset="utf-8"></script>  -->
+    <!-- <script src="scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script> -->
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="jquery.jtable.js" type="text/javascript"></script>
+    <script src="localization/jquery.jtable.es.js" type="text/javascript"></script>
+    <link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
 </body>
 
 
