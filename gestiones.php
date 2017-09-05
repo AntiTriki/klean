@@ -20,7 +20,7 @@ try{
         print json_encode($jTableResult);
     }else if($_GET["accion"] == "crear"){
         $result = mysql_query("INSERT INTO gestion(nombre, fecha_inicio, fecha_fin,estado,id_empresa) VALUES(
-'".$_POST["nombre"]."','".$_POST["fecha_inicio"]."','". $_POST["fecha_fin"]."',".$_POST["estado"].",". $_SESSION["id_empresa"].")");
+'".$_POST["nombre"]."','".$_POST["fecha_inicio"]."','". $_POST["fecha_fin"]."',1,". $_SESSION["id_emp"].")");
         $result = mysql_query("SELECT * FROM gestion WHERE id = LAST_INSERT_ID() and id_empresa=".$_SESSION['id_emp'].";");
         $row = mysql_fetch_array($result);
         $jTableResult = array();

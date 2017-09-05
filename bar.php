@@ -333,7 +333,8 @@ if (isset($_SESSION['name'])){
 
     <script src="localization/jquery.jtable.es.js" type="text/javascript"></script>
 
-
+    <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="js/jquery.validationEngine-es.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
 
 

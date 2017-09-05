@@ -15,27 +15,37 @@ $query_user = sprintf("SELECT
 						 u.direccion,
 						 u.nit,
 						 u.nivel
-						
+
 
 
 						 FROM
              empresa u
  						 WHERE
 						 u.id=$id_emp
-						 
+
 
 						 ");
 $link->set_charset("utf8");
 $result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
 $row2 = mysqli_fetch_array($result_user);
 ?>
-<script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
 
-    button, input, optgroup, select, textarea {
+        button, input, optgroup, select, textarea {
 
-        color: #000000;
-    }
-</script>
+            color: #000000;
+        }
+    </style>
+  </head>
+  <body>
+
+
+
 <div class="container" style="padding-top: 100px">
     <div id="Productos" style="width: 60%;margin:auto"></div>
 </div>
@@ -95,7 +105,7 @@ $row2 = mysqli_fetch_array($result_user);
                 estado: {
                     title: 'Estado',
                     width: '20%',
-                    create: true,
+                    create: false,
                     edit: true,
                     list: true
                 },
@@ -106,24 +116,24 @@ $row2 = mysqli_fetch_array($result_user);
                     edit: false,
                     list: true,
                     display: function (data) {
-                        return '<a href="gestiones.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
+                        return '<a href="interno.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
                     },
                     width: '2%'
                 },
             },
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
-                data.form.find('input[name="razon_social"]').addClass('validate[required]');
-                data.form.find('input[name="correo"]').addClass('validate[required,custom[email]]');
+                data.form.find('input[name="nombre"]').addClass('validate[required]');
+                data.form.find('input[name="correo"]').addClass('validate[required]');
                 data.form.find('input[name="sigla"]').addClass('validate[required]');
-                data.form.find('input[name="direccion"]').addClass('validate[required]');
-                data.form.find('input[name="nit"]').addClass('validate[required],custom[integer]');
-                data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7]');
+
+                data.form.find('input[name="estado"]').addClass('validate[required]');
+
 
                 data.form.validationEngine();
                 data.form.css('width','300px');
 
-                data.form.closest('.ui-dialog').dialog('option', 'position', 'center');
+
             },
             //Validate form when it is being submitted
             formSubmitting: function (event, data) {
@@ -142,3 +152,5 @@ $row2 = mysqli_fetch_array($result_user);
     });
 
 </script>
+</body>
+</html>
