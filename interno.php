@@ -3,8 +3,8 @@ include_once('bar.php');
 
 include_once('conexion.php');
 date_default_timezone_set('America/La_Paz');
-$id_emp=$_GET['id'];
-$_SESSION['id_emp']=$id_emp;
+$id_ges=$_GET['id'];
+$_SESSION['id_ges']=$id_ges;
 $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
 
@@ -60,17 +60,17 @@ $row2 = mysqli_fetch_array($result_user);
             defaultSorting: 'id ASC',
             actions: {
                 //READ
-                listAction: 'gestiones.php?accion=listar',
+                listAction: 'periodos.php?accion=listar',
                 //CREATE
-                createAction: 'gestiones.php?accion=crear',
+                createAction: 'periodos.php?accion=crear',
                 //UPDATE
-                updateAction: 'gestiones.php?accion=actualizar',
+                updateAction: 'periodos.php?accion=actualizar',
                 //DELETE
-                deleteAction: 'gestiones.php?accion=eliminar'
+                deleteAction: 'periodos.php?accion=eliminar'
             },
             fields: {
                 id: {
-                    title: 'Id Gestion',
+                    title: 'Id Periodo',
                     key: true,
                     create: false,
                     edit: false,
