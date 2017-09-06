@@ -2,7 +2,7 @@
 session_name('nilds');
 session_start();
 include_once('tipo.php');
-$id_empresa=$_GET['id'];
+
 ?>
 
 <!DOCTYPE html>

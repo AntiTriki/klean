@@ -1,4 +1,4 @@
-<?php
+8<?php
 include_once('bar_single.php');
 include_once('conexion.php');
 $id_usuario=$_SESSION['id_usuario'];
