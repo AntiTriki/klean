@@ -112,6 +112,7 @@ unset($_SESSION['id_emp']);
 <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="js/jquery.validationEngine-es.js"></script>
       <script src="js/bootstrap.min.js" charset="utf-8"></script>
+      onkeypress='return event.charCode >= 48 && event.charCode <= 57'
   </head>
   <body>
   <div id="navbar-auto-hidden" class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -176,7 +177,27 @@ unset($_SESSION['id_emp']);
   <div class="container" style="padding-top: 100px">
       <div id="Productos" style="width: 60%;margin:auto"></div>
   </div>
+  <script>
+      $(document).ready(function() {
+          var x = document.getElementsByName("nit");
+          x.keydown(function (e) {
+              // Allow: backspace, delete, tab, escape, enter and .
+              if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                  // Allow: Ctrl+A, Command+A
+                  (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                  // Allow: home, end, left, right, down, up
+                  (e.keyCode >= 35 && e.keyCode <= 40)) {
+                  // let it happen, don't do anything
+                  return;
+              }
+              // Ensure that it is a number and stop the keypress
+              if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                  e.preventDefault();
+              }
+          });
+      });
 
+  </script>
 	<script type="text/javascript">
     $(document).ready(function () {
         $('#Productos').jtable({
@@ -254,6 +275,7 @@ unset($_SESSION['id_emp']);
                 data.form.find('input[name="sigla"]').addClass('validate[required]');
                 data.form.find('input[name="direccion"]').addClass('validate[required]');
                 data.form.find('input[name="nit"]').addClass('validate[required],custom[integer]');
+
                 data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7]');
 
                 data.form.validationEngine();
