@@ -19,6 +19,10 @@ try{
         $jTableResult['Records'] = $rows;
         print json_encode($jTableResult);
     }else if($_GET["accion"] == "crear"){
+      $finicio = str_replace('/', '-', $_POST["fecha_inicio"]);
+    $finicio = date('Y-m-d', strtotime($finicio));
+    $ffin = str_replace('/', '-', $_POST["fecha_fin"]);
+    $ffin = date('Y-m-d', strtotime($ffin));
         $result = mysql_query("INSERT INTO gestion(nombre, fecha_inicio, fecha_fin,estado,id_empresa) VALUES(
 '".$_POST["nombre"]."','".$_POST["fecha_inicio"]."','". $_POST["fecha_fin"]."',1,". $_SESSION["id_emp"].")");
         $result = mysql_query("SELECT * FROM gestion WHERE id = LAST_INSERT_ID() and id_empresa=".$_SESSION['id_emp'].";");
@@ -42,7 +46,7 @@ try{
     mysql_close($con);
 
 }catch(Exception $ex){
-    $jTableResult = array();
+   $jTableResult = array();
     $jTableResult['Result'] = "ERROR";
     $jTableResult['Message'] = $ex->getMessage();
     print json_encode($jTableResult);
