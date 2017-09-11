@@ -4,7 +4,9 @@ session_start();
 include_once('tipo.php');
 if(isset($_SESSION['id_emp']))
 {
+
 unset($_SESSION['id_emp']);
+unset($_SESSION['nombreemp']);
 }
 ?>
 <html>

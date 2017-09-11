@@ -95,17 +95,17 @@ min-height: 100%;
     <div id="navbar-auto-hidden" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-              <?php if (isset($_SESSION['name'])){ ?>
-<!--                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">-->
-<!--                         <span class="icon-bar"></span>-->
-<!--                             <span class="icon-bar"></span>-->
-<!--                             <span class="icon-bar"></span>-->
-<!---->
-<!--                </button>-->
-        <?php } ?>
 
 
-                <a href="index.php" class="navbar-brand">ERP</a>
+
+              <?php
+
+              if (isset($_SESSION['nombreemp'])){ ?>
+                <a href="index.php" class="navbar-brand"><?php echo $_SESSION['nombreemp'] ;?></a>
+                <?php
+              } else { ?>
+                      <a href="index.php" class="navbar-brand">ERP</a>
+      <?php } ?>
 
 
 
