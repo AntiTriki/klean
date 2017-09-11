@@ -101,7 +101,7 @@ min-height: 100%;
               <?php
 
               if (isset($_SESSION['nombreemp'])){ ?>
-                <a href="index.php" class="navbar-brand"><?php echo $_SESSION['nombreemp'] ;?></a>
+                <a href="empresas.php" class="navbar-brand"><?php echo $_SESSION['nombreemp'] ;?></a>
                 <?php
               } else { ?>
                       <a href="index.php" class="navbar-brand">ERP</a>
@@ -310,6 +310,12 @@ if (isset($_SESSION['name'])){
           <li>
               <a href="empresas.php" >Empresas</a>
           </li>
+        <li>
+            <a href="cuenta.php" >Plan de Cuentas</a>
+        </li>
+        <li>
+            <a href="" >Reporte</a>
+        </li>
         <?php } ?>
         <li class="visible-xs">
             <a href="logout.php?logout">Salir</a>

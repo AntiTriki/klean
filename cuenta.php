@@ -11,6 +11,7 @@ date_default_timezone_set('America/La_Paz');
   <head>
     <meta charset="utf-8">
     <title>Plan de Cuentas</title>
+
     <style>
 
         button, input, optgroup, select, textarea {
@@ -190,129 +191,140 @@ $(window)
   });
 
 });
+
+
     </script>
+      <script>
+          $(function () {
+
+              $('form').on('submit', function (e) {
+
+                  e.preventDefault();
+
+                  $.ajax({
+                      type: 'post',
+                      url: 'cuentaabm.php',
+                      data: $('form').serialize(),
+                      success: function () {
+
+                      }
+                  });
+
+              });
+
+          });
+      </script>
+      <link rel="stylesheet" href="css/style.min.css">
+      <script type="text/javascript" src="js/jstree.min.js"></script>
   </head>
  <body>
-   <div class="container">
-           <div class="container-fluid">
-               <div class="text-center">
-                   <h1>Plan de Cuentas</h1>
-
-               </div>
-               <form class="form-horizontal" role="form" method="post" action="productoregister.php" enctype="multipart/form-data">
-                 <div class="container">
-                   <div class="row row-centered">
-                       <div class="col-sm-3 col-lg-3 col-centered">
-                           <!-- <div class="form-group">
-                   <label for="input6" class="col-md-4 control-label">123456789012:</label>
-                   <div class="col-md-8">
-                   <input type="text" class="form-control" id="input6" placeholder="input 6">
-                 </div>
-               </div> -->
-
-                           </div>
-                   </div>
-                   </div>
-                   <div class="row">
-                       <div class="col-sm-6 col-lg-4">
-                           <div class="form-group">
-                               <label for="nombre" class="col-md-4 control-label">Nombre:</label>
-                               <div class="col-md-8">
-                                   <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-sm-6 col-lg-2">
-                         <div class="form-group">
-                           <label for="stock" class="col-md-4 control-label">Nivel:</label>
-                           <div class="col-md-8">
-                             <input type="number" min="0" step="1" class="form-control" id="stock" name="stock" placeholder="Nivel">
-                           </div>
-                         </div>
-                       </div>
-                       <div class="col-sm-6 col-lg-4">
-                           <div class="form-group">
-                               <label for="descripcion" class="col-md-4 control-label">Tipo de Cuenta:</label>
-                               <div class="col-md-8">
-                                   <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">
-                               </div>
-                           </div>
-                       </div>
+   <div class="container" style="padding-left:200px;">
+       <div><h3>Plan de Cuentas</h3></div>
+      <?php if(isset($_SESSION['id_emp']))
+       { ?>
 
 
-                   </div>
-                   <!-- /.row this actually does not appear to be needed with the form-horizontal -->
-                   <button type="submit" class="btn btn-success pull-right"> Ingresar</button>
-               </form>
+       <div id="tree-container" ></div>
+<!--   <?php } else{ ?>
+            <div class="text-center">-->
+<!--                   <h1>Plan de Cuentas</h1>-->
+<!---->
+<!--               </div>-->
+<!--               <form class="form-horizontal" role="form" method="post"  enctype="multipart/form-data">-->
+<!--                 <div class="container">-->
+<!--                   <div class="row row-centered">-->
+<!--                       <div class="col-sm-3 col-lg-3 col-centered">-->
+<!--                           <!-- <div class="form-group">-->
+<!--                   <label for="input6" class="col-md-4 control-label">123456789012:</label>-->
+<!--                   <div class="col-md-8">-->
+<!--                   <input type="text" class="form-control" id="input6" placeholder="input 6">-->
+<!--                 </div>-->
+<!--               </div> -->
+<!---->
+<!--                           </div>-->
+<!--                   </div>-->
+<!--                   </div>-->
+<!--                   <div class="row">-->
+<!--                       <div class="col-sm-6 col-lg-4">-->
+<!--                           <div class="form-group">-->
+<!--                               <label for="nombre" class="col-md-4 control-label">Nombre:</label>-->
+<!--                               <div class="col-md-8">-->
+<!--                                   <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                       </div>-->
+<!--                       <div class="col-sm-6 col-lg-2">-->
+<!--                         <div class="form-group">-->
+<!--                           <label for="stock" class="col-md-4 control-label">Nivel:</label>-->
+<!--                           <div class="col-md-8">-->
+<!--<!--                             <input type="number" min="0" step="1" class="form-control" id="nivel" name="nivel" placeholder="Nivel">-->
+<!--                               <select  class="form-control selectpicker show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="nivel" name="nivel" placeholder="Nivel" >-->
 
+<!--                                   --><?php
+//                                   $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+//                                   $cxn->set_charset("utf8");
+//                                   $result = $cxn->query("SELECT
+//                                                                   nivel
+//                                                                  FROM empresa
+//                                                                  WHERE id=". $_SESSION["id_emp"]." ");
+//                                   $row = $result->fetch_assoc();
+//                                   $i=0;
+//                                   for ($i;$i++;$row['nivel']) {
+//                                       while ($row = $result->fetch_assoc()) {
+//                                           echo '<option value="'.$i.'">'.$.'</option>';
+//                                       }
+//                                   }
+//                                   $cxn->close();
+//                                   ?>
+
+<?php }?>
 
            </div>
            <!-- /.container -->
-           <div id="fontSizeWrapper" style="margin:auto">
-  <label for="fontSize">Font size</label>
-  <input type="range" value="1" id="fontSize" step="0.5" min="0.5" max="5" />
-</div>
-<ul class="tree">
-  <li>
-    <input type="checkbox" checked="checked" id="c1" />
-    <label class="tree_label" for="c1">Level 0</label>
-    <ul>
-      <li>
-        <input type="checkbox" checked="checked" id="c2" />
-        <label for="c2" class="tree_label">Level 1</label>
-        <ul>
-          <li><span class="tree_label">Level 2</span></li>
-          <li><span class="tree_label">Level 2</span></li>
-        </ul>
-      </li>
-      <li>
-        <input type="checkbox" id="c3" />
-        <label for="c3" class="tree_label">Looong level 1 <br/>label text <br/>with line-breaks</label>
-        <ul>
-          <li><span class="tree_label">Level 2</span></li>
-          <li>
-            <input type="checkbox" id="c4" />
-            <label for="c4" class="tree_label"><span class="tree_custom">Specified tree item view</span></label>
-            <ul>
-              <li><span class="tree_label">Level 3</span></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
 
-
-  <li>
-    <input type="checkbox" id="c5" />
-    <label class="tree_label" for="c5">Level 0</label>
-    <ul>
-      <li>
-        <input type="checkbox" id="c6" />
-        <label for="c6" class="tree_label">Level 1</label>
-        <ul>
-          <li><span class="tree_label">Level 2</span></li>
-        </ul>
-      </li>
-      <li>
-        <input type="checkbox" id="c7" />
-        <label for="c7" class="tree_label">Level 1</label>
-        <ul>
-          <li><span class="tree_label">Level 2</span></li>
-          <li>
-            <input type="checkbox" id="c8" />
-            <label for="c8" class="tree_label">Level 2</label>
-            <ul>
-              <li><span class="tree_label">Level 3</span></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-       </div>
 
 
  </body>
+  <script type="text/javascript">
+      $(document).ready(function(){
+          //fill data to tree  with AJAX call
+          $('#tree-container').jstree({
+              'core' : {
+                  'data' : {
+                      'url' : 'response.php?operation=get_node',
+                      'data' : function (node) {
+                          return { 'id' : node.id };
+                      },
+                      "dataType" : "json"
+                  }
+                  ,'check_callback' : true,
+                  'themes' : {
+                      'responsive' : false,
+                      "icons": false
+                  }
+              },
+              'plugins' : ['state','contextmenu']
+          }).on('create_node.jstree', function (e, data) {
+
+              $.get('response.php?operation=create_node', { 'id' : data.node.parent, 'position' : data.position, 'text' : data.node.text })
+                  .done(function (d) {
+                      data.instance.set_id(data.node, d.id);
+                  })
+                  .fail(function () {
+                      data.instance.refresh();
+                  });
+          }).on('rename_node.jstree', function (e, data) {
+              $.get('response.php?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
+                  .fail(function () {
+                      data.instance.refresh();
+                  });
+          }).on('delete_node.jstree', function (e, data) {
+              $.get('response.php?operation=delete_node', { 'id' : data.node.id })
+                  .fail(function () {
+                      data.instance.refresh();
+                  });
+          });
+
+      });
+  </script>
 </html>
