@@ -5,6 +5,10 @@ include_once('conexion.php');
 date_default_timezone_set('America/La_Paz');
 $id_emp=$_GET['id'];
 $_SESSION['id_emp']=$id_emp;
+if(isset($_SESSION['id_ges']))
+{
+unset($_SESSION['id_ges']);
+}
 $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
 
@@ -53,7 +57,7 @@ $row2 = mysqli_fetch_array($result_user);
 <script type="text/javascript">
     $(document).ready(function () {
         $('#Productos').jtable({
-            title: 'Empresas',
+            title: 'Gestiones',
             paging: true,
             pageSize:5,
             sorting: true,
@@ -107,7 +111,11 @@ $row2 = mysqli_fetch_array($result_user);
                     width: '20%',
                     create: false,
                     edit: true,
-                    list: true
+                    list: true,
+                    // type: 'checkbox',
+                    // values: { 0: 'Cerrado', 1: 'Abierto' },
+                    // defaultValue: 0
+                    options: { 0: 'Cerrado', 1: 'Abierto' }
                 },
 
                 ShowDetailColumn: {
@@ -127,7 +135,7 @@ $row2 = mysqli_fetch_array($result_user);
                 data.form.find('input[name="fecha_inicio"]').addClass('validate[required]');
                 data.form.find('input[name="fecha_fin"]').addClass('validate[required]');
 
-                data.form.find('input[name="estado"]').addClass('validate[required]');
+
 
 
                 data.form.validationEngine();

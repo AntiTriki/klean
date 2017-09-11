@@ -282,7 +282,7 @@ if (isset($_SESSION['name'])){
     <?php
 if (isset($_SESSION['name'])){
     ?>
-    <div class="navmenu navmenu-default navmenu-fixed-left">
+    <div class="navmenu navmenu-default navmenu-fixed-left" style="width:200px">
 
       <ul class="nav navmenu-nav">
         <li class="visible-xs">

@@ -177,7 +177,7 @@ unset($_SESSION['id_emp']);
   <div class="container" style="padding-top: 100px">
       <div id="Productos" style="width: 60%;margin:auto"></div>
   </div>
-  <script>
+  <!-- <script>
       $(document).ready(function() {
           var x = document.getElementsByName("nit");
           x.keydown(function (e) {
@@ -197,7 +197,7 @@ unset($_SESSION['id_emp']);
           });
       });
 
-  </script>
+  </script> -->
 	<script type="text/javascript">
     $(document).ready(function () {
         $('#Productos').jtable({

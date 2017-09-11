@@ -5,29 +5,30 @@ include_once('conexion.php');
 date_default_timezone_set('America/La_Paz');
 $id_ges=$_GET['id'];
 $_SESSION['id_ges']=$id_ges;
+
 $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
 
-$query_user = sprintf("SELECT
-             u.correo,
-						 u.razon_social,
-						 u.sigla,
-						 u.direccion,
-						 u.nit,
-						 u.nivel
-
-
-
-						 FROM
-             empresa u
- 						 WHERE
-						 u.id=$id_emp
-
-
-						 ");
-$link->set_charset("utf8");
-$result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
-$row2 = mysqli_fetch_array($result_user);
+// $query_user = sprintf("SELECT
+//              u.correo,
+// 						 u.razon_social,
+// 						 u.sigla,
+// 						 u.direccion,
+// 						 u.nit,
+// 						 u.nivel
+//
+//
+//
+// 						 FROM
+//              empresa u
+//  						 WHERE
+// 						 u.id=$id_emp
+//
+//
+// 						 ");
+// $link->set_charset("utf8");
+// $result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
+// $row2 = mysqli_fetch_array($result_user);
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +54,7 @@ $row2 = mysqli_fetch_array($result_user);
 <script type="text/javascript">
     $(document).ready(function () {
         $('#Productos').jtable({
-            title: 'Empresas',
+            title: 'Periodos',
             paging: true,
             pageSize:5,
             sorting: true,
@@ -110,16 +111,7 @@ $row2 = mysqli_fetch_array($result_user);
                     list: true
                 },
 
-                ShowDetailColumn: {
-                    title: '',
-                    create: false,
-                    edit: false,
-                    list: true,
-                    display: function (data) {
-                        return '<a href="interno.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
-                    },
-                    width: '2%'
-                },
+
             },
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
