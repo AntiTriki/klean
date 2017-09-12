@@ -30,7 +30,7 @@ try{
         $row = mysql_fetch_array($result);
           if ($row['conteo'] == 0){
             if($finicio<$ffin){
-              $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and fecha_inicio between '".$finicio."' and '".$ffin."' or fecha_fin between '".$finicio."' and '".$ffin."' ;");
+              $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
               $row = mysql_fetch_array($result);
               if($row['cont'] == 0){
 

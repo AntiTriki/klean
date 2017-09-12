@@ -314,7 +314,7 @@ if (isset($_SESSION['name'])){
             <a href="cuenta.php" >Plan de Cuentas</a>
         </li>
         <li>
-            <a href="" >Reporte</a>
+            <a href="../reportico" >Reporte</a>
         </li>
         <?php } ?>
         <li class="visible-xs">
