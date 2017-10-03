@@ -264,7 +264,7 @@ $(window)
            function agregar(){
                $.each(listah,function(index,element){
 
-                   data.push({"id" : ""+element.id, "parent" : ""+element.id_tipocuenta, "text" : ""+element.id+" - "+element.nombre });
+                   data.push({"id" : ""+element.id, "parent" : ""+element.id_tipocuenta, "text" : ""+element.id+" - "+element.text });
 
                });
                $("#tree-container").jstree({

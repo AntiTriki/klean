@@ -21,6 +21,8 @@ if (mysqli_connect_errno()) {
         //iterate on results row and create new index array of data
 
         while ($row = mysqli_fetch_assoc($res)) {
+          $row['id'] = $row['id'] !== NULL ? (int)$row['id'] : '#';
+
 
             $result[] = $row;
         }

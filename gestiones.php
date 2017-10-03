@@ -33,8 +33,6 @@ try{
               $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
               $row = mysql_fetch_array($result);
               if($row['cont'] == 0){
-
-
               $result = mysql_query("INSERT INTO gestion(nombre, fecha_inicio, fecha_fin,estado,id_empresa) VALUES(
       '".$_POST["nombre"]."','".$finicio."','".$ffin."',1,". $_SESSION["id_emp"].")");
               $result = mysql_query("SELECT * FROM gestion WHERE id = LAST_INSERT_ID() and id_empresa=".$_SESSION['id_emp'].";");
@@ -57,7 +55,6 @@ try{
               $jTableResult['Message'] = "La fecha de inicio debe ser menor que la fecha final";
               print json_encode($jTableResult);
             }
-
           }else{
             $row = mysql_fetch_array($result);
             $jTableResult = array();
@@ -71,7 +68,7 @@ try{
           $jTableResult['Result'] = "ERROR";
           $jTableResult['Message'] = "No puede tener 2 gestiones abiertas";
           print json_encode($jTableResult);
-          }
+        }
     }else if($_GET["accion"] == "actualizar"){
       $finicio = str_replace('/', '-', $_POST["fecha_inicio"]);
        $finicio = date('Y-m-d', strtotime($finicio));
@@ -89,7 +86,6 @@ try{
         print json_encode($jTableResult);
     }
     mysql_close($con);
-
 }catch(Exception $ex){
     $jTableResult = array();
     $jTableResult['Result'] = "ERROR";
