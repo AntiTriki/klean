@@ -103,8 +103,11 @@ min-height: 100%;
               if (isset($_SESSION['nombreemp'])){ ?>
                 <a href="empresas.php" class="navbar-brand"><?php echo $_SESSION['nombreemp'] ;?></a>
                 <?php
-              } else { ?>
-                      <a href="index.php" class="navbar-brand">ERP</a>
+              } else if(isset($row2['sigla'])) { ?>
+                      <a href="index.php" class="navbar-brand"><?php echo $row2['sigla'] ;?></a>
+      <?php }else{ ?>
+
+                <a href="index.php" class="navbar-brand">ERP</a>
       <?php } ?>
 
 

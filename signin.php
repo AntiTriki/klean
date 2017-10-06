@@ -47,7 +47,7 @@ $usra = mysqli_real_escape_string($link, $correo);
 								mysqli_free_result($result_user);
 								mysqli_close($link);
 
-								header("Location:inicio.php");
+								header("Location:empresas.php");
 							}else{
                 header("Location:index.php");
 							}

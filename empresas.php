@@ -265,7 +265,7 @@ unset($_SESSION['nombreemp']);
                 edit: false,
                 list: true,
     display: function (data) {
-                    return '<a href="ambiente.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
+                    return '<a href="inicio.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
                 },
 	width: '2%'
 },
