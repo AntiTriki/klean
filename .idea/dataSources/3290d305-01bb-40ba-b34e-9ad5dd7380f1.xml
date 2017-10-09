@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="n@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
+    <root id="1"/>
+    <schema id="2" parent="1" name="n">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="ajax_table"/>
+    <schema id="4" parent="1" name="basecelulares"/>
+    <schema id="5" parent="1" name="cdcol"/>
+    <schema id="6" parent="1" name="compu"/>
+    <schema id="7" parent="1" name="crudproductos"/>
+    <schema id="8" parent="1" name="erp"/>
+    <schema id="9" parent="1" name="facturacion"/>
+    <schema id="10" parent="1" name="gcm_chat"/>
+    <schema id="11" parent="1" name="herp"/>
+    <schema id="12" parent="1" name="information_schema"/>
+    <schema id="13" parent="1" name="jtabletestdb"/>
+    <schema id="14" parent="1" name="magento"/>
+    <schema id="15" parent="1" name="market"/>
+    <schema id="16" parent="1" name="mysql"/>
+    <schema id="17" parent="1" name="performance_schema"/>
+    <schema id="18" parent="1" name="phpmyadmin"/>
+    <schema id="19" parent="1" name="propio"/>
+    <schema id="20" parent="1" name="store"/>
+    <schema id="21" parent="1" name="supportix"/>
+    <schema id="22" parent="1" name="test"/>
+    <schema id="23" parent="1" name="tutorial"/>
+    <schema id="24" parent="1" name="webauth"/>
+    <table id="25" parent="2" name="cuenta"/>
+    <table id="26" parent="2" name="empresa"/>
+    <table id="27" parent="2" name="gestion"/>
+    <table id="28" parent="2" name="periodo"/>
+    <table id="29" parent="2" name="usuario"/>
+    <column id="30" parent="25" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="31" parent="25" name="id_empresa">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="25" name="id_tipocuenta">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="33" parent="25" name="text">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="34" parent="25" name="nivel">
+      <Position>5</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <key id="35" parent="25" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="36" parent="26" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="37" parent="26" name="correo">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="38" parent="26" name="nit">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="39" parent="26" name="razon_social">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="40" parent="26" name="sigla">
+      <Position>5</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="41" parent="26" name="direccion">
+      <Position>6</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="42" parent="26" name="nivel">
+      <Position>7</Position>
+      <DataType>int(2)|0</DataType>
+    </column>
+    <column id="43" parent="26" name="id_usuario">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="44" parent="26" name="nit">
+      <ColNames>nit</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="45" parent="26" name="razon_social">
+      <ColNames>razon_social</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="46" parent="26" name="sigla">
+      <ColNames>sigla</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="47" parent="26" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="48" parent="26" name="nit">
+      <ColNames>nit</ColNames>
+      <UnderlyingIndexName>nit</UnderlyingIndexName>
+    </key>
+    <key id="49" parent="26" name="razon_social">
+      <ColNames>razon_social</ColNames>
+      <UnderlyingIndexName>razon_social</UnderlyingIndexName>
+    </key>
+    <key id="50" parent="26" name="sigla">
+      <ColNames>sigla</ColNames>
+      <UnderlyingIndexName>sigla</UnderlyingIndexName>
+    </key>
+    <column id="51" parent="27" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="52" parent="27" name="id_empresa">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="27" name="nombre">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="54" parent="27" name="fecha_inicio">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="55" parent="27" name="fecha_fin">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="56" parent="27" name="estado">
+      <Position>6</Position>
+      <DataType>int(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <key id="57" parent="27" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="58" parent="28" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="59" parent="28" name="id_gestion">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="28" name="nombre">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="61" parent="28" name="fecha_inicio">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="62" parent="28" name="fecha_fin">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="63" parent="28" name="estado">
+      <Position>6</Position>
+      <DataType>int(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <key id="64" parent="28" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="65" parent="29" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="66" parent="29" name="correo">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="67" parent="29" name="contra">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="68" parent="29" name="nombre">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="69" parent="29" name="apellido">
+      <Position>5</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="70" parent="29" name="logo">
+      <Position>6</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;images/user.jpg&apos;</DefaultExpression>
+    </column>
+    <column id="71" parent="29" name="ci">
+      <Position>7</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="72" parent="29" name="visita">
+      <Position>8</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="73" parent="29" name="nivel">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;3&apos;</DefaultExpression>
+    </column>
+    <key id="74" parent="29" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
