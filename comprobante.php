@@ -27,7 +27,7 @@ date_default_timezone_set('America/La_Paz');
             color: #000000;
         }
 
-        
+
         .borde {
             border: 2px solid #a1a1a1;
             padding: 10px 40px;
@@ -50,9 +50,12 @@ date_default_timezone_set('America/La_Paz');
 
      </div>
      <div class="btn-group-horizontal" style="position: relative;">
-         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+<!--         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>-->
+<!--         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>-->
+<!--         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
+    <button type="button" class="btn btn-"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+         <button type="button" class="btn btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+         <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
      </div>
      <div style="position: relative;" class="borde">
      <form class="" role="form" method="post" action="productoregister.php" enctype="multipart/form-data">
@@ -158,23 +161,7 @@ date_default_timezone_set('America/La_Paz');
 
          <div class="row">
              <div class='wrapper text-center'>
-                 <div class="btn-group btn-group-lg" role="group" aria-label="...">
-                     <button type="button" class="btn btn-default">
-                         <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                         <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                     </button>
-                     <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
-                     <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
-                     <button type="button" class="btn btn-default">
-                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                     </button>
 
-                 </div>
-                 <div class="btn-group btn-group-lg pull-right" role="group" aria-label="...">
-                     <button type="button" class="btn btn-default pull-right"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-
-                 </div>
              </div>
 
          </div>
