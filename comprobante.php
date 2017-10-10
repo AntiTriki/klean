@@ -168,18 +168,29 @@ date_default_timezone_set('America/La_Paz');
      </div>
  </div>
      <script language="javascript">
-         $(document).ready(function(){
-             $("#categoria").change(function () {
-                 $("#categoria option:selected").each(function () {
-                     id = $(this).val();
-                     $.post("ajax_categoriaproducto.php", { id: id }, function(data){
-                         $("#subcategoria").html(data).selectpicker('refresh');
+         $(document).ready(function () {
+             var data;
+             $.ajax({
+                 dataType: "json",
+                 url: 'comprobanteregister.php',
+                 data: data,
+                 success: function (data) {
+                     var JSONObject = data;
+                     console.log(JSONObject);      // Dump all data of the Object in the console
+                     var i = 0, result = [];
 
+                     while(i < data.length){
+                         result.push([])
+                         for(var key in items[i].fields){
+                             result[result.length-1].push(items[i].fields[key])
+                         }
+                         i++
+                     }
+             }
+             });
 
-                     });
-                 });
-             })
          });
+
      </script></body>
 
 </html>
