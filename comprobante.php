@@ -176,16 +176,8 @@ date_default_timezone_set('America/La_Paz');
                  data: data,
                  success: function (data) {
                      var JSONObject = data;
-                     console.log(JSONObject);      // Dump all data of the Object in the console
-                     var i = 0, result = [];
-
-                     while(i < data.length){
-                         result.push([])
-                         for(var key in items[i].fields){
-                             result[result.length-1].push(items[i].fields[key])
-                         }
-                         i++
-                     }
+                     console.log(JSONObject[1]['moneda']);      // Dump all data of the Object in the console
+                    
              }
              });
 

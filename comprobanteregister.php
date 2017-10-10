@@ -21,14 +21,14 @@ FROM `comprobante` c,
 
 $i=1;
 while ($row = mysql_fetch_assoc($result)) {
-    $array[$i][1] = $row['id'];
-    $array[$i][2] = $row['serie'];
-    $array[$i][3] = $row['tipocom'];
-    $array[$i][4] = $row['fecha'];
-    $array[$i][5] = $row['glosa'];
-    $array[$i][6] = $row['cambio'];
-    $array[$i][7] = $row['estado'];
-    $array[$i][8] = $row['moneda'];
+    $array[$i]['id'] = $row['id'];
+    $array[$i]['serie'] = $row['serie'];
+    $array[$i]['tipocom'] = $row['tipocom'];
+    $array[$i]['fecha'] = $row['fecha'];
+    $array[$i]['glosa'] = $row['glosa'];
+    $array[$i]['cambio'] = $row['cambio'];
+    $array[$i]['estado'] = $row['estado'];
+    $array[$i]['moneda'] = $row['moneda'];
 $i++;
    }
 print json_encode($array);
