@@ -131,20 +131,20 @@ date_default_timezone_set('America/La_Paz');
          <div class="row">
              <div class='wrapper text-center'>
          <div class="btn-group btn-group-lg" role="group" aria-label="...">
-             <button type="button" class="btn btn-default">
+             <button name="first" type="button" class="btn btn-default">
                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
              </button>
-             <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
-             <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
-             <button type="button" class="btn btn-default">
+             <button name="be" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
+             <button name="af" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
+             <button name="last" type="button" class="btn btn-default">
                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
              </button>
 
          </div>
                  <div class="btn-group btn-group-lg pull-right" role="group" aria-label="...">
-                 <button type="button" class="btn btn-default pull-right"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                 <button name="" type="button" class="btn btn-default pull-right"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 
              </div>
              </div>
@@ -169,19 +169,61 @@ date_default_timezone_set('America/La_Paz');
  </div>
      <script language="javascript">
          $(document).ready(function () {
+
+
+            capturar_com();
+
+         });
+         $('input[name="af"]').on('click', updateResult);
+
+         function updateResult(){
+             var f = $('#serie').val();
+
+             if(f>0)
+             {
+
+
+                 $.ajax({
+                     type: "POST",
+                     url: "comprobanteregister.php",
+                     data: 'dato='+f,
+
+                     success: function(data){
+                         $("#serie").val(data['serie']);
+                         $("#fecha").val(data['fecha']);
+                         $("#glosa").val(data['glosa']);
+                         $("#tipo_comprobante").val(data['tipocom']);
+                         $("#tipo_cambio").val(data['cambio']);
+                         $("#moneda").val(data['moneda']);
+                         $("#estado").val(data['estado']);
+
+                     }
+                 });
+             }
+         }
+
+
+
+         function capturar_com() {
              var data;
              $.ajax({
                  dataType: "json",
                  url: 'comprobanteregister.php',
                  data: data,
                  success: function (data) {
-                     var JSONObject = data;
-                     console.log(JSONObject[1]['moneda']);      // Dump all data of the Object in the console
-                    
-             }
-             });
 
-         });
+                     $("#serie").val(data['serie']);
+                     $("#fecha").val(data['fecha']);
+                     $("#glosa").val(data['glosa']);
+                     $("#tipo_comprobante").val(data['tipocom']);
+                     $("#tipo_cambio").val(data['cambio']);
+                     $("#moneda").val(data['moneda']);
+                     $("#estado").val(data['estado']);
+
+
+                 }
+             });
+         }
 
      </script></body>
 
