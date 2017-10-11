@@ -110,6 +110,16 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                     edit: true,
                     list: true
                 },
+                ShowDetailColumn: {
+                    title: '',
+                    create: false,
+                    edit: false,
+                    list: true,
+                    display: function (data) {
+                        return '<a href="comprobante.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
+                    },
+                    width: '2%'
+                },
 
 
             },

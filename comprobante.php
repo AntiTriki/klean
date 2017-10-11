@@ -76,19 +76,19 @@ date_default_timezone_set('America/La_Paz');
              <div class="col-sm-2 col-lg-2">
                  <div class="form-group">
                      <label for="serie">Serie:</label>
-                     <input type="text" class="form-control" id="serie">
+                     <input disabled type="text" class="form-control" id="serie">
                  </div>
              </div>
              <div class="col-sm-2 col-lg-6">
                  <div class="form-group">
                      <label for="tipo_comprobante">Tipo de Comprobante:</label>
-                     <input type="text" class="form-control" id="tipo_comprobante">
+                     <input disabled type="text" class="form-control" id="tipo_comprobante">
                  </div>
              </div>
              <div class="col-sm-2 col-lg-4">
                  <div class="form-group">
                      <label for="fecha">Fecha:</label>
-                     <input type="text" class="form-control" id="fecha">
+                     <input disabled type="text" class="form-control" id="fecha">
                  </div>
              </div>
              </div>
@@ -96,7 +96,7 @@ date_default_timezone_set('America/La_Paz');
                  <div class="col-sm-2 col-lg-12">
                      <div class="form-group">
                          <label for="glosa">Glosa:</label>
-                         <input type="text" class="form-control" id="glosa">
+                         <input disabled type="text" class="form-control" id="glosa">
                      </div>
                  </div>
 
@@ -106,19 +106,19 @@ date_default_timezone_set('America/La_Paz');
                  <div class="col-sm-2 col-lg-3">
                      <div class="form-group">
                          <label for="tipo_cambio">Tipo de Cambio:</label>
-                         <input type="text" class="form-control" id="tipo_cambio">
+                         <input disabled type="text" class="form-control" id="tipo_cambio">
                      </div>
                  </div>
                  <div class="col-sm-2 col-lg-5">
                      <div class="form-group">
                          <label for="moneda">Moneda:</label>
-                         <input type="text" class="form-control" id="moneda">
+                         <input disabled type="text" class="form-control" id="moneda">
                      </div>
                  </div>
                  <div class="col-sm-2 col-lg-4">
                      <div class="form-group">
                          <label for="estado">Estado:</label>
-                         <input type="text" class="form-control" id="estado">
+                         <input disabled type="text" class="form-control" id="estado">
                      </div>
                  </div>
 
@@ -131,13 +131,13 @@ date_default_timezone_set('America/La_Paz');
          <div class="row">
              <div class='wrapper text-center'>
          <div class="btn-group btn-group-lg" role="group" aria-label="...">
-             <button name="first" type="button" class="btn btn-default">
+             <button name="first" id="first" type="button" class="btn btn-default">
                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
              </button>
-             <button name="be" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
-             <button name="af" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
-             <button name="last" type="button" class="btn btn-default">
+             <button name="be" id="be" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
+             <button name="af" id="af" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
+             <button name="last" id="last" type="button" class="btn btn-default">
                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
              </button>
@@ -172,12 +172,33 @@ date_default_timezone_set('America/La_Paz');
 
 
             capturar_com();
+             $("#af").click( function()
+                 {
+                     updateResult();
+                 }
+             );
+             $("#be").click( function()
+                 {
+                     downResult();
+                 }
+             );
+             $("#first").click( function()
+                 {
+                     capturar_com();
+                 }
+             ); $("#last").click( function()
+                 {
+                     upResult();
+                 }
+             );
 
          });
-         $('input[name="af"]').on('click', updateResult);
+
 
          function updateResult(){
-             var f = $('#serie').val();
+//             var f = $('#serie').val();
+             var f = parseInt($('#serie').val());
+f=f+1;
 
              if(f>0)
              {
@@ -185,9 +206,59 @@ date_default_timezone_set('America/La_Paz');
 
                  $.ajax({
                      type: "POST",
-                     url: "comprobanteregister.php",
+                     url: "comproc.php",
                      data: 'dato='+f,
+                     dataType: "json",
+                     cache: false,
+                     success: function(data){
+                         $("#serie").val(data['serie']);
+                         $("#fecha").val(data['fecha']);
+                         $("#glosa").val(data['glosa']);
+                         $("#tipo_comprobante").val(data['tipocom']);
+                         $("#tipo_cambio").val(data['cambio']);
+                         $("#moneda").val(data['moneda']);
+                         $("#estado").val(data['estado']);
 
+                     }
+                 });
+             }
+         }
+
+         function upResult(){
+                var data;
+             $.ajax({
+                 dataType: "json",
+                 url: 'comprob.php',
+                 data: data,
+                 success: function (data) {
+
+                     $("#serie").val(data['serie']);
+                     $("#fecha").val(data['fecha']);
+                     $("#glosa").val(data['glosa']);
+                     $("#tipo_comprobante").val(data['tipocom']);
+                     $("#tipo_cambio").val(data['cambio']);
+                     $("#moneda").val(data['moneda']);
+                     $("#estado").val(data['estado']);
+
+
+                 }
+             });
+         }
+         function downResult(){
+//             var f = $('#serie').val();
+             var f = parseInt($('#serie').val());
+             f=f-1;
+
+             if(f>0)
+             {
+
+
+                 $.ajax({
+                     type: "POST",
+                     url: "comproc.php",
+                     data: 'dato='+f,
+                     dataType: "json",
+                     cache: false,
                      success: function(data){
                          $("#serie").val(data['serie']);
                          $("#fecha").val(data['fecha']);

@@ -3,8 +3,8 @@ include_once('bar.php');
 
 include_once('conexion.php');
 date_default_timezone_set('America/La_Paz');
-$id_emp=$_GET['id'];
-$_SESSION['id_emp']=$id_emp;
+
+$id_emp=$_SESSION['id_emp'];
 if(isset($_SESSION['id_ges']))
 {
 unset($_SESSION['id_ges']);

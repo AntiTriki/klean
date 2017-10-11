@@ -2,13 +2,10 @@
 session_name('nilds');
 session_start();
 include_once('conexion.php');
-if(!isset($_POST['dato'])){
-    $qid='';
 
-}else{
     $qid="and c.serie=".$_POST['dato'];
 
-}
+
 
 $date = date('Y-m-d');
 

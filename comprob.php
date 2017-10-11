@@ -2,13 +2,10 @@
 session_name('nilds');
 session_start();
 include_once('conexion.php');
-if(!isset($_POST['dato'])){
-    $qid='';
 
-}else{
-    $qid="and c.serie=".$_POST['dato'];
 
-}
+
+
 
 $date = date('Y-m-d');
 
@@ -43,7 +40,7 @@ FROM `comprobante` c,
  (select c.descripcion as estado,com.id as id from concepto c, comprobante com where com.id_estado=c.id) e,
   (select c.descripcion as tipocom,com.id as id from concepto c, comprobante com where com.id_tipocomprobante=c.id) ti,
    (select c.descripcion as moneda,com.id as id from concepto c, comprobante com where com.id_moneda=c.id) m,
-    tipo_cambio t where c.id=e.id and ti.id = c.id and m.id = c.id and t.id = c.id_tipocambio $qid ORDER by id ASC LIMIT 1");
+    tipo_cambio t where c.id=e.id and ti.id = c.id and m.id = c.id and t.id = c.id_tipocambio ORDER by id DESC LIMIT 1");
 
 $i=1;
 while ($row = mysql_fetch_assoc($result)) {

@@ -317,6 +317,11 @@ if (isset($_SESSION['name'])){
             <a href="cuenta.php" >Plan de Cuentas</a>
         </li>
         <li>
+            <a href="ambiente.php" >Gestiones</a>
+        </li> <li>
+            <a href="comprobante.php" >Comprobante</a>
+        </li>
+        <li>
             <a href="../reportico" >Reporte</a>
         </li>
         <?php } ?>

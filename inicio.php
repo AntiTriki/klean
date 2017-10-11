@@ -1,7 +1,7 @@
 <?php
 include_once('conexion.php');
 $id_emp=$_GET['id'];
-$_SESSION['id_emp']=$id_emp;
+
 if(isset($_SESSION['id_ges']))
 {
     unset($_SESSION['id_ges']);
@@ -31,7 +31,7 @@ $result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error(
 $row2 = mysqli_fetch_array($result_user);
 $_SESSION['nombreemp']=$row2['sigla'];
 include_once('bar.php');
-
+$_SESSION['id_emp']=$id_emp;
 
 date_default_timezone_set('America/La_Paz');
 
