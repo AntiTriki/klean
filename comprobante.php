@@ -35,6 +35,12 @@ date_default_timezone_set('America/La_Paz');
             width: 80%;
 
         }
+        label{
+            margin-bottom: 0px;
+        }
+        .form-group{
+            margin-bottom: 2px;
+        }
     </style>
   </head>
  <body>
@@ -42,18 +48,15 @@ date_default_timezone_set('America/La_Paz');
 
 
 
- </body>
+
 
  <div class="container-fluid" style="margin-left: 250px">
-     <div class="text-center">
-         <h5>Comprobante</h5>
 
-     </div>
      <div class="btn-group-horizontal" style="position: relative;">
 <!--         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>-->
 <!--         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>-->
 <!--         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
-    <button type="button" class="btn btn-"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <button type="button" class="btn btn-" data-toggle="modal" data-target="#crea_com"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
          <button type="button" class="btn btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
          <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
      </div>
@@ -152,9 +155,8 @@ date_default_timezone_set('America/La_Paz');
          </div>
  </div>
      <div class="btn-group-horizontal" style="position: relative;">
-         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_det"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+
      </div>
      <div style="position: relative;" class="borde">
 
@@ -164,9 +166,94 @@ date_default_timezone_set('America/La_Paz');
 
              </div>
 
-         </div>
+                     <table class="table table-bordered">
+                         <thead>
+                         <tr>
+                             <th>Codigo</th>
+                             <th>Cuenta</th>
+                             <th width="250px">Glosa</th>
+                             <th width="70px">Debe</th>
+                             <th width="70px">Haber</th>
+                             <th width="70px">Eliminar</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         </tbody>
+                     </table>
+
+                     <ul id="pagination" class="pagination-sm"></ul>
+                 </div>
+
      </div>
  </div>
+  <div class="modal fade" id="crea_com" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Create Item</h4>
+              </div>
+
+              <div class="modal-body">
+                  <form data-toggle="validator" action="api/create.php" method="POST">
+
+                      <div class="form-group">
+                          <label class="control-label" for="title">Title:</label>
+                          <input type="text" name="title" class="form-control" data-error="Please enter title." required />
+                          <div class="help-block with-errors"></div>
+                      </div>
+
+                      <div class="form-group">
+                          <label class="control-label" for="title">Description:</label>
+                          <textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
+                          <div class="help-block with-errors"></div>
+                      </div>
+
+                      <div class="form-group">
+                          <button type="submit" class="btn crud-submit btn-success">Submit</button>
+                      </div>
+
+                  </form>
+
+              </div>
+          </div>
+
+      </div>
+  </div>
+  <div class="modal fade" id="add_det" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Create Item</h4>
+              </div>
+
+              <div class="modal-body">
+                  <form data-toggle="validator" action="api/create.php" method="POST">
+
+                      <div class="form-group">
+                          <label class="control-label" for="title">Title:</label>
+                          <input type="text" name="title" class="form-control" data-error="Please enter title." required />
+                          <div class="help-block with-errors"></div>
+                      </div>
+
+                      <div class="form-group">
+                          <label class="control-label" for="title">Description:</label>
+                          <textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
+                          <div class="help-block with-errors"></div>
+                      </div>
+
+                      <div class="form-group">
+                          <button type="submit" class="btn crud-submit btn-success">Submit</button>
+                      </div>
+
+                  </form>
+
+              </div>
+          </div>
+
+      </div>
+  </div>
      <script language="javascript">
          $(document).ready(function () {
 
@@ -191,9 +278,36 @@ date_default_timezone_set('America/La_Paz');
                      upResult();
                  }
              );
-
+             $(".crud-submit").click(function(e){
+                 agregar();
+         });
          });
 
+         function agregar(){
+             e.preventDefault();
+             var form_action = $("#create-item").find("form").attr("action");
+             var title = $("#create-item").find("input[name='title']").val();
+             var description = $("#create-item").find("textarea[name='description']").val();
+
+             if(title != '' && description != ''){
+                 $.ajax({
+                     dataType: 'json',
+                     type:'POST',
+                     url:  form_action,
+                     data:{title:title, description:description}
+                 }).done(function(data){
+                     $("#create-item").find("input[name='title']").val('');
+                     $("#create-item").find("textarea[name='description']").val('');
+                     getPageData();
+                     $(".modal").modal('hide');
+                     toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
+                 });
+             }else{
+                 alert('You are missing title or description.')
+             }
+
+
+         };
 
          function updateResult(){
 //             var f = $('#serie').val();
@@ -218,6 +332,7 @@ f=f+1;
                          $("#tipo_cambio").val(data['cambio']);
                          $("#moneda").val(data['moneda']);
                          $("#estado").val(data['estado']);
+                         detalle(data['id']);
 
                      }
                  });
@@ -240,6 +355,7 @@ f=f+1;
                      $("#moneda").val(data['moneda']);
                      $("#estado").val(data['estado']);
 
+                     detalle2(data['id']);
 
                  }
              });
@@ -267,6 +383,7 @@ f=f+1;
                          $("#tipo_cambio").val(data['cambio']);
                          $("#moneda").val(data['moneda']);
                          $("#estado").val(data['estado']);
+                         detalle3(data['id']);
 
                      }
                  });
@@ -277,11 +394,13 @@ f=f+1;
 
          function capturar_com() {
              var data;
+             var yo;
              $.ajax({
                  dataType: "json",
                  url: 'comprobanteregister.php',
                  data: data,
                  success: function (data) {
+
 
                      $("#serie").val(data['serie']);
                      $("#fecha").val(data['fecha']);
@@ -290,12 +409,182 @@ f=f+1;
                      $("#tipo_cambio").val(data['cambio']);
                      $("#moneda").val(data['moneda']);
                      $("#estado").val(data['estado']);
+                     detalle4(data['id']);
+
+
+                 }
+             });
+
+
+         }
+         function detalle(a) {
+             $.ajax({
+                 type: "POST",
+                 dataType: "json",
+                 url: 'detalle_get.php',
+                 data: 'dato=' + a,
+                 cache: false,
+                 beforeSend: function(){
+                     jQuery('tbody').html('');
+
+                 },
+
+                 success: function (yo) {
+                     manageRow(yo.data);
 
 
                  }
              });
          }
+         function detalle2(a) {
+             $.ajax({
+                 type: "POST",
+                 dataType: "json",
+                 url: 'detalle_get2.php',
+                 data: 'dato=' + a,
+                 cache: false,
+                 beforeSend: function(){
+                     jQuery('tbody').html('');
 
+                 },
+                 success: function (yo) {
+                     manageRow2(yo.data);
+
+
+                 }
+             });
+         }
+         function detalle3(a) {
+             $.ajax({
+                 type: "POST",
+                 dataType: "json",
+                 url: 'detalle_get3.php',
+                 data: 'dato=' + a,
+                 cache: false,
+                 beforeSend: function(){
+                     jQuery('tbody').html('');
+
+                 },
+                 success: function (yo) {
+                     manageRow3(yo.data);
+
+
+                 }
+             });
+         }
+         function detalle4(a) {
+             $.ajax({
+                 type: "POST",
+                 dataType: "json",
+                 url: 'detalle_get4.php',
+                 data: 'dato=' + a,
+                 cache: false,
+                 beforeSend: function(){
+                     jQuery('tbody').html('');
+
+                 },
+                 success: function (yo) {
+                     manageRow4(yo.data);
+
+
+                 }
+             });
+         }
+         function manageRow(data) {
+             var	rows = '';
+             $.each( data, function( key, value ) {
+                 rows = rows + '<tr>';
+                 rows = rows + '<td>'+value.codigo+'</td>';
+                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.glosa+'</td>';
+                 rows = rows + '<td>'+value.debe+'</td>';
+                 rows = rows + '<td>'+value.haber+'</td>';
+
+                 rows = rows + '<td data-id="'+value.id+'">';
+
+                 rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+                 rows = rows + '</td>';
+                 rows = rows + '</tr>';
+             });
+
+             $("tbody").html(rows);
+
+         }
+         function manageRow2(data) {
+             var	rows = '';
+             $.each( data, function( key, value ) {
+                 rows = rows + '<tr>';
+                 rows = rows + '<td>'+value.codigo+'</td>';
+                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.glosa+'</td>';
+                 rows = rows + '<td>'+value.debe+'</td>';
+                 rows = rows + '<td>'+value.haber+'</td>';
+
+                 rows = rows + '<td data-id="'+value.id+'">';
+
+                 rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+                 rows = rows + '</td>';
+                 rows = rows + '</tr>';
+             });
+
+             $("tbody").html(rows);
+         }
+         function manageRow3(data) {
+             var	rows = '';
+             $.each( data, function( key, value ) {
+                 rows = rows + '<tr>';
+                 rows = rows + '<td>'+value.codigo+'</td>';
+                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.glosa+'</td>';
+                 rows = rows + '<td>'+value.debe+'</td>';
+                 rows = rows + '<td>'+value.haber+'</td>';
+
+                 rows = rows + '<td data-id="'+value.id+'">';
+
+                 rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+                 rows = rows + '</td>';
+                 rows = rows + '</tr>';
+             });
+
+             $("tbody").html(rows);
+
+         }
+         function manageRow4(data) {
+             var	rows = '';
+             $.each( data, function( key, value ) {
+                 rows = rows + '<tr>';
+                 rows = rows + '<td>'+value.codigo+'</td>';
+                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.glosa+'</td>';
+                 rows = rows + '<td>'+value.debe+'</td>';
+                 rows = rows + '<td>'+value.haber+'</td>';
+
+                 rows = rows + '<td data-id="'+value.id+'">';
+
+                 rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+                 rows = rows + '</td>';
+                 rows = rows + '</tr>';
+             });
+
+             $("tbody").html(rows);
+
+         }
+         $("body").on("click",".remove-item",function(){
+             var id = $(this).parent("td").data('id');
+             var c_obj = $(this).parents("tr");
+
+             $.ajax({
+                 dataType: 'json',
+                 type:'POST',
+                 url:  'api/delete.php',
+                 data:{id:id}
+             }).done(function(data){
+                 c_obj.remove();
+                 toastr.success('Item Deleted Successfully.', 'Success Alert', {timeOut: 5000});
+                 getPageData();
+             });
+
+         });
      </script></body>
 
 </html>

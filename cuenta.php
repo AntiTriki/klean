@@ -309,6 +309,7 @@ $(window)
               $.get('response.php?operation=create_node', { 'id' : data.node.parent, 'position' : data.position, 'text' : data.node.text })
                   .done(function (d) {
                       data.instance.set_id(data.node, d.id);
+                      data.instance.set_text(data.node, d.text);
                   })
                   .fail(function () {
                       data.instance.refresh();
