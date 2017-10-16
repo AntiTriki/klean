@@ -18,7 +18,7 @@ mysql_select_db("n", $con);
 $result = mysql_query("INSERT INTO comprobante 
 (serie,glosa,id_tipocomprobante,fecha,id_tipocambio,fecha,id_moneda,id_estado) 
 
-	VALUES (".$post['serie'].",'".$post['glosa']."','".$post['id']."')");
+	VALUES (".$post['serie'].",'".$post['glosa']."',".$post['id_tipocom'].",'".$post['fecha']."',".$post['id_moneda'].",".$post['id_estado'].")");
 
 $i=1;
 while ($row = mysql_fetch_assoc($result)) {
