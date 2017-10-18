@@ -2,10 +2,15 @@
 session_name('nilds');
 session_start();
 include_once('conexion.php');
-if(!isset($_POST['dato'])){
-    $qid='';
 
-$post=$_POST;
+
+$serie=$_POST['serie'];
+$glosa=$_POST['glosa'];
+$tipo_comprobante=$_POST['$tipo_comprobante'];
+$fecha=$_POST['fecha'];
+$tipo_cambio=$_POST['tipo_cambio'];
+$moneda=$_POST['moneda'];
+$estado=$_POST['estado'];
 
 $date = date('Y-m-d');
 
@@ -15,10 +20,17 @@ $con = mysql_connect("localhost","root","");
 mysql_select_db("n", $con);
 
 
-$result = mysql_query("INSERT INTO comprobante 
-(serie,glosa,id_tipocomprobante,fecha,id_tipocambio,fecha,id_moneda,id_estado) 
+$result = mysql_query("INSERT INTO comprobante (serie,glosa,id_tipocomprobante,fecha,id_tipocambio,fecha,id_moneda,id_estado) 
+VALUES 
+(".$serie.",'".$glosa."',".$tipo_comprobante.",'".$fecha."',".$tipo_cambio.",".$moneda.",".$estado.")");
 
-	VALUES (".$post['serie'].",'".$post['glosa']."',".$post['id_tipocom'].",'".$post['fecha']."',".$post['id_moneda'].",".$post['id_estado'].")");
+$result = mysql_query("SELECT 
+c.id,c.serie , ti.tipocom, c.fecha,c.glosa, t.cambio,e.estado,m.moneda 
+FROM `comprobante` c,
+ (select c.descripcion as estado,com.id as id from concepto c, comprobante com where com.id_estado=c.id) e,
+  (select c.descripcion as tipocom,com.id as id from concepto c, comprobante com where com.id_tipocomprobante=c.id) ti,
+   (select c.descripcion as moneda,com.id as id from concepto c, comprobante com where com.id_moneda=c.id) m,
+    tipo_cambio t where c.id=e.id and ti.id = c.id and m.id = c.id and t.id = c.id_tipocambio ORDER by id DESC LIMIT 1");
 
 $i=1;
 while ($row = mysql_fetch_assoc($result)) {
@@ -34,40 +46,5 @@ while ($row = mysql_fetch_assoc($result)) {
     $i++;
 }
 print json_encode($array);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>

@@ -61,7 +61,7 @@ date_default_timezone_set('America/La_Paz');
          <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
      </div>
      <div style="position: relative;" class="borde">
-     <form class="" role="form" method="post" action="productoregister.php" enctype="multipart/form-data">
+     <form id="static" class="" role="form" method="post" action="productoregister.php" enctype="multipart/form-data">
          <div class="container">
              <div class="row row-centered">
                  <div class="col-sm-3 col-lg-3 col-centered">
@@ -195,24 +195,74 @@ date_default_timezone_set('America/La_Paz');
               </div>
 
               <div class="modal-body">
-                  <form data-toggle="validator" action="api/create.php" method="POST">
+                  <form id = "compro" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">
+                      <div class="container">
+                          <div class="row row-centered">
+                              <div class="col-sm-3 col-lg-3 col-centered">
+                                  <!-- <div class="form-group">
+                          <label for="input6" class="col-md-4 control-label">123456789012:</label>
+                          <div class="col-md-8">
+                          <input type="text" class="form-control" id="input6" placeholder="input 6">
+                        </div>
+                      </div> -->
 
-                      <div class="form-group">
-                          <label class="control-label" for="title">Title:</label>
-                          <input type="text" name="title" class="form-control" data-error="Please enter title." required />
-                          <div class="help-block with-errors"></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-2 col-lg-2">
+                              <div class="form-group">
+                                  <label for="serie">Serie:</label>
+                                  <input  type="text" class="form-control" id="serie" name="serie">
+                              </div>
+                          </div>
+                          <div class="col-sm-2 col-lg-6">
+                              <div class="form-group">
+                                  <label for="tipo_comprobante">Tipo de Comprobante:</label>
+                                  <input  type="text" class="form-control" id="tipo_comprobante" name="tipo_comprobante">
+                              </div>
+                          </div>
+                          <div class="col-sm-2 col-lg-4">
+                              <div class="form-group">
+                                  <label for="fecha">Fecha:</label>
+                                  <input  type="text" class="form-control" id="fecha" name="fecha">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-2 col-lg-12">
+                              <div class="form-group">
+                                  <label for="glosa">Glosa:</label>
+                                  <input  type="text" class="form-control" id="glosa" name="glosa">
+                              </div>
+                          </div>
+
+                      </div>
+                      <div class="row">
+
+                          <div class="col-sm-2 col-lg-3">
+                              <div class="form-group">
+                                  <label for="tipo_cambio">Tipo de Cambio:</label>
+                                  <input  type="text" class="form-control" id="tipo_cambio" name="tipo_cambio">
+                              </div>
+                          </div>
+                          <div class="col-sm-2 col-lg-5">
+                              <div class="form-group">
+                                  <label for="moneda">Moneda:</label>
+                                  <input  type="text" class="form-control" id="moneda" name="moneda">
+                              </div>
+                          </div>
+                          <div class="col-sm-2 col-lg-4">
+                              <div class="form-group">
+                                  <label for="estado">Estado:</label>
+                                  <input  type="text" class="form-control" id="estado" name="estado">
+                              </div>
+                          </div>
+
                       </div>
 
-                      <div class="form-group">
-                          <label class="control-label" for="title">Description:</label>
-                          <textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
-                          <div class="help-block with-errors"></div>
-                      </div>
-
-                      <div class="form-group">
-                          <button type="submit" class="btn crud-submit btn-success">Submit</button>
-                      </div>
-
+                      <!-- /.row this actually does not appear to be needed with the form-horizontal -->
+                      <button type="submit" class="btn crud-submit btn-success crea">Agregar</button>
                   </form>
 
               </div>
@@ -244,7 +294,7 @@ date_default_timezone_set('America/La_Paz');
                       </div>
 
                       <div class="form-group">
-                          <button type="submit" class="btn crud-submit btn-success">Submit</button>
+                          <button type="submit" class="btn crud-submit btn-success ">Agregar</button>
                       </div>
 
                   </form>
@@ -278,14 +328,24 @@ date_default_timezone_set('America/La_Paz');
                      upResult();
                  }
              );
-             $(".crud-submit").click(function(e){
+             $(".crea").click(function(e){
                  agregar();
          });
          });
 
          function agregar(){
              e.preventDefault();
-             var form_action = $("#create-item").find("form").attr("action");
+             var datastring = $("#compro").serialize();
+             var form_action = $("#crea_com").find("form").attr("action");
+             var serie = $("#crea_com").find("input[id='serie']").val();
+             var fecha = $("#crea_com").find("input[id='fecha']").val();
+             var glosa = $("#crea_com").find("input[id='glosa']").val();
+             var tipo_comprobante = $("#crea_com").find("input[id='tipo_comprobante']").val();
+             var tipo_cambio = $("#crea_com").find("input[id='tipo_cambio']").val();
+             var moneda = $("#crea_com").find("input[id='moneda']").val();
+             var estado = $("#crea_com").find("input[id='estado']").val();
+
+             tipo_cambio
              var title = $("#create-item").find("input[name='title']").val();
              var description = $("#create-item").find("textarea[name='description']").val();
 
@@ -294,16 +354,28 @@ date_default_timezone_set('America/La_Paz');
                      dataType: 'json',
                      type:'POST',
                      url:  form_action,
-                     data:{title:title, description:description}
+                     cache: false,
+                     data:
+                         datastring,
+
                  }).done(function(data){
-                     $("#create-item").find("input[name='title']").val('');
-                     $("#create-item").find("textarea[name='description']").val('');
+
+
+                     $("#static").find("input[id='serie']").val(data.serie);
+                     $("#static").find("input[id='fecha']").val(data.fecha);
+                     $("#static").find("input[id='glosa']").val(data.glosa);
+                      $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
+                     $("#static").find("input[id='tipo_cambio']").val(data.cambio);
+                      $("#static").find("input[id='moneda']").val(data.moneda);
+                      $("#static").find("input[id='estado']").val(data.estado);
+
+
                      getPageData();
                      $(".modal").modal('hide');
-                     toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
+
                  });
              }else{
-                 alert('You are missing title or description.')
+                 alert('Error')
              }
 
 
