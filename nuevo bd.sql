@@ -19,7 +19,7 @@ INSERT INTO `cuenta` (`id`, `id_empresa`, `id_tipocuenta`,`codigo`, `text`, `niv
 (6, 1, 3,'1.2', 'Activo Variable', '3'),
 (7, 1, 5,'1.3', 'asa', NULL),
 (9, 1, 4,'1.5', 'dasds', NULL),
-(10, 1, 9,'1.6', '', NULL);
+(10, 1, 9,'1.6', 'Inmuebles', NULL);
 
 CREATE TABLE `empresa` (
   `id` int(11) NOT NULL,

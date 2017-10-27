@@ -59,10 +59,7 @@ $_SESSION['nombreemp']=$row2['sigla'];
     $(document).ready(function () {
         $('#Productos').jtable({
             title: 'Gestiones',
-            paging: true,
-            pageSize:5,
-            sorting: true,
-            defaultSorting: 'id ASC',
+
             actions: {
                 //READ
                 listAction: 'gestiones.php?accion=listar',

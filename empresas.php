@@ -204,9 +204,7 @@ unset($_SESSION['nombreemp']);
     $(document).ready(function () {
         $('#Productos').jtable({
 				title: 'Empresas',
-				paging: true,
-				pageSize:5,
-				sorting: true,
+
 				defaultSorting: 'id ASC',
 				actions: {
             //READ

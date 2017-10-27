@@ -5,17 +5,14 @@ try{
     $con = mysql_connect("localhost","root","");
     mysql_select_db("n", $con);
     if($_GET["accion"] == "listar")	{
-        $result = mysql_query("SELECT COUNT(*) AS RecordCount FROM gestion where id_empresa=".$_SESSION['id_emp'].";");
-        $row = mysql_fetch_array($result);
-        $recordCount = $row['RecordCount'];
-        $result = mysql_query("SELECT * FROM gestion where id_empresa=".$_SESSION['id_emp']." ORDER BY " . $_GET["jtSorting"] . " LIMIT " . $_GET["jtStartIndex"] . "," . $_GET["jtPageSize"] . ";");
+        $result = mysql_query("SELECT * FROM gestion where id_empresa=".$_SESSION['id_emp'].";");
         $rows = array();
         while($row = mysql_fetch_array($result)){
             $rows[] = $row;
         }
         $jTableResult = array();
         $jTableResult['Result'] = "OK";
-        $jTableResult['TotalRecordCount'] = $recordCount;
+
         $jTableResult['Records'] = $rows;
         print json_encode($jTableResult);
     }else if($_GET["accion"] == "crear"){
@@ -28,7 +25,7 @@ try{
        if ($row['conteo'] < 1){
         $result = mysql_query("SELECT COUNT(*) AS conteo FROM gestion where id_empresa=".$_SESSION['id_emp']." and nombre='".$_POST["nombre"]."' ;");
         $row = mysql_fetch_array($result);
-          if ($row['conteo'] == 0){
+          if ($row['conteo'] < 3){
             if($finicio<$ffin){
               $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
               $row = mysql_fetch_array($result);
@@ -66,7 +63,7 @@ try{
           $row = mysql_fetch_array($result);
           $jTableResult = array();
           $jTableResult['Result'] = "ERROR";
-          $jTableResult['Message'] = "No puede tener 2 gestiones abiertas";
+          $jTableResult['Message'] = "No puede tener 3 gestiones abiertas";
           print json_encode($jTableResult);
         }
     }else if($_GET["accion"] == "actualizar"){
@@ -74,6 +71,8 @@ try{
        $finicio = date('Y-m-d', strtotime($finicio));
        $ffin = str_replace('/', '-', $_POST["fecha_fin"]);
        $ffin = date('Y-m-d', strtotime($ffin));
+
+       //validaciones tipo crear.... 2 gestiones abiertas mismo nombre dentro de la gestion etc
         $result = mysql_query("UPDATE gestion SET nombre='".$_POST["nombre"]."', fecha_inicio='$finicio', fecha_fin='$ffin',
 		 estado=".$_POST["estado"]." WHERE id=" . $_POST["id"] . ";");
         $jTableResult = array();
