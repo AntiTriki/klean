@@ -49,11 +49,33 @@ try{
             print json_encode($jTableResult);
         }
 	}else if($_GET["accion"] == "actualizar"){
-		$result = mysql_query("UPDATE empresa SET correo='".$_POST["correo"]."', nit='".$_POST["nit"]."', razon_social='".$_POST["razon_social"]."',
-		sigla='".$_POST["sigla"]."',direccion='".$_POST["direccion"]."', nivel=".$_POST["nivel"]." WHERE id=" . $_POST["id"] . ";");
-		$jTableResult = array();
-		$jTableResult['Result'] = "OK";
-		print json_encode($jTableResult);
+        $result = mysql_query("SELECT COUNT(*) AS conteo FROM empresa where  razon_social='".$_POST["razon_social"]."' ;");
+        $row = mysql_fetch_array($result);
+        if ($row['conteo'] < 1) {
+            $result = mysql_query("SELECT COUNT(*) AS conteo FROM empresa where  sigla='".$_POST["sigla"]."' ;");
+            $row = mysql_fetch_array($result);
+            if ($row['conteo'] < 1) {
+
+                $result = mysql_query("UPDATE empresa SET correo='" . $_POST["correo"] . "', nit='" . $_POST["nit"] . "', razon_social='" . $_POST["razon_social"] . "',
+		sigla='" . $_POST["sigla"] . "',direccion='" . $_POST["direccion"] . "', nivel=" . $_POST["nivel"] . " WHERE id=" . $_POST["id"] . ";");
+                $jTableResult = array();
+                $jTableResult['Result'] = "OK";
+                print json_encode($jTableResult);
+            }
+            else{
+                $row = mysql_fetch_array($result);
+                $jTableResult = array();
+                $jTableResult['Result'] = "ERROR";
+                $jTableResult['Message'] = "No debe existir dos empresas con la misma sigla";
+                print json_encode($jTableResult);
+            }
+        }else{
+
+            $jTableResult = array();
+            $jTableResult['Result'] = "ERROR";
+            $jTableResult['Message'] = "No debe existir dos empresas con el mismo nombre";
+            print json_encode($jTableResult);
+        }
 	}else if($_GET["accion"] == "eliminar"){
 		$result = mysql_query("DELETE FROM empresa WHERE id= " . $_POST["id"] . ";");
 		$jTableResult = array();
