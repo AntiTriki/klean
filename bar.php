@@ -59,9 +59,7 @@ min-height: 100%;
   padding:  0 0 0;
   background: #fff;
   }
-.carousel.slide.canvas{
-  min-height: auto;
-}
+
   @media (min-width: 0) {
   .navbar-toggle {
     display: block; /* force showing the toggle */
@@ -175,7 +173,7 @@ if (isset($_SESSION['name'])){
                         <div class="tab-pane fade in" id="why">
                             <p>We need this information so that you can receive access to the site and its content. Rest assured your information will not be sold, traded, or given to anyone.</p>
                             <p></p><br> Please contact
-                            <a mailto:href="JoeSixPack@Sixpacksrus.com"></a> for any other inquiries.
+                            <a href="JoeSixPack@Sixpacksrus.com"></a> for any other inquiries.
                         </div>
                         <div class="tab-pane fade active in" id="signin">
                             <form class="form-horizontal" action="signin.php" method="post">
@@ -340,7 +338,7 @@ if (isset($_SESSION['name'])){
 
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <script src="js/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="js/jquery.jtable.min.js" type="text/javascript"></script>
+   <script src="js/jquery.jtable.min.js" type="text/javascript"></script>
 
     <!--<script src="scripts/jquery-1.6.4.min.js" type="text/javascript"></script>-->
 
@@ -350,7 +348,7 @@ if (isset($_SESSION['name'])){
     <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
     <script type="text/javascript" src="js/jquery.validationEngine-es.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
-
+    <script src="js/bootstrap-select.min.js" charset="utf-8"></script>
 
 
 </body>
