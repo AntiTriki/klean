@@ -8,8 +8,7 @@ $contra=$_POST['contra'];
 $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 $usra = mysqli_real_escape_string($link, $correo);
 						$pwda = mysqli_real_escape_string($link, $contra);
-            $query_user = sprintf("SELECT
-             u.id,
+            $query_user = sprintf("SELECT u.id,
 						 u.correo,
 						 u.contra,
 						 u.nombre,

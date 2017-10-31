@@ -143,7 +143,13 @@ date_default_timezone_set('America/La_Paz');
             height: 1em;
             bottom: auto;
         }
+        .borde {
+            border: 2px solid #a1a1a1;
+            padding: 10px 40px;
+            border-radius: 3px;
+            width: 80%;
 
+        }
         .tree > li:last-child:before { display: none; }
 
         .tree_custom {
@@ -324,10 +330,10 @@ date_default_timezone_set('America/La_Paz');
 
                 });
             });
-        })
+        });
         //fill data to tree  with AJAX call
 
-        ];
+
         var data = [
             { "id" : "0", "parent" : "#", "text" : "Cuentas Contables" },
         ];
@@ -336,14 +342,16 @@ date_default_timezone_set('America/La_Paz');
         var route = 'response.php?operation=get_node';
         $.ajax({
             url :  route,
-            type: 'GET',
-            success : function(data){
-                data = JSON.parse(data);
-                if ((data.errors)) {
+            type: 'POST',
+            dataType: 'json',
+            success : function(data1){
+                data = data;
+                if ((data1.errors)) {
                     alert('Oops!  ocurre un error en la respuesta con el sistema');
                 }
                 else {
-                    listah = data;
+                    listah = data1.id;
+                    console.log(data1);
 
                     agregar();
                 }
@@ -354,47 +362,70 @@ date_default_timezone_set('America/La_Paz');
             }
         });
 
+        function agregar(){
+            $.each(listah,function(index,element){
 
-        $('#tree-container').jstree({
-            'core' : {
-                'data' : {
-                    'url' : 'response.php?operation=get_node',
-                    'data' : function (node) {
-                        return { 'id' : node.id };
+                data.push({"id" : element.id, "parent" : element.id_tipocuenta, "text" : element.codigo+" - "+element.text });
 
-                        },
+            });
+            $("#tree-container").jstree({
+                "core" : {
+                    // so that create works
+                    "check_callback" : true,
 
-                    "dataType" : "json"
+                    "data": data
                 }
-                ,'check_callback' : true,
-                'themes' : {
-                    'responsive' : false,
-                    "icons": false
-                }
-            },
 
-            'plugins' : ['state','contextmenu']
-        }).on('create_node.jstree', function (e, data) {
+            }).on('create_node.jstree', function(e, data) {
+                console.log('saved');
+            });
 
-            $.get('response.php?operation=create_node', { 'id' : data.node.parent, 'position' : data.position, 'text' : data.node.text })
-                .done(function (d) {
-                    data.instance.set_id(data.node, d.id);
-                    data.instance.set_text(data.node, d.text);
-                })
-                .fail(function () {
-                    data.instance.refresh();
-                });
-        }).on('rename_node.jstree', function (e, data) {
-            $.get('response.php?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
-                .fail(function () {
-                    data.instance.refresh();
-                });
-        }).on('delete_node.jstree', function (e, data) {
-            $.get('response.php?operation=delete_node', { 'id' : data.node.id })
-                .fail(function () {
-                    data.instance.refresh();
-                });
-        });
+
+
+        }
+
+
+
+//        $('#tree-container').jstree({
+//            'core' : {
+//                'data' : {
+//                    'url' : 'response.php?operation=get_node',
+//                    'data' : function (node) {
+//                        return { 'id' : node.id };
+//
+//                        },
+//
+//                    "dataType" : "json"
+//                }
+//                ,'check_callback' : true,
+//                'themes' : {
+//                    'responsive' : false,
+//                    "icons": false
+//                }
+//            },
+//
+//            'plugins' : ['state','contextmenu']
+//        }).on('create_node.jstree', function (e, data) {
+//
+//            $.get('response.php?operation=create_node', { 'id' : data.node.parent, 'position' : data.position, 'text' : data.node.text })
+//                .done(function (d) {
+//                    data.instance.set_id(data.node, d.id);
+//                    data.instance.set_text(data.node, d.text);
+//                })
+//                .fail(function () {
+//                    data.instance.refresh();
+//                });
+//        }).on('rename_node.jstree', function (e, data) {
+//            $.get('response.php?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
+//                .fail(function () {
+//                    data.instance.refresh();
+//                });
+//        }).on('delete_node.jstree', function (e, data) {
+//            $.get('response.php?operation=delete_node', { 'id' : data.node.id })
+//                .fail(function () {
+//                    data.instance.refresh();
+//                });
+//        });
 
     });
 </script>
