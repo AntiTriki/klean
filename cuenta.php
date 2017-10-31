@@ -19,6 +19,7 @@ date_default_timezone_set('America/La_Paz');
             color: #000000;
         }
     </style>
+
     <style media="screen">
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {

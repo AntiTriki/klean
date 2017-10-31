@@ -18,7 +18,7 @@ if(isset($_GET['operation'])) {
 		switch($_GET['operation']) {
 			case 'get_node':
 				$node = isset($_GET['id']) && $_GET['id'] !== '#' ? (int)$_GET['id'] : 0;
-				$sql = "SELECT * FROM cuenta where id_empresa=".$_SESSION['id_emp']." ";
+				$sql = "SELECT * FROM cuenta where id_empresa=".$_SESSION['id_emp']." or id_empresa = 0 ";
 				$res = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
 				if($res->num_rows <=0){
 				 //add condition when result is zero
@@ -29,6 +29,7 @@ if(isset($_GET['operation'])) {
 					while( $row = mysqli_fetch_assoc($res) ) { 
 						
 						$data[] = $row;
+
 					}
 					$itemsByReference = array();
 

@@ -76,9 +76,7 @@ unset($_SESSION['nombreemp']);
               padding:  0 0 0;
               background: #fff;
           }
-          .carousel.slide.canvas{
-              min-height: auto;
-          }
+
           @media (min-width: 0) {
               .navbar-toggle {
                   display: block; /* force showing the toggle */
@@ -263,7 +261,7 @@ unset($_SESSION['nombreemp']);
                 edit: false,
                 list: true,
     display: function (data) {
-                    return '<a href="inicio.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
+                    return '<a href="inicio.php?id=' + data.record.id + '&nivel='+data.record.nivel+'"><img style="width:20px" src="22.png" /></a>';
                 },
 	width: '2%'
 },

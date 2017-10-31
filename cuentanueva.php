@@ -3,8 +3,11 @@ include_once('bar.php');
 
 include_once('conexion.php');
 date_default_timezone_set('America/La_Paz');
-
-
+$con = mysql_connect("localhost","root","");
+mysql_select_db("n", $con);
+$result = mysql_query("SELECT * FROM empresa where  id=".$_SESSION['id_emp']." ;");
+$row3 = mysql_fetch_array($result);
+$_SESSION['nivel_empresa']=$row3['nivel'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -261,10 +264,22 @@ date_default_timezone_set('America/La_Paz');
                                                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                                                                $cxn->set_charset("utf8");
                                                                $result = $cxn->query("SELECT
-                                                                                               nivel
-                                                                                              FROM empresa
-                                                                                              WHERE id=". $_SESSION["id_emp"]." ");
+                                                                                               max(c.nivel) AS nivel
+                                                                                              FROM cuenta c
+                                                                                              WHERE c.id_empresa=". $_SESSION["id_emp"]." ");
                                                                $row = $result->fetch_assoc();
+                                                               if($row['nivel'] === NULL){
+                                                                   $row['nivel'] = 1;
+
+                                                               }else{
+                                                                   if($row['nivel']+1 > $_SESSION['nivel_empresa']){
+                                                                       $row['nivel']=$_SESSION['nivel_empresa'];
+
+                                                                   }else {
+
+                                                                       $row['nivel'] = $row['nivel'] + 1;
+                                                                   }
+                                                               }
                                                                $i=1;
                                                                for ($i;$i<=$row['nivel'];$i++) {
 
@@ -272,6 +287,7 @@ date_default_timezone_set('America/La_Paz');
 
                                                                }
                                                                $cxn->close();
+
                                                                ?>
                         </select>
                     </div>
@@ -334,98 +350,98 @@ date_default_timezone_set('America/La_Paz');
         //fill data to tree  with AJAX call
 
 
-        var data = [
-            { "id" : "0", "parent" : "#", "text" : "Cuentas Contables" },
-        ];
-
-        var listah;
-        var route = 'response.php?operation=get_node';
-        $.ajax({
-            url :  route,
-            type: 'POST',
-            dataType: 'json',
-            success : function(data1){
-                data = data;
-                if ((data1.errors)) {
-                    alert('Oops!  ocurre un error en la respuesta con el sistema');
-                }
-                else {
-                    listah = data1.id;
-                    console.log(data1);
-
-                    agregar();
-                }
-
-            },
-            error: function(e) {
-                alert('Error'+e.responseText);
-            }
-        });
-
-        function agregar(){
-            $.each(listah,function(index,element){
-
-                data.push({"id" : element.id, "parent" : element.id_tipocuenta, "text" : element.codigo+" - "+element.text });
-
-            });
-            $("#tree-container").jstree({
-                "core" : {
-                    // so that create works
-                    "check_callback" : true,
-
-                    "data": data
-                }
-
-            }).on('create_node.jstree', function(e, data) {
-                console.log('saved');
-            });
-
-
-
-        }
-
-
-
-//        $('#tree-container').jstree({
-//            'core' : {
-//                'data' : {
-//                    'url' : 'response.php?operation=get_node',
-//                    'data' : function (node) {
-//                        return { 'id' : node.id };
+//        var data = [
+//            { "id" : "0", "parent" : "#", "text" : "Cuentas Contables" },
+//        ];
 //
-//                        },
+//        var listah;
+//        var route = 'response.php?operation=get_node';
+//        $.ajax({
+//            url :  route,
+//            type: 'POST',
+//            dataType: 'json',
+//            success : function(data1){
+//                data = data;
+//                if ((data1.errors)) {
+//                    alert('Oops!  ocurre un error en la respuesta con el sistema');
+//                }
+//                else {
+//                    listah = data1.id;
+//                    console.log(data1);
 //
-//                    "dataType" : "json"
+//                    agregar();
 //                }
-//                ,'check_callback' : true,
-//                'themes' : {
-//                    'responsive' : false,
-//                    "icons": false
-//                }
+//
 //            },
-//
-//            'plugins' : ['state','contextmenu']
-//        }).on('create_node.jstree', function (e, data) {
-//
-//            $.get('response.php?operation=create_node', { 'id' : data.node.parent, 'position' : data.position, 'text' : data.node.text })
-//                .done(function (d) {
-//                    data.instance.set_id(data.node, d.id);
-//                    data.instance.set_text(data.node, d.text);
-//                })
-//                .fail(function () {
-//                    data.instance.refresh();
-//                });
-//        }).on('rename_node.jstree', function (e, data) {
-//            $.get('response.php?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
-//                .fail(function () {
-//                    data.instance.refresh();
-//                });
-//        }).on('delete_node.jstree', function (e, data) {
-//            $.get('response.php?operation=delete_node', { 'id' : data.node.id })
-//                .fail(function () {
-//                    data.instance.refresh();
-//                });
+//            error: function(e) {
+//                alert('Error'+e.responseText);
+//            }
 //        });
+//
+//        function agregar(){
+//            $.each(listah,function(index,element){
+//
+//                data.push({"id" : element.id, "parent" : element.id_tipocuenta, "text" : element.codigo+" - "+element.text });
+//
+//            });
+//            $("#tree-container").jstree({
+//                "core" : {
+//                    // so that create works
+//                    "check_callback" : true,
+//
+//                    "data": data
+//                }
+//
+//            }).on('create_node.jstree', function(e, data) {
+//                console.log('saved');
+//            });
+//
+//
+//
+//        }
+
+
+
+        $('#tree-container').jstree({
+            'core' : {
+                'data' : {
+                    'url' : 'response.php?operation=get_node',
+                    'data' : function (node) {
+                        return { 'id' : node.id };
+
+                        },
+
+                    "dataType" : "json"
+                }
+                ,'check_callback' : true,
+                'themes' : {
+                    'responsive' : false,
+                    "icons": false
+                }
+            },
+
+            'plugins' : ['state','contextmenu']
+        }).on('create_node.jstree', function (e, data) {
+
+            $.get('response.php?operation=create_node', { 'id' : data.node.parent, 'position' : data.position, 'text' : data.node.text })
+                .done(function (d) {
+                    data.instance.set_id(data.node, d.id);
+                    data.instance.set_text(data.node, d.text);
+                })
+                .fail(function () {
+                    data.instance.refresh();
+                });
+        }).on('rename_node.jstree', function (e, data) {
+            $.get('response.php?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
+                .fail(function () {
+                    data.instance.refresh();
+                });
+        }).on('delete_node.jstree', function (e, data) {
+            $.get('response.php?operation=delete_node', { 'id' : data.node.id })
+                .fail(function () {
+                    data.instance.refresh();
+                });
+        });
 
     });
 </script>

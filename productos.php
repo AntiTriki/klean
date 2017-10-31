@@ -10,6 +10,9 @@ try{
 		while($row = mysql_fetch_array($result)){
 		    $rows[] = $row;
 		}
+        $fila = mysql_fetch_array($result);
+        $_SESSION['nivel_empresa']=$fila['nivel'];
+        $_SESSION["sigla"]=$fila['sigla'];
 		$jTableResult = array();
 		$jTableResult['Result'] = "OK";
 
