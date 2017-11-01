@@ -4,7 +4,7 @@ session_start();
 if(isset($_POST['nivel'])&&isset($_POST['text'])&&isset($_POST['id_tipocuenta'])) {
     $con = mysql_connect("localhost", "root", "");
     mysql_select_db("n", $con);
-    
+
 //que correlativo le toca
     $result = mysql_query("SELECT max(correlativo) AS cor FROM cuenta where nivel = " . $_POST["nivel"] . " and id_empresa = " . $_SESSION["id_emp"] . ";") or die(mysql_error());
     $row = mysql_fetch_array($result);
@@ -34,7 +34,8 @@ if(isset($_POST['nivel'])&&isset($_POST['text'])&&isset($_POST['id_tipocuenta'])
                       id=" . $_POST["id_tipocuenta"] . " and id_empresa = " . $_SESSION["id_emp"] . ";");
         $row = mysql_fetch_array($result);
         $extract = explode('.0', $row['cod_padre']);
-        $codigo = $extract . '.' . $cor;
+
+        $codigo = $extract[0] . '.' . $cor;
         $nivel = $_POST["nivel"];
         $total0 = $nivel_empresa - $nivel;
         $i = 1;
