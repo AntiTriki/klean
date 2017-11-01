@@ -248,10 +248,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
     <div><h3>Plan de Cuentas</h3></div>
 
     <div class="btn-group-horizontal" style="position: relative;">
-        <!--         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>-->
-        <!--         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>-->
-        <!--         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
-        <button type="button" id ="guardar" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+      <button type="button" id ="guardar" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
 
     </div>
     <div style="position: relative;" class="borde">
@@ -311,7 +308,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 <div class="col-sm-2 col-lg-6">
                     <div class="form-group">
                         <label for="text">Cuenta:</label>
-                        <input  type="text" class="form-control" id="text">
+                        <input  type="text" class="form-control" id="text" name="text">
                     </div>
                 </div>
 
@@ -333,7 +330,6 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
         </form>
     </div>
-
 
     <?php if(isset($_SESSION['id_emp']))
     { ?>
