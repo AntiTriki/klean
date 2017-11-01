@@ -19,26 +19,46 @@ session_start();
     $row = mysql_fetch_array($result);
     $cor=$row['cor'];
     $cor=$cor+1;
-if($_POST['nivel']==1) {
-//tamaño codigo
-    $cod = '.0.0';
-    $result = mysql_query("SELECT nivel  FROM empresa where id = " . $_SESSION["id_emp"] . ";");
-    $row = mysql_fetch_array($result);
-    $i = 3;
-    while ($i < $row['nivel']) {
-        $cod .= '.0';
-        $i++;
-    }
-    $codigo = $cor.$cod;
-}else {
+        $result = mysql_query("SELECT nivel  FROM empresa where id = " . $_SESSION["id_emp"] . ";");
+        $row = mysql_fetch_array($result);
+        $nivel_empresa=$row['nivel'];
+        if($_POST['nivel']==1) {
+        //tamaño codigo
+            $cod = '.0.0';
+
+            $i = 3;
+            if($row['nivel'] > 3) {
+                while ($i < $row['nivel']) {
+                    $cod .= '.0';
+                    $i++;
+                }
+            }
+            $codigo = $cor.$cod;
+        }else {
 
 
-    //su predecesor
+            //su predecesor
 
-    $result = mysql_query("SELECT codigo as cod_padre FROM cuenta where
-              id=" . $_POST["tipocuenta"] . " and id_empresa = " . $_SESSION["id_emp"] . ";");
-    $row = mysql_fetch_array($result);
-}
+            $result = mysql_query("SELECT codigo as cod_padre FROM cuenta where
+                      id=" . $_POST["tipocuenta"] . " and id_empresa = " . $_SESSION["id_emp"] . ";");
+            $row = mysql_fetch_array($result);
+            $extract = explode('.0',$row['cod_padre']);
+            $codigo =$extract.'.'.$cor;
+            $nivel=$_POST["nivel"];
+            $total0=$nivel_empresa-$nivel;
+            $i=1;
+            if($total0!=0) {
+                while ($i <= $total0) {
+                    $cod .= '.0';
+                    $i++;
+                }
+                $codigo = $codigo.$cod;
+            }else{
+
+
+            }
+
+        }
 
 
 

@@ -25,9 +25,9 @@ if(isset($_GET['operation'])) {
 				 echo 'nada';
 				} else {
 					//iterate on results row and create new index array of data
-					
-					while( $row = mysqli_fetch_assoc($res) ) { 
-						
+
+					while( $row = mysqli_fetch_assoc($res) ) {
+						$row['text']=$row['codigo'].' - '.$row['text'] ;
 						$data[] = $row;
 
 					}
@@ -38,7 +38,7 @@ if(isset($_GET['operation'])) {
 				   $itemsByReference[$item['id']] = &$item;
 				   // Children array:
 				   $itemsByReference[$item['id']]['children'] = array();
-				   // Empty data class (so that json_encode adds "data: {}" ) 
+				   // Empty data class (so that json_encode adds "data: {}" )
 				   $itemsByReference[$item['id']]['data'] = new StdClass();
 				}
 
@@ -57,11 +57,11 @@ if(isset($_GET['operation'])) {
 				break;
 			case 'create_node':
 				$node = isset($_GET['id']) && $_GET['id'] !== '#' ? (int)$_GET['id'] : 0;
-				
+
 				$nodeText = isset($_GET['text']) && $_GET['text'] !== '' ? $_GET['text'] : '';
 				$sql ="INSERT INTO `cuenta` (`text`, `id_tipocuenta`,`id_empresa`) VALUES( '".$nodeText."', ".$node.",".$_SESSION['id_emp'].")";
 				mysqli_query($conn, $sql);
-				
+
 				$result = array('id' => mysqli_insert_id($conn));
 				print_r($result);die;
 				break;
@@ -82,7 +82,7 @@ if(isset($_GET['operation'])) {
 				break;
 		}
 		header('Content-Type: application/json; charset=utf-8');
-		
+
 		echo json_encode($result);
 	}
 	catch (Exception $e) {
