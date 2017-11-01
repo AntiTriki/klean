@@ -6,22 +6,16 @@ session_start();
     mysql_select_db("n", $con);
 
 
-//donde se ubica
-    $nivel=$_POST["nivel"];
-    $i=1;
-    while($i <= $nivel){
-
-    }
 
 //que correlativo le toca
-    $result = mysql_query("SELECT max(cor) AS cor FROM cuenta where
-              nivel=".$_POST["nivel"]." and id_empresa = ".$_SESSION["id_emp"].";");
-    $row = mysql_fetch_array($result);
-    $cor=$row['cor'];
-    $cor=$cor+1;
-        $result = mysql_query("SELECT nivel  FROM empresa where id = " . $_SESSION["id_emp"] . ";");
-        $row = mysql_fetch_array($result);
-        $nivel_empresa=$row['nivel'];
+            $result = mysql_query("SELECT max(cor) AS cor FROM cuenta where
+                      nivel=".$_POST["nivel"]." and id_empresa = ".$_SESSION["id_emp"].";");
+            $row = mysql_fetch_array($result);
+            $cor=$row['cor'];
+            $cor=$cor+1;
+            $result = mysql_query("SELECT nivel  FROM empresa where id = " . $_SESSION["id_emp"] . ";");
+            $row = mysql_fetch_array($result);
+            $nivel_empresa=$row['nivel'];
         if($_POST['nivel']==1) {
         //tamaño codigo
             $cod = '.0.0';
@@ -40,7 +34,7 @@ session_start();
             //su predecesor
 
             $result = mysql_query("SELECT codigo as cod_padre FROM cuenta where
-                      id=" . $_POST["tipocuenta"] . " and id_empresa = " . $_SESSION["id_emp"] . ";");
+                      id=" . $_POST["id_tipocuenta"] . " and id_empresa = " . $_SESSION["id_emp"] . ";");
             $row = mysql_fetch_array($result);
             $extract = explode('.0',$row['cod_padre']);
             $codigo =$extract.'.'.$cor;
@@ -49,12 +43,9 @@ session_start();
             $i=1;
             if($total0!=0) {
                 while ($i <= $total0) {
-                    $cod .= '.0';
+                    $codigo .= '.0';
                     $i++;
                 }
-                $codigo = $codigo.$cod;
-            }else{
-
 
             }
 

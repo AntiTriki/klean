@@ -1,7 +1,7 @@
 <?php
 session_name('nilds');
 session_start();
-include_once('tipo.php');
+
 
 ?>
 
@@ -13,12 +13,12 @@ include_once('tipo.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jasny-bootstrap.min.css">
-    <link rel="stylesheet" href="css/modern-business.css">
+<!--    <link rel="stylesheet" href="css/bootstrap.min.css">-->
+
+<!--    <link rel="stylesheet" href="css/modern-business.css">-->
     <!-- <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script> -->
-    <link rel="stylesheet" href="css/mainp2.css">
+
     <style media="screen">
     .profile-img{
   margin-top: -8px;
@@ -152,10 +152,12 @@ if (isset($_SESSION['name'])){
 
 
 
-    <script src="js/jquery-3.0.0.js" charset="utf-8"></script>
+<!-- <script src="js/jquery-3.0.0.js" charset="utf-8"></script>-->
+<!--    <script src="js/bootstrap.min.js" charset="utf-8"></script>-->
+<!--    <script src="js/bootstrap-select.min.js" charset="utf-8"></script>-->
     <!-- <script src="js/autohidingnavbar.min.js" charset="utf-8"></script>
     <script src="js/main.js" charset="utf-8"></script>
-    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+
 
     <script src="js/jasny-bootstrap.min.js" charset="utf-8"></script>  -->
     <!-- <script src="scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script> -->

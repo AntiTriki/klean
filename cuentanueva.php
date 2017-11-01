@@ -160,9 +160,24 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
             background: #eee;
             padding: 1em;
             border-radius: 0.3em;
+
+        }
+        .alertify-logs.right {
+            right: 0;
+            width: 20%;
+        }
+        .alertify-logs.right > .default,
+        .alertify-logs.right > .success,
+        .alertify-logs.right > .error {
+            transform: translateX(-5%);
+            transform: translateY(20%);
+            text-align: left;
         }
     </style>
     <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/alertify.min.css">
+    <link rel="stylesheet" href="css/default.min.css">
+
     <script type="text/javascript">
         function isNumber(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
@@ -205,18 +220,19 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
     </script>
     <script>
-        $(function () {
+        $(document).ready(function(){
 
-            $('form').on('submit', function (e) {
+            $('#guardar').click(function(){
 
-                e.preventDefault();
+
 
                 $.ajax({
                     type: 'post',
                     url: 'cuentaabm.php',
                     data: $('form').serialize(),
-                    success: function () {
-
+                    success: function (data) {
+                        alertify.set('notifier','position', 'top-right');
+                        alertify.error(data);
                     }
                 });
 
@@ -235,11 +251,11 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
         <!--         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>-->
         <!--         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>-->
         <!--         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
-        <button type="button" class="btn btn-" data-toggle="modal" data-target="#crea_com"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <button type="button" id ="guardar" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
 
     </div>
     <div style="position: relative;" class="borde">
-        <form id="static" class="" role="form" method="post" action="productoregister.php" enctype="multipart/form-data">
+        <form id="static" class="" role="form"  enctype="multipart/form-data">
             <div class="container">
                 <div class="row row-centered">
                     <div class="col-sm-3 col-lg-3 col-centered">
@@ -257,7 +273,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 <div class="col-sm-2 col-lg-2">
                     <div class="form-group">
                         <label for="nivel">Nivel:</label>
-                        <select  class="form-control selectpicker show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="nivel" name="nivel" placeholder="Nivel" >
+                        <select title="Nivel" class="form-control selectpicker show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="nivel" name="nivel" placeholder="Nivel" >
 
                                                                <?php
 
@@ -337,6 +353,9 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
+
+
+
         $("#nivel").change(function () {
             $("#nivel option:selected").each(function () {
                var id = $(this).val();
@@ -445,5 +464,5 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
     });
 </script>
-
+<script type="text/javascript" src="js/alertify.min.js"></script>
 </html>

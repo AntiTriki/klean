@@ -2,23 +2,16 @@
 session_name('nilds');
 session_start();
 include_once('tipo.php');
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="css/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" />
     <!--	<link href="themes\lightcolor\gray\jtable.min.css" rel="stylesheet" type="text/css" />-->
     <link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jasny-bootstrap.min.css">
-    <link rel="stylesheet" href="css/modern-business.css">
+
     <!-- <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script> -->
     <link rel="stylesheet" href="themes\metro\blue\jtable.min.css">
@@ -87,7 +80,7 @@ min-height: 100%;
     border-radius: 0;
   }
   </style>
-</head>
+
 
 <body>
     <div id="navbar-auto-hidden" class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -157,130 +150,7 @@ if (isset($_SESSION['name'])){
             </div>
         </div>
     </div>
-    <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <br>
-                <div class="bs-example bs-example-tabs">
-                    <ul id="myTab" class="nav nav-tabs">
-                        <li class="active"><a href="#signin" data-toggle="tab">Sesion</a></li>
-                        <li class=""><a href="#signup" data-toggle="tab">Nuevo?</a></li>
-                        <li class=""><a href="#why" data-toggle="tab">Empresarial</a></li>
-                    </ul>
-                </div>
-                <div class="modal-body">
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade in" id="why">
-                            <p>We need this information so that you can receive access to the site and its content. Rest assured your information will not be sold, traded, or given to anyone.</p>
-                            <p></p><br> Please contact
-                            <a href="JoeSixPack@Sixpacksrus.com"></a> for any other inquiries.
-                        </div>
-                        <div class="tab-pane fade active in" id="signin">
-                            <form class="form-horizontal" action="signin.php" method="post">
-                                <fieldset>
-                                    <!-- Sign In Form -->
-                                    <!-- Text input-->
-                                    <div class="control-group">
-                                        <label class="control-label" for="userid">Correo:</label>
-                                        <div class="controls">
-                                            <input required="" id="userid" name="correo" type="text" class="form-control"  >
-                                        </div>
-                                    </div>
-
-                                    <!-- Password input-->
-                                    <div class="control-group">
-                                        <label class="control-label" for="passwordinput">Contrasena:</label>
-                                        <div class="controls">
-                                            <input required="" id="passwordinput" name="contra" class="form-control input-medium" type="password"  >
-                                        </div>
-                                    </div>
-
-                                    <!-- Multiple Checkboxes (inline) -->
-                                    <div class="control-group">
-                                        <label class="control-label" for="rememberme"></label>
-                                        <div class="controls">
-
-                                        </div>
-                                    </div>
-
-                                    <!-- Button -->
-                                    <div class="control-group">
-                                        <label class="control-label" for="signin"></label>
-                                        <div class="controls">
-                                            <button id="signinn" type="submit" name="signin" class="btn btn-success">Ingresar</button>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="signup">
-                            <form id="form" class="form-horizontal" >
-                                <fieldset>
-                                    <!-- Sign Up Form -->
-                                    <!-- Text input-->
-                                    <div class="control-group">
-                                        <label class="control-label" for="Email">Correo:</label>
-                                        <div class="controls">
-                                            <input id="Email" name="correo" class="form-control input-large" type="text" placeholder="ejemplo@ejemplo.com"  required="">
-                                        </div>
-                                    </div>
-
-                                    <!-- Text input-->
-                                    <div class="control-group">
-                                        <label class="control-label" for="userid">Nombre:</label>
-                                        <div class="controls">
-                                            <input id="useridd" name="nombre" class="form-control" type="text" placeholder="Nombre" required >
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="control-group">
-                                        <label class="control-label" for="usrid">Apellidos:</label>
-                                        <div class="controls">
-                                            <input id="usridd" name="apellido" class="form-control" type="text" placeholder="Apellidos" required >
-                                        </div>
-                                    </div>
-                                    <!-- Password input-->
-                                    <div class="control-group">
-                                        <label class="control-label" for="password">Contrasena:</label>
-                                        <div class="controls">
-                                            <input id="password" name="password" class="form-control" type="password" placeholder="********" required >
-                                            <em>1-8 Caracteres</em>
-                                        </div>
-                                    </div>
-
-                                    <!-- Text input-->
-                                    <div class="control-group">
-                                        <label class="control-label" for="reenterpassword">Confirmar Contrasena:</label>
-                                        <div class="controls">
-                                            <input id="reenterpassword" class="form-control" name="reenterpassword" type="password" placeholder="********"  required>
-                                        </div>
-                                    </div>
-
-                                    <!-- Multiple Radios (inline) -->
-                                    <br>
-
-
-                                    <!-- Button -->
-                                    <div class="control-group">
-                                        <label class="control-label" for="confirmsignup"></label>
-                                        <div class="controls">
-                                            <button id="confirmar" name="confirmsignup" class="btn btn-success">Crear Cuenta</button>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <center>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </center>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php
+     <?php
 if (isset($_SESSION['name'])){
     ?>
     <div class="navmenu navmenu-default navmenu-fixed-left" style="width:200px">
@@ -300,14 +170,7 @@ if (isset($_SESSION['name'])){
             <a href="#">Settings</a>
         </li>
         <li role="separator" class="divider visible-xs"></li>
-        <?php
-    if (isset($_SESSION['nombre_empresa'])){
-        ?>
 
-        <li>
-            <a href="prod_emp.php">Mis productos</a>
-        </li>
-        <?php }else{ ?>
           <li>
               <a href="empresas.php" >Empresas</a>
           </li>
@@ -322,7 +185,7 @@ if (isset($_SESSION['name'])){
         <li>
             <a href="../reportico" >Reporte</a>
         </li>
-        <?php } ?>
+
         <li class="visible-xs">
             <a href="logout.php?logout">Salir</a>
         </li>
