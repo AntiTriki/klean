@@ -62,8 +62,5 @@ if(isset($_POST['nivel'])&&isset($_POST['text'])&&isset($_POST['id_tipocuenta'])
     }
 }else{
     echo 'Debe llenar correctamente el formulario';
-
 }
-
-
 ?>

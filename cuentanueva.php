@@ -436,16 +436,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
             },
 
             'plugins' : ['state','contextmenu']
-        }).on('create_node.jstree', function (e, data) {
 
-            $.get('response.php?operation=create_node', { 'id' : data.node.parent, 'position' : data.position, 'text' : data.node.text })
-                .done(function (d) {
-                    data.instance.set_id(data.node, d.id);
-                    data.instance.set_text(data.node, d.text);
-                })
-                .fail(function () {
-                    data.instance.refresh();
-                });
         }).on('rename_node.jstree', function (e, data) {
             $.get('response.php?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
                 .fail(function () {
