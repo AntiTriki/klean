@@ -56,6 +56,7 @@ if(isset($_POST['nivel'])&&isset($_POST['text'])&&isset($_POST['id_tipocuenta'])
     if ($row['conteo'] == 0) {
         $result = mysql_query("INSERT INTO cuenta(text, nivel,id_tipocuenta,id_empresa,codigo,correlativo) VALUES(
       '" . $_POST["text"] . "'," . $_POST["nivel"] . "," . $_POST["id_tipocuenta"] . "," . $_SESSION["id_emp"] . ",'" . $codigo . "'," . $cor . ")");
+    echo '1';
     } else {
         echo 'No debe existir otra cuenta con el mismo nombre para la misma empresa';
 
