@@ -10,7 +10,18 @@ include_once('conexion.php');
 
 include_once('bar.php');
 
-
+//El numero del comprobante debe ser correlatido por Empresa
+//Cuando se crea el estado es Abierto
+//Posibles Estados : "Abierto", "Cerrado" y "Anulado"
+//La fecha tiene que pertenecer a un periodo Abierto
+//Solo puedo colocar las cuentas de Detalle (las de ultimo nivel)
+//Deberia poderse buscar las cuentas a travez de un autocompletar
+//Si coloco un monto en el "Debe", no podre colocar otro el el "Haber" para el mismo detalle ni viceversa
+//La suma de todos los "Debe" debe ser igual a la suma de todos los "Haber", caso contrario no debe dejar grabar el comprobante.
+//Solo puedo insertar una cuenta a la vez en el detalle.
+//Se debe validar los datos según los campos de la base de datos.
+//Los tipos de comprobantes serán: "Ingreso", "Egreso", "Traspaso", "Apertura" y "Ajuste"
+//Solo puede haber un comprobante de apertura en una gestión
 date_default_timezone_set('America/La_Paz');
 
 
