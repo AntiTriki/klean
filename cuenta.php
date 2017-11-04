@@ -362,8 +362,16 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                         alertify.success('Guardado');
                         $('#tree-container'). jstree("refresh");
                     }else {
+                        if(data=2){
+                            $('#mySelect')
+                                .append($("<option></option>")
+                                    .attr("value",key)
+                                    .text(value));
+                        }else
+                        {
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.error(data);
+                        }
                     }
                 }
             });
