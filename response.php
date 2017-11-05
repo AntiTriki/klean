@@ -69,13 +69,15 @@ if(isset($_GET['operation'])) {
 				$node = isset($_GET['id']) && $_GET['id'] !== '#' ? (int)$_GET['id'] : 0;
 				//print_R($_GET);
 				$nodeText = isset($_GET['text']) && $_GET['text'] !== '' ? $_GET['text'] : '';
+				if($node!=1){
 				$sql ="UPDATE `cuenta` SET `text`='".$nodeText."' WHERE `id`= '".$node."'";
-				mysqli_query($conn, $sql);
+				mysqli_query($conn, $sql);}
 				break;
 			case 'delete_node':
+                if($node!=1){
 				$node = isset($_GET['id']) && $_GET['id'] !== '#' ? (int)$_GET['id'] : 0;
 				$sql ="DELETE FROM `cuenta` WHERE `id`= '".$node."'";
-				mysqli_query($conn, $sql);
+				mysqli_query($conn, $sql);}
 				break;
 			default:
 				throw new Exception('Unsupported operation: ' . $_GET['operation']);
