@@ -11,7 +11,7 @@ include_once('tipo.php');
     <link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jasny-bootstrap.min.css">
-<link rel="stylesheet" href="css/modern-business.css">
+
     <!-- <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script> -->
     <link rel="stylesheet" href="themes\metro\blue\jtable.min.css">
