@@ -41,6 +41,8 @@ date_default_timezone_set('America/La_Paz');
         .form-group{
             margin-bottom: 2px;
         }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+            padding: 0;}
     </style>
   </head>
  <body>
@@ -134,13 +136,13 @@ date_default_timezone_set('America/La_Paz');
          <div class="row">
              <div class='wrapper text-center'>
          <div class="btn-group btn-group-lg" role="group" aria-label="...">
-             <button name="first" id="first" type="button" class="btn btn-default">
+             <button name="first1" id="first" type="button" class="btn btn-default" style="    height: 40px;">
                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
              </button>
              <button name="be" id="be" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
              <button name="af" id="af" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
-             <button name="last" id="last" type="button" class="btn btn-default">
+             <button name="last" id="last" type="button" class="btn btn-default" style="    height: 40px;">
                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
              </button>
