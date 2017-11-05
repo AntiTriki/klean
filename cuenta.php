@@ -264,8 +264,8 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                                                                $cxn->set_charset("utf8");
                                                                $result = $cxn->query("SELECT
                                                                                                max(c.nivel) AS nivel
-                                                                                              FROM cuenta c
-                                                                                              WHERE c.id_empresa=". $_SESSION["id_emp"]." ");
+                                                                                              FROM empresa c
+                                                                                              WHERE c.id=". $_SESSION["id_emp"]." ");
                                                                $row = $result->fetch_assoc();
                                                                if($row['nivel'] === NULL){
                                                                    $row['nivel'] = 1;
@@ -357,18 +357,12 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 url: 'cuentaabm.php',
                 data: $('form').serialize(),
                 success: function (data) {
-                    if(data=1){
+                    if(data=='1'){
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Guardado');
                         $('#tree-container'). jstree("refresh");
                     }else {
-                        if(data=2){
-                            $('#mySelect')
-                                .append($("<option></option>")
-                                    .attr("value",key)
-                                    .text(value));
-                        }else
-                        {
+
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.error(data);
                         }
