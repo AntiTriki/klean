@@ -6,6 +6,18 @@ include_once('conexion.php');
  * if(isset($_SESSION['id_ges']))
 {
     unset($_SESSION['id_ges']);
+El numero del comprobante debe ser correlatido por Empresa
+Cuando se crea el estado es Abierto
+Posibles Estados : "Abierto", "Cerrado" y "Anulado"
+La fecha tiene que pertenecer a un periodo Abierto
+Solo puedo colocar las cuentas de Detalle (las de ultimo nivel)
+Deberia poderse buscar las cuentas a travez de un autocompletar
+Si coloco un monto en el "Debe", no podre colocar otro el el "Haber" para el mismo detalle ni viceversa
+La suma de todos los "Debe" debe ser igual a la suma de todos los "Haber", caso contrario no debe dejar grabar el comprobante.
+Solo puedo insertar una cuenta a la vez en el detalle.
+Se debe validar los datos según los campos de la base de datos.
+Los tipos de comprobantes serán: "Ingreso", "Egreso", "Traspaso", "Apertura" y "Ajuste"
+Solo puede haber un comprobante de apertura en una gestión
 }*/
 
 include_once('bar.php');
@@ -69,7 +81,8 @@ date_default_timezone_set('America/La_Paz');
 <!--         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>-->
 <!--         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>-->
 <!--         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
-    <button type="button" class="btn btn-" data-toggle="modal" data-target="#crea_com"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+<!--    <button type="button" class="btn btn-" data-toggle="modal" data-target="#crea_com"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>-->
+    <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
          <button type="button" class="btn btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
          <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
      </div>
@@ -159,10 +172,18 @@ date_default_timezone_set('America/La_Paz');
              </button>
 
          </div>
-                 <div class="btn-group btn-group-lg pull-right" role="group" aria-label="...">
-                 <button name="" type="button" class="btn btn-default pull-right"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-
-             </div>
+                 <div class="col-xs-2 pull-right">
+                     <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Buscar por serie">
+                         <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Ir</button>
+      </span>
+                     </div><!-- /input-group -->
+                 </div><!-- /.col-lg-6 -->
+<!--                 <div class="btn-group btn-group-lg pull-right" role="group" aria-label="...">-->
+<!--                 <button name="" type="button" class="btn btn-default pull-right"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>-->
+<!---->
+<!--             </div>-->
              </div>
 
          </div>
@@ -322,6 +343,11 @@ date_default_timezone_set('America/La_Paz');
 
 
             capturar_com();
+             $("#nuevo_com").click( function()
+                 {
+                     nuevo();
+                 }
+             );
              $("#af").click( function()
                  {
                      updateResult();
@@ -345,7 +371,46 @@ date_default_timezone_set('America/La_Paz');
                  agregar();
          });
          });
+         function nuevo(){
 
+
+
+             $("#static").find("input[id='serie']").val("");
+             $("#static").find("input[id='fecha']").val("");
+             $("#static").find("input[id='glosa']").val("");
+             $("#static").find("input[id='tipo_comprobante']").val("");
+             $("#static").find("input[id='tipo_cambio']").val("");
+             $("#static").find("input[id='moneda']").val("");
+             $("#static").find("input[id='estado']").val("");
+             $("#static").find("input[id='fecha']").prop('disabled', false);
+             $("#static").find("input[id='glosa']").prop('disabled', false);
+             $("#static").find("input[id='tipo_comprobante']").prop('disabled', false);
+             $("#static").find("input[id='tipo_cambio']").prop('disabled', false);
+             $("#static").find("input[id='moneda']").prop('disabled', false);
+             $("#static").find("input[id='estado']").prop('disabled', false);
+
+
+
+
+                 $.ajax({
+                     dataType: 'json',
+                     type:'POST',
+                     url:  'serie_get.php',
+                     cache: false
+
+
+
+                 }).done(function(data){
+
+
+                     $("#static").find("input[id='serie']").val(data);
+
+
+                 });
+
+
+
+         };
          function agregar(){
              e.preventDefault();
              var datastring = $("#compro").serialize();

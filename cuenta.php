@@ -264,8 +264,8 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                                                                $cxn->set_charset("utf8");
                                                                $result = $cxn->query("SELECT
                                                                                                max(c.nivel) AS nivel
-                                                                                              FROM cuenta c
-                                                                                              WHERE c.id_empresa=". $_SESSION["id_emp"]." ");
+                                                                                              FROM empresa c
+                                                                                              WHERE c.id=". $_SESSION["id_emp"]." ");
                                                                $row = $result->fetch_assoc();
                                                                if($row['nivel'] === NULL){
                                                                    $row['nivel'] = 1;
@@ -357,15 +357,17 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 url: 'cuentaabm.php',
                 data: $('form').serialize(),
                 success: function (data) {
-                    if(data=1){
+                    if(data=='1'){
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Guardado');
                         $('#tree-container'). jstree("refresh");
                     }else {
+
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.error(data);
+                        }
                     }
-                }
+
             });
 
         });
@@ -407,6 +409,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                                 var inst = $.jstree.reference(data.reference),
                                     obj = inst.get_node(data.reference);
                                 inst.edit(obj);
+
                             }
                         },
                         "remove" : {
@@ -420,6 +423,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                                     obj = inst.get_node(data.reference);
                                 if(inst.is_selected(obj)) {
                                     inst.delete_node(inst.get_selected());
+
                                 }
                                 else {
                                     inst.delete_node(obj);
@@ -447,6 +451,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 .fail(function () {
                     data.instance.refresh();
                 });
+            $('#tree-container').jstree("refresh");
         }).on('delete_node.jstree', function (e, data) {
             $.get('response.php?operation=delete_node', { 'id' : data.node.id })
                 .fail(function () {
