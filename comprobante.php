@@ -1,25 +1,5 @@
 <?php
 include_once('conexion.php');
-
-
-/*porsiaka creo q despues escoger periodo se va a comprobante
- * if(isset($_SESSION['id_ges']))
-{
-    unset($_SESSION['id_ges']);
-El numero del comprobante debe ser correlatido por Empresa
-Cuando se crea el estado es Abierto
-Posibles Estados : "Abierto", "Cerrado" y "Anulado"
-La fecha tiene que pertenecer a un periodo Abierto
-Solo puedo colocar las cuentas de Detalle (las de ultimo nivel)
-Deberia poderse buscar las cuentas a travez de un autocompletar
-Si coloco un monto en el "Debe", no podre colocar otro el el "Haber" para el mismo detalle ni viceversa
-La suma de todos los "Debe" debe ser igual a la suma de todos los "Haber", caso contrario no debe dejar grabar el comprobante.
-Solo puedo insertar una cuenta a la vez en el detalle.
-Se debe validar los datos según los campos de la base de datos.
-Los tipos de comprobantes serán: "Ingreso", "Egreso", "Traspaso", "Apertura" y "Ajuste"
-Solo puede haber un comprobante de apertura en una gestión
-}*/
-
 include_once('bar.php');
 
 //El numero del comprobante debe ser correlatido por Empresa
@@ -66,7 +46,18 @@ date_default_timezone_set('America/La_Paz');
         }
         .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
             padding: 0;}
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
     </style>
+      <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+      <link rel="stylesheet" href="css/bootstrap-select.min.css">
+      <link rel="stylesheet" href="css/alertify.min.css">
+      <link rel="stylesheet" href="css/default.min.css">
   </head>
  <body>
 
@@ -108,16 +99,40 @@ date_default_timezone_set('America/La_Paz');
                      <input disabled type="text" class="form-control" id="serie">
                  </div>
              </div>
-             <div class="col-sm-2 col-lg-6">
+             <div id="div_tipoin" class="col-sm-2 col-lg-6">
                  <div class="form-group">
                      <label for="tipo_comprobante">Tipo de Comprobante:</label>
-                     <input disabled type="text" class="form-control" id="tipo_comprobante">
+                     <input disabled type="text" class="form-control" id="tipo_comprobante" name="">
+                 </div>
+             </div>
+             <div id="div_tipose" class="col-sm-2 col-lg-6">
+                 <div class="form-group">
+                     <label for="tipo_compro">Tipo de Comprobante:</label>
+                     <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_compro" id="tipo_compro" placeholder="Tipo Comprobante">
+
+                     <?php
+
+                     $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+                     $cxn->set_charset("utf8");
+                     $result = $cxn->query("SELECT * from concepto where id >=6 and id <= 10");
+                     while($row = $result->fetch_assoc())
+
+
+
+                         echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
+
+
+                     $cxn->close();
+
+                     ?>
+
+                     </select>
                  </div>
              </div>
              <div class="col-sm-2 col-lg-4">
                  <div class="form-group">
                      <label for="fecha">Fecha:</label>
-                     <input disabled type="text" class="form-control" id="fecha">
+                     <input disabled type="text" class="form-control datepicker" id="fecha">
                  </div>
              </div>
              </div>
@@ -132,22 +147,97 @@ date_default_timezone_set('America/La_Paz');
              </div>
              <div class="row">
 
-                 <div class="col-sm-2 col-lg-3">
+                 <div id="div_cambioin" class="col-sm-2 col-lg-3">
                      <div class="form-group">
                          <label for="tipo_cambio">Tipo de Cambio:</label>
                          <input disabled type="text" class="form-control" id="tipo_cambio">
                      </div>
                  </div>
-                 <div class="col-sm-2 col-lg-5">
+                 <div id="div_cambiose" class="col-sm-2 col-lg-3">
+                     <div class="form-group">
+                         <label for="tipo_cam">Tipo de Cambio:</label>
+
+                         <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_cam" id="tipo_cam" placeholder="Csmbio">
+
+                             <?php
+
+                             $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+                             $cxn->set_charset("utf8");
+                             $result = $cxn->query("SELECT * from tipo_cambio where activo=1");
+                             while($row = $result->fetch_assoc())
+
+
+
+                                 echo '<option value="'.$row['id'].'">'.$row['cambio'].'</option>';
+
+
+                             $cxn->close();
+
+                             ?>
+
+                         </select>
+                     </div>
+                 </div>
+                 <div id="div_monedain" class="col-sm-2 col-lg-5">
                      <div class="form-group">
                          <label for="moneda">Moneda:</label>
                          <input disabled type="text" class="form-control" id="moneda">
                      </div>
                  </div>
-                 <div class="col-sm-2 col-lg-4">
+                 <div id="div_monedase" class="col-sm-2 col-lg-5">
+                     <div class="form-group">
+                         <label for="mone">Moneda:</label>
+
+                         <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="mone" id="mone" placeholder="Moneda">
+
+                             <?php
+
+                             $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+                             $cxn->set_charset("utf8");
+                             $result = $cxn->query("SELECT * from concepto where id >=1 and id <= 2");
+                             while($row = $result->fetch_assoc())
+
+
+
+                                 echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
+
+
+                             $cxn->close();
+
+                             ?>
+
+                         </select>
+                     </div>
+                 </div>
+                 <div id="div_estadoin" class="col-sm-2 col-lg-4">
                      <div class="form-group">
                          <label for="estado">Estado:</label>
                          <input disabled type="text" class="form-control" id="estado">
+                     </div>
+                 </div>
+                 <div id="div_estadose" class="col-sm-2 col-lg-4">
+                     <div class="form-group">
+                         <label for="esta">Estado:</label>
+
+                         <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="esta" id="esta" placeholder="Estado">
+
+                             <?php
+
+                             $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+                             $cxn->set_charset("utf8");
+                             $result = $cxn->query("SELECT * from concepto where id >=3 and id <= 5");
+                             while($row = $result->fetch_assoc())
+
+
+
+                                 echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
+
+
+                             $cxn->close();
+
+                             ?>
+
+                         </select>
                      </div>
                  </div>
 
@@ -174,9 +264,9 @@ date_default_timezone_set('America/La_Paz');
          </div>
                  <div class="col-xs-2 pull-right">
                      <div class="input-group">
-                         <input type="text" class="form-control" placeholder="Buscar por serie">
+                         <input type="number" id="buscar_serie" class="form-control" placeholder="Buscar por serie">
                          <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Ir</button>
+        <button class="btn btn-default" id="buscar" type="button">Ir</button>
       </span>
                      </div><!-- /input-group -->
                  </div><!-- /.col-lg-6 -->
@@ -259,7 +349,7 @@ date_default_timezone_set('America/La_Paz');
                           <div class="col-sm-2 col-lg-4">
                               <div class="form-group">
                                   <label for="fecha">Fecha:</label>
-                                  <input  type="text" class="form-control" id="fecha" name="fecha">
+                                  <input  type="text" class="form-control " id="fecha" name="fecha">
                               </div>
                           </div>
                       </div>
@@ -313,17 +403,17 @@ date_default_timezone_set('America/La_Paz');
               </div>
 
               <div class="modal-body">
-                  <form data-toggle="validator" action="api/create.php" method="POST">
+                  <form data-toggle="validator" >
 
                       <div class="form-group">
-                          <label class="control-label" for="title">Title:</label>
-                          <input type="text" name="title" class="form-control" data-error="Please enter title." required />
+                          <label class="control-label" for="cuenta_cod">Cuenta:</label>
+                          <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
                           <div class="help-block with-errors"></div>
                       </div>
 
                       <div class="form-group">
-                          <label class="control-label" for="title">Description:</label>
-                          <textarea name="description" class="form-control" data-error="Please enter description." required></textarea>
+                          <label class="control-label" for="glosa_detalle">Glosa:</label>
+                          <input name="glosa_detalle" id="glosa_detalle" class="form-control" ></input>
                           <div class="help-block with-errors"></div>
                       </div>
 
@@ -341,8 +431,13 @@ date_default_timezone_set('America/La_Paz');
      <script language="javascript">
          $(document).ready(function () {
 
-
             capturar_com();
+            ocultar_div();
+             $("#buscar").click( function()
+                 {
+                     buscar();
+                 }
+             );
              $("#nuevo_com").click( function()
                  {
                      nuevo();
@@ -351,45 +446,118 @@ date_default_timezone_set('America/La_Paz');
              $("#af").click( function()
                  {
                      updateResult();
+                     disable();
                  }
              );
              $("#be").click( function()
                  {
                      downResult();
+                     disable();
                  }
              );
              $("#first").click( function()
                  {
                      capturar_com();
+                     disable();
                  }
              ); $("#last").click( function()
                  {
                      upResult();
+                     disable();
                  }
              );
              $(".crea").click(function(e){
                  agregar();
          });
          });
+         function ocultar_div(){
+             $("#div_tipose").hide();
+             $("#div_monedase").hide();
+             $("#div_estadose").hide();
+             $("#div_cambiose").hide();
+
+         }function mostrar_div(){
+             $("#div_tipose").show();
+             $("#div_monedase").show();
+             $("#div_estadose").show();
+             $("#div_cambiose").show();
+             ocultar_input();
+
+         }
+         function mostrar_input(){
+             $("#div_tipoin").show();
+             $("#div_monedain").show();
+             $("#div_estadoin").show();
+             $("#div_cambioin").show();
+
+         }
+         function ocultar_input(){
+             $("#div_tipoin").hide();
+             $("#div_monedain").hide();
+             $("#div_estadoin").hide();
+             $("#div_cambioin").hide();
+
+         }
+         function buscar(){
+//             var f = $('#serie').val();
+             var f = parseInt($('#buscar_serie').val());
+
+
+             if(f>0)
+             {
+
+
+                 $.ajax({
+                     type: "POST",
+                     url: "buscar_serie.php",
+                     data: 'dato='+f,
+                     dataType: "json",
+                     cache: false,
+                     success: function(data){
+
+                         if(data['result']=='1') {
+                             $("#serie").val(data['serie']);
+                             $("#fecha").val(data['fecha']);
+                             $("#glosa").val(data['glosa']);
+                             $("#tipo_comprobante").val(data['tipocom']);
+                             $("#tipo_cambio").val(data['cambio']);
+                             $("#moneda").val(data['moneda']);
+                             $("#estado").val(data['estado']);
+                             detalle(data['id']);
+                         }else
+                         {
+                             alertify.set('notifier', 'position', 'top-right');
+                             alertify.error('Serie no encontrada');
+
+
+                         }
+                     },
+                     error: function(){
+
+                     }
+                 });
+             }else{
+                 alertify.set('notifier', 'position', 'top-right');
+                 alertify.error('Ingrese un número válido');
+
+             }
+
+         }
+         function disable(){
+             $("#static").find("input[id='fecha']").prop('disabled', true);
+             $("#static").find("input[id='glosa']").prop('disabled', true);
+             ocultar_div();
+             mostrar_input();
+
+         }
          function nuevo(){
-
-
-
              $("#static").find("input[id='serie']").val("");
              $("#static").find("input[id='fecha']").val("");
              $("#static").find("input[id='glosa']").val("");
-             $("#static").find("input[id='tipo_comprobante']").val("");
-             $("#static").find("input[id='tipo_cambio']").val("");
-             $("#static").find("input[id='moneda']").val("");
-             $("#static").find("input[id='estado']").val("");
+            mostrar_div();
+
              $("#static").find("input[id='fecha']").prop('disabled', false);
              $("#static").find("input[id='glosa']").prop('disabled', false);
-             $("#static").find("input[id='tipo_comprobante']").prop('disabled', false);
-             $("#static").find("input[id='tipo_cambio']").prop('disabled', false);
-             $("#static").find("input[id='moneda']").prop('disabled', false);
-             $("#static").find("input[id='estado']").prop('disabled', false);
-
-
 
 
                  $.ajax({
@@ -423,7 +591,7 @@ date_default_timezone_set('America/La_Paz');
              var moneda = $("#crea_com").find("input[id='moneda']").val();
              var estado = $("#crea_com").find("input[id='estado']").val();
 
-             tipo_cambio
+
              var title = $("#create-item").find("input[name='title']").val();
              var description = $("#create-item").find("textarea[name='description']").val();
 
@@ -559,6 +727,7 @@ f=f+1;
                      $("#tipo_cambio").val(data['cambio']);
                      $("#moneda").val(data['moneda']);
                      $("#estado").val(data['estado']);
+
                      detalle4(data['id']);
 
 
@@ -578,11 +747,8 @@ f=f+1;
                      jQuery('tbody').html('');
 
                  },
-
                  success: function (yo) {
                      manageRow(yo.data);
-
-
                  }
              });
          }
@@ -735,6 +901,59 @@ f=f+1;
              });
 
          });
-     </script></body>
+     </script>
+ <script>
+     $(function() {
+         function split( val ) {
+             return val.split( /,\s*/ );
+         }
+         function extractLast( term ) {
+             return split( term ).pop();
+         }
+
+         $( "#cuenta_cod" ).bind( "keydown", function( event ) {
+             if ( event.keyCode === $.ui.keyCode.TAB &&
+                 $( this ).autocomplete( "instance" ).menu.active ) {
+                 event.preventDefault();
+             }
+         })
+             .autocomplete({
+                 minLength: 1,
+                 source: function( request, response ) {
+                     // delegate back to autocomplete, but extract the last term
+                     $.getJSON("cod_cuenta.php", { term : extractLast( request.term )},response);
+                 },
+                 focus: function() {
+                     // prevent value inserted on focus
+                     return false;
+                 },
+                 select: function( event, ui ) {
+                     var terms = split( this.value );
+                     // remove the current input
+                     terms.pop();
+                     // add the selected item
+                     terms.push( ui.item.value );
+                     // add placeholder to get the comma-and-space at the end
+                     terms.push( "" );
+                     this.value = terms.join( ", " );
+                     return false;
+                 }
+             });
+     });
+ </script>
+
+
+ <script> //date picker js
+     $(document).ready(function() {
+         $('.datepicker').datepicker({
+             todayHighlight: true,
+             "autoclose": true,
+             format: 'dd-mm-yyyy'
+         });
+     });
+ </script>
+ <script type="text/javascript" src="js/alertify.min.js"></script>
+ <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+ </body>
 
 </html>
