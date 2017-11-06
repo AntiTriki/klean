@@ -6,7 +6,7 @@ if(isset($_POST['nivel'])&&isset($_POST['text'])&&isset($_POST['id_tipocuenta'])
     mysql_select_db("n", $con);
 
 //que correlativo le toca
-    $result = mysql_query("SELECT max(correlativo) AS cor FROM cuenta where nivel = " . $_POST["nivel"] . " and id_empresa = " . $_SESSION["id_emp"] . ";") or die(mysql_error());
+    $result = mysql_query("SELECT max(correlativo) AS cor FROM cuenta where nivel = " . $_POST["nivel"] . " and id_tipocuenta = " . $_POST["id_tipocuenta"] . " and id_empresa = " . $_SESSION["id_emp"] . ";") or die(mysql_error());
     $row = mysql_fetch_array($result);
     $cor = $row['cor'];
     $cor = $cor + 1;

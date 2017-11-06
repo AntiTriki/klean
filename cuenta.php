@@ -367,7 +367,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                         alertify.error(data);
                         }
                     }
-                }
+
             });
 
         });
@@ -409,6 +409,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                                 var inst = $.jstree.reference(data.reference),
                                     obj = inst.get_node(data.reference);
                                 inst.edit(obj);
+
                             }
                         },
                         "remove" : {
@@ -422,6 +423,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                                     obj = inst.get_node(data.reference);
                                 if(inst.is_selected(obj)) {
                                     inst.delete_node(inst.get_selected());
+
                                 }
                                 else {
                                     inst.delete_node(obj);
@@ -449,6 +451,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 .fail(function () {
                     data.instance.refresh();
                 });
+            $('#tree-container').jstree("refresh");
         }).on('delete_node.jstree', function (e, data) {
             $.get('response.php?operation=delete_node', { 'id' : data.node.id })
                 .fail(function () {
