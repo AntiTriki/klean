@@ -175,9 +175,10 @@ CREATE TABLE IF NOT EXISTS `detalle_comprobante` (
   `glosa` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `monto` decimal(10,2) DEFAULT NULL,
   `debe` decimal(10,2) DEFAULT '0.00',
-  `haber` decimal(10,2) DEFAULT '0.00',
+  `haber` decimal(10,2) DEFAULT '0.00',`debe_dol` decimal(10,2) DEFAULT '0.00',
+  `haber_dol` decimal(10,2) DEFAULT '0.00',
   `id_cuenta` int(100) DEFAULT NULL,
-  `id_comprobante` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `id_comprobante` int(10) COLLATE utf8_spanish_ci DEFAULT NULL,
   `monto_bol` decimal(10,2) DEFAULT NULL,
   `monto_dol` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -187,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `detalle_comprobante` (
 --
 
 INSERT INTO `detalle_comprobante` (`id`, `numero`, `glosa`, `monto`, `debe`, `haber`, `id_cuenta`, `id_comprobante`, `monto_bol`, `monto_dol`) VALUES
-(1, '123', 'POR DETERMINAR', '100.50', '0.00', '0.00', 5, '1', NULL, NULL);
+(1, '123', 'POR DETERMINAR', '100.50', '0.00', '0.00', 22, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
