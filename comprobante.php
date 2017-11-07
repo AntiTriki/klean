@@ -16,6 +16,24 @@ include_once('bar.php');
 //Solo puede haber un comprobante de apertura en una gestión
 date_default_timezone_set('America/La_Paz');
 
+ $dbHost = 'localhost';
+ $dbUsername = 'root';
+ $dbPassword = '';
+ $dbName = 'n';
+
+ //connect with the database
+ $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
+
+ //get search term
+
+
+ //get matched data from skills table
+ $query = $db->query("SELECT * FROM cuenta  ");
+ $data = array();
+ while ($row = $query->fetch_assoc()) {
+
+     array_push($data, array('label'=> $row['codigo']." - ".$row['text'], 'value' => $row['codigo']." - ".$row['text'], 'id'=>$row['id']));
+ }
 
 ?>
 <!DOCTYPE html>
@@ -64,19 +82,9 @@ date_default_timezone_set('America/La_Paz');
       <link rel="stylesheet" href="css/default.min.css">
   </head>
  <body>
-
-
-
-
-
-
  <div class="container-fluid" style="margin-left: 250px">
 
      <div class="btn-group-horizontal" style="position: relative;">
-<!--         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>-->
-<!--         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>-->
-<!--         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
-<!--    <button type="button" class="btn btn-" data-toggle="modal" data-target="#crea_com"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>-->
     <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
          <button type="button" class="btn btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
          <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
@@ -297,7 +305,7 @@ date_default_timezone_set('America/La_Paz');
                      <table class="table table-bordered">
                          <thead>
                          <tr>
-                             <th>Codigo</th>
+
                              <th>Cuenta</th>
                              <th width="250px">Glosa</th>
                              <th width="70px">Debe</th>
@@ -403,7 +411,7 @@ date_default_timezone_set('America/La_Paz');
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                  <h4 class="modal-title" id="myModalLabel">Create Item</h4>
+                  <h4 class="modal-title" id="myModalLabel">Detalle Cuenta</h4>
               </div>
 
               <div class="modal-body">
@@ -413,17 +421,30 @@ date_default_timezone_set('America/La_Paz');
                           <label class="control-label" for="cuenta_cod">Cuenta:</label>
                           <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
                           <div class="help-block with-errors"></div>
-                          <label id="selectID"></label>
+                          <input type="hidden" name="id_cuenta_auto" id="id_cuenta_auto"></input>
+
+
                       </div>
 
                       <div class="form-group">
                           <label class="control-label" for="glosa_detalle">Glosa:</label>
-                          <input name="glosa_detalle" id="glosa_detalle" class="form-control" ></input>
+                          <input type="text" name="glosa_detalle" id="glosa_detalle" class="form-control" ></input>
+                          <div class="help-block with-errors"></div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label" for="debe_detalle">Debe:</label>
+                          <input type="number" name="debe_detalle" onchange="dis1()" id="debe_detalle" class="form-control" ></input>
+                          <div class="help-block with-errors"></div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label" for="haber_detalle">Haber:</label>
+                          <input type="number" name="haber_detalle" onchange="dis2()" id="haber_detalle" class="form-control" ></input>
                           <div class="help-block with-errors"></div>
                       </div>
 
+
                       <div class="form-group">
-                          <button type="submit" class="btn crud-submit btn-success ">Agregar</button>
+                          <button id="addToTable" type="button" class="btn crud-submit btn-success ">Agregar</button>
                       </div>
 
                   </form>
@@ -434,9 +455,47 @@ date_default_timezone_set('America/La_Paz');
       </div>
   </div>
      <script language="javascript">
+var i_detalle = 1;
+         $('#addToTable').click(function() {
+             var codigo = $('#cuenta_cod').val();
+             var glosa = $('#glosa_detalle').val();
+             var debe = $('#debe_detalle').val();
+             var haber = $('#haber_detalle').val();
+             var id_detallecuenta = $('#id_cuenta_auto').val();
+
+             var	rows = '';
+
+                 rows = rows + '<tr id="'+i_detalle+'">';
+                 rows = rows + '<td>'+codigo+'</td>';
+
+                 rows = rows + '<td><input type="hidden" id="glosa'+i_detalle+'" name="glosa'+i_detalle+'" value="'+glosa+'">'+glosa+'</input></td>';
+                 rows = rows + '<td><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
+                 rows = rows + '<td><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
+
+                 rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
+
+                 rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+                 rows = rows + '</td>';
+                 rows = rows + '</tr>';
+
+
+             //$("tbody").html(rows);
+             $('table tbody').append(rows);
+i_detalle++;
+             $('#add_det').modal('hide');
+             $('#cuenta_cod').val('');
+             $('#glosa_detalle').val('');
+            $('#debe_detalle').val('');
+             $('#haber_detalle').val('');
+             $('#id_cuenta_auto').val('');
+
+
+});
+         var array_auto =  <?php echo json_encode($data); ?>;
          $(document).ready(function () {
 
             capturar_com();
+
             ocultar_div();
              $("#buscar").click( function()
                  {
@@ -807,7 +866,6 @@ f=f+1;
                  success: function (yo) {
                      manageRow4(yo.data);
 
-
                  }
              });
          }
@@ -815,8 +873,8 @@ f=f+1;
              var	rows = '';
              $.each( data, function( key, value ) {
                  rows = rows + '<tr>';
-                 rows = rows + '<td>'+value.codigo+'</td>';
-                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
                  rows = rows + '<td>'+value.glosa+'</td>';
                  rows = rows + '<td>'+value.debe+'</td>';
                  rows = rows + '<td>'+value.haber+'</td>';
@@ -835,8 +893,8 @@ f=f+1;
              var	rows = '';
              $.each( data, function( key, value ) {
                  rows = rows + '<tr>';
-                 rows = rows + '<td>'+value.codigo+'</td>';
-                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
                  rows = rows + '<td>'+value.glosa+'</td>';
                  rows = rows + '<td>'+value.debe+'</td>';
                  rows = rows + '<td>'+value.haber+'</td>';
@@ -854,8 +912,8 @@ f=f+1;
              var	rows = '';
              $.each( data, function( key, value ) {
                  rows = rows + '<tr>';
-                 rows = rows + '<td>'+value.codigo+'</td>';
-                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
                  rows = rows + '<td>'+value.glosa+'</td>';
                  rows = rows + '<td>'+value.debe+'</td>';
                  rows = rows + '<td>'+value.haber+'</td>';
@@ -874,8 +932,8 @@ f=f+1;
              var	rows = '';
              $.each( data, function( key, value ) {
                  rows = rows + '<tr>';
-                 rows = rows + '<td>'+value.codigo+'</td>';
-                 rows = rows + '<td>'+value.text+'</td>';
+                 rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
                  rows = rows + '<td>'+value.glosa+'</td>';
                  rows = rows + '<td>'+value.debe+'</td>';
                  rows = rows + '<td>'+value.haber+'</td>';
@@ -906,83 +964,14 @@ f=f+1;
              });
 
          });
-     </script>
-
- <!-- Autocomplete Multiple Values from Different Cources -->
-<!-- <script>-->
-<!--     $(function() {-->
-<!--         function split( val ) {-->
-<!--             return val.split( /,\s*/ );-->
-<!--         }-->
-<!--         function extractLast( term ) {-->
-<!--             return split( term ).pop();-->
-<!--         }-->
-<!---->
-<!--         $( "#cuenta_cod" ).bind( "keydown", function( event ) {-->
-<!--             if ( event.keyCode === $.ui.keyCode.TAB &&-->
-<!--                 $( this ).autocomplete( "instance" ).menu.active ) {-->
-<!--                 event.preventDefault();-->
-<!--             }-->
-<!--         })-->
-<!--             .autocomplete({-->
-<!--                 minLength: 1,-->
-<!--                 source: function( request, response ) {-->
-<!--                     var terms = split( request.term );-->
-<!--                     if (terms.length < 2) {-->
-<!--                         $.getJSON("text_cuenta.php", { term : extractLast( request.term )},response);-->
-<!--                     }else{-->
-<!--                         $.getJSON("cod_cuenta.php", { term : extractLast( request.term )},response);-->
-<!--                     }-->
-<!--                 },-->
-<!--                 focus: function() {-->
-<!--                     // prevent value inserted on focus-->
-<!--                     return false;-->
-<!--                 },-->
-<!--                 select: function( event, ui ) {-->
-<!--                     var terms = split( this.value );-->
-<!--                     // remove the current input-->
-<!--                     terms.pop();-->
-<!--                     // add the selected item-->
-<!--                     terms.push( ui.item.value );-->
-<!--                     // add placeholder to get the comma-and-space at the end-->
-<!--                     terms.push( "" );-->
-<!--                     this.value = terms.join( ", " );-->
-<!--                     return false;-->
-<!--                 }-->
-<!--             });-->
-<!--     });-->
-<!-- </script>-->
-
- <?php
- $dbHost = 'localhost';
- $dbUsername = 'root';
- $dbPassword = '';
- $dbName = 'n';
-
- //connect with the database
- $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
-
- //get search term
-
-
- //get matched data from skills table
- $query = $db->query("SELECT * FROM cuenta  ");
- $data = array();
- while ($row = $query->fetch_assoc()) {
-
-     array_push($data, array('label'=> $row['codigo']." - ".$row['text'], 'value' => $row['codigo']." - ".$row['text'], 'id'=>$row['id']));
- }
- ?>
- <script>
-
      $(function() {
-         var req =  <?php echo json_encode($data); ?>;
+
          $('#cuenta_cod').autocomplete({
-             source: req,
+             source: array_auto,
              change: function (event, ui) {
 
 
-                 $("#selectID").html(ui.item.id);
+                 $("#id_cuenta_auto").val(ui.item.id);
                  return false;
              } });
      });
