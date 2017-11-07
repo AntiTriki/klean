@@ -53,6 +53,10 @@ date_default_timezone_set('America/La_Paz');
             appearance: none;
             margin: 0;
         }
+        .ui-autocomplete
+        {
+            z-index: 8000; /
+        }
     </style>
       <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
       <link rel="stylesheet" href="css/bootstrap-select.min.css">
@@ -409,6 +413,7 @@ date_default_timezone_set('America/La_Paz');
                           <label class="control-label" for="cuenta_cod">Cuenta:</label>
                           <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
                           <div class="help-block with-errors"></div>
+                          <label id="selectID"></label>
                       </div>
 
                       <div class="form-group">
@@ -902,46 +907,87 @@ f=f+1;
 
          });
      </script>
+
+ <!-- Autocomplete Multiple Values from Different Cources -->
+<!-- <script>-->
+<!--     $(function() {-->
+<!--         function split( val ) {-->
+<!--             return val.split( /,\s*/ );-->
+<!--         }-->
+<!--         function extractLast( term ) {-->
+<!--             return split( term ).pop();-->
+<!--         }-->
+<!---->
+<!--         $( "#cuenta_cod" ).bind( "keydown", function( event ) {-->
+<!--             if ( event.keyCode === $.ui.keyCode.TAB &&-->
+<!--                 $( this ).autocomplete( "instance" ).menu.active ) {-->
+<!--                 event.preventDefault();-->
+<!--             }-->
+<!--         })-->
+<!--             .autocomplete({-->
+<!--                 minLength: 1,-->
+<!--                 source: function( request, response ) {-->
+<!--                     var terms = split( request.term );-->
+<!--                     if (terms.length < 2) {-->
+<!--                         $.getJSON("text_cuenta.php", { term : extractLast( request.term )},response);-->
+<!--                     }else{-->
+<!--                         $.getJSON("cod_cuenta.php", { term : extractLast( request.term )},response);-->
+<!--                     }-->
+<!--                 },-->
+<!--                 focus: function() {-->
+<!--                     // prevent value inserted on focus-->
+<!--                     return false;-->
+<!--                 },-->
+<!--                 select: function( event, ui ) {-->
+<!--                     var terms = split( this.value );-->
+<!--                     // remove the current input-->
+<!--                     terms.pop();-->
+<!--                     // add the selected item-->
+<!--                     terms.push( ui.item.value );-->
+<!--                     // add placeholder to get the comma-and-space at the end-->
+<!--                     terms.push( "" );-->
+<!--                     this.value = terms.join( ", " );-->
+<!--                     return false;-->
+<!--                 }-->
+<!--             });-->
+<!--     });-->
+<!-- </script>-->
+
+ <?php
+ $dbHost = 'localhost';
+ $dbUsername = 'root';
+ $dbPassword = '';
+ $dbName = 'n';
+
+ //connect with the database
+ $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
+
+ //get search term
+
+
+ //get matched data from skills table
+ $query = $db->query("SELECT * FROM cuenta  ");
+ $data = array();
+ while ($row = $query->fetch_assoc()) {
+
+     array_push($data, array('label'=> $row['codigo']." - ".$row['text'], 'value' => $row['codigo']." - ".$row['text'], 'id'=>$row['id']));
+ }
+ ?>
  <script>
+
      $(function() {
-         function split( val ) {
-             return val.split( /,\s*/ );
-         }
-         function extractLast( term ) {
-             return split( term ).pop();
-         }
+         var req =  <?php echo json_encode($data); ?>;
+         $('#cuenta_cod').autocomplete({
+             source: req,
+             change: function (event, ui) {
 
-         $( "#cuenta_cod" ).bind( "keydown", function( event ) {
-             if ( event.keyCode === $.ui.keyCode.TAB &&
-                 $( this ).autocomplete( "instance" ).menu.active ) {
-                 event.preventDefault();
-             }
-         })
-             .autocomplete({
-                 minLength: 1,
-                 source: function( request, response ) {
-                     // delegate back to autocomplete, but extract the last term
-                     $.getJSON("cod_cuenta.php", { term : extractLast( request.term )},response);
-                 },
-                 focus: function() {
-                     // prevent value inserted on focus
-                     return false;
-                 },
-                 select: function( event, ui ) {
-                     var terms = split( this.value );
-                     // remove the current input
-                     terms.pop();
-                     // add the selected item
-                     terms.push( ui.item.value );
-                     // add placeholder to get the comma-and-space at the end
-                     terms.push( "" );
-                     this.value = terms.join( ", " );
-                     return false;
-                 }
-             });
+
+                 $("#selectID").html(ui.item.id);
+                 return false;
+             } });
      });
- </script>
 
+ </script>
 
  <script> //date picker js
      $(document).ready(function() {
