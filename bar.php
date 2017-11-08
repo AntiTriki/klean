@@ -181,6 +181,10 @@ if (isset($_SESSION['name'])){
             <a href="ambiente.php" >Gestiones</a>
         </li> <li>
             <a href="comprobante.php" >Comprobante</a>
+        </li><li>
+            <a href="categoria.php" >Categoria</a>
+        </li><li>
+            <a href="articulos.php" >Articulo</a>
         </li>
         <li>
             <a href="../reportico" >Reporte</a>
