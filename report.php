@@ -4,7 +4,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 use Jaspersoft\Client\Client;
  
 $c = new Client(
-				"http://localhost:8080/jasperserver-pro",
+				"http://localhost:8080/jasperserver/login.html",
 				"jasperadmin",
 				"jasperadmin",
 				"organization_1"
