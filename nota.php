@@ -88,9 +88,7 @@ date_default_timezone_set('America/La_Paz');
     <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
          <button type="button" class="btn btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
          <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-         <button type="button" id="nuevo_com" class="btn btn-success pull-right" style="margin-right: 220px;height: 30px" >Crear</button>
      </div>
-
      <div style="position: relative;" class="borde">
      <form id="static" class="" role="form" method="post" action="productoregister.php" enctype="multipart/form-data">
          <div class="container">
@@ -656,7 +654,7 @@ i_detalle++;
              var tipo_cambio = $("#crea_com").find("input[id='tipo_cambio']").val();
              var moneda = $("#crea_com").find("input[id='moneda']").val();
              var estado = $("#crea_com").find("input[id='estado']").val();
-//donde carajo le meto el for each para cada fila
+
 
              var title = $("#create-item").find("input[name='title']").val();
              var description = $("#create-item").find("textarea[name='description']").val();

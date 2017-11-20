@@ -1,6 +1,8 @@
 <?php
 include_once('bar.php');
-
+if(isset($_SESSION['id_lot'])) {
+    unset($_SESSION['id_lot']);
+}
 ?>
 <html>
   <head>
@@ -34,6 +36,9 @@ include_once('bar.php');
       <link rel="stylesheet" href="themes\metro\blue\jtable.min.css">
 <!--	<link href="Scripts/jtable/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />-->
       <style media="screen">
+          .ui-dialog, .ui-corner-all, .ui-widget ,.ui-widget-content, .ui-front ,.ui-dialog-buttons, .ui-draggable, .ui-resizable{
+              z-index: 1055;
+          }
           .profile-img{
               margin-top: -8px;
               margin-right: 5px;
@@ -110,6 +115,8 @@ include_once('bar.php');
   <body>
 
   <div class="container" style="padding-top: 100px">
+      <!-- Trigger the modal with a button -->
+
       <div id="Productos" style="width: 60%;margin:auto"></div>
   </div>
   <!-- <script>
@@ -137,7 +144,7 @@ include_once('bar.php');
 						key: true,
 						create: false,
 						edit: false,
-						list: true
+						list: false
 					},
             nombre: {
                 title: 'Nombre',
@@ -161,6 +168,16 @@ include_once('bar.php');
                         create: true,
                         edit: true,
                         list: true
+                    },
+                    ShowDetailColumn: {
+                        title: 'Lotes',
+                        create: false,
+                        edit: false,
+                        list: true,
+                        display: function (data) {
+                            return '<a href="lotes.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
+                        },
+                        width: '2%'
                     },
 
         },
