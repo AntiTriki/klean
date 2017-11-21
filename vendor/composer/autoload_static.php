@@ -13,6 +13,10 @@ class ComposerStaticInit86177e0c6d7d9cfe71c818786fe758f1
             array (
                 0 => __DIR__ . '/..' . '/jaspersoft/rest-client/src',
             ),
+            'JasperPHP' => 
+            array (
+                0 => __DIR__ . '/..' . '/cossou/jasperphp/src',
+            ),
         ),
     );
 

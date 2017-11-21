@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Jaspersoft' => array($vendorDir . '/jaspersoft/rest-client/src'),
+    'JasperPHP' => array($vendorDir . '/cossou/jasperphp/src'),
 );

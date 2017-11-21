@@ -310,10 +310,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 </div>
 
             </div>
-
-
             <!-- /.row this actually does not appear to be needed with the form-horizontal -->
-
         </form>
     </div>
 
@@ -329,29 +326,18 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
 </div>
 <!-- /.container -->
-
-
-
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
-
-
-
         $("#nivel").change(function () {
             $("#nivel option:selected").each(function () {
                var id = $(this).val();
                 $.post("ajax_padre.php", { id: id }, function(data){
                     $("#id_tipocuenta").html(data).selectpicker('refresh');
-
-
                 });
             });
         });
         $('#guardar').click(function(){
-
-
-
             $.ajax({
                 type: 'post',
                 url: 'cuentaabm.php',
@@ -367,12 +353,8 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                         alertify.error(data);
                         }
                     }
-
             });
-
         });
-
-
         $('#tree-container').jstree({
             'core' : {
                 'data' : {
