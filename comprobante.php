@@ -658,13 +658,7 @@ while ($row = $query->fetch_assoc()) {
         e.preventDefault();
         var datastring = $("#static").serialize();
         var form_action = $("#crea_com").find("form").attr("action");
-        var serie = $("#crea_com").find("input[id='serie']").val();
-        var fecha = $("#crea_com").find("input[id='fecha']").val();
-        var glosa = $("#crea_com").find("input[id='glosa']").val();
-        var tipo_comprobante = $("#crea_com").find("input[id='tipo_comprobante']").val();
-        var tipo_cambio = $("#crea_com").find("input[id='tipo_cambio']").val();
-        var moneda = $("#crea_com").find("input[id='moneda']").val();
-        var estado = $("#crea_com").find("input[id='estado']").val();
+
 //donde carajo le meto el for each para cada fila
 
 
@@ -690,7 +684,7 @@ while ($row = $query->fetch_assoc()) {
 
 
             getPageData();
-            $(".modal").modal('hide');
+            upResult()
 
         });
 
