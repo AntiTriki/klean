@@ -460,6 +460,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
         });
 
     });
+    $('#tree-container').on("select_node.jstree", function (e, data) { alert("node_id: " + data.node.id); });
 </script>
 <script type="text/javascript" src="js/alertify.min.js"></script>
 </html>
