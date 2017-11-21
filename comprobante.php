@@ -90,7 +90,7 @@ while ($row = $query->fetch_assoc()) {
                 <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
                 <button type="button" class="btn btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                 <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <button type="button" id="nuevo_com" class="btn btn-success pull-right" style="margin-right: 220px;height: 30px" >Crear</button>
+                <button type="button" id="crea" class="btn btn-success pull-right" style="margin-right: 220px;height: 30px" >Crear</button>
             </div>
 
             <div style="position: relative;" class="borde">
@@ -433,17 +433,17 @@ while ($row = $query->fetch_assoc()) {
 
                             <div class="form-group">
                                 <label class="control-label" for="glosa_detalle">Glosa:</label>
-                                <input type="text" name="glosa_detalle" id="glosa_detalle" class="form-control" ></input>
+                                <input type="text" name="glosa_detalle" id="glosa_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="debe_detalle">Debe:</label>
-                                <input type="number" name="debe_detalle" onchange="dis1()" id="debe_detalle" class="form-control" ></input>
+                                <input type="number" name="debe_detalle"  id="debe_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="haber_detalle">Haber:</label>
-                                <input type="number" name="haber_detalle" onchange="dis2()" id="haber_detalle" class="form-control" ></input>
+                                <input type="number" name="haber_detalle"  id="haber_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                                 <input type="hidden" name="conteo" id="conteo">
                             </div>
@@ -541,7 +541,7 @@ while ($row = $query->fetch_assoc()) {
                 disable();
             }
         );
-        $(".crea").click(function(e){
+        $("#crea").click(function(e){
             agregar();
         });
     });
@@ -633,7 +633,7 @@ while ($row = $query->fetch_assoc()) {
 
         $("#static").find("input[id='fecha']").prop('disabled', false);
         $("#static").find("input[id='glosa']").prop('disabled', false);
-        $(tbody).empty();
+        $('tbody').empty();
 
         $.ajax({
             dataType: 'json',
@@ -655,7 +655,7 @@ while ($row = $query->fetch_assoc()) {
 
     };
     function agregar(){
-        e.preventDefault();
+
         var datastring = $("#static").serialize();
         var form_action = $("#crea_com").find("form").attr("action");
 
