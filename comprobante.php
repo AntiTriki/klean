@@ -112,19 +112,20 @@ while ($row = $query->fetch_assoc()) {
                     <div class="col-sm-2 col-lg-2">
                         <div class="form-group">
                             <label for="serie">Serie:</label>
-                            <input disabled type="text" class="form-control" id="serie">
+                            <input  disabled type="text" class="form-control" id="serie">
+                            <input name="serie" type="hidden" class="form-control" id="serie">
                         </div>
                     </div>
                     <div id="div_tipoin" class="col-sm-2 col-lg-6">
                         <div class="form-group">
                             <label for="tipo_comprobante">Tipo de Comprobante:</label>
-                            <input disabled type="text" class="form-control" id="tipo_comprobante" name="">
+                            <input  disabled type="text" class="form-control" id="tipo_comprobante" >
                         </div>
                     </div>
                     <div id="div_tipose" class="col-sm-2 col-lg-6">
                         <div class="form-group">
                             <label for="tipo_compro">Tipo de Comprobante:</label>
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_compro" id="tipo_compro" placeholder="Tipo Comprobante">
+                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo" id="tipo_compro" placeholder="Tipo Comprobante">
 
                                 <?php
 
@@ -148,7 +149,7 @@ while ($row = $query->fetch_assoc()) {
                     <div class="col-sm-2 col-lg-4">
                         <div class="form-group">
                             <label for="fecha">Fecha:</label>
-                            <input disabled type="text" class="form-control datepicker" id="fecha">
+                            <input name="fecha" disabled type="text" class="form-control datepicker" id="fecha">
                         </div>
                     </div>
                 </div>
@@ -156,7 +157,7 @@ while ($row = $query->fetch_assoc()) {
                     <div class="col-sm-2 col-lg-12">
                         <div class="form-group">
                             <label for="glosa">Glosa:</label>
-                            <input disabled type="text" class="form-control" id="glosa">
+                            <input name="glosa" disabled type="text" class="form-control" id="glosa">
                         </div>
                     </div>
 
@@ -173,7 +174,7 @@ while ($row = $query->fetch_assoc()) {
                         <div class="form-group">
                             <label for="tipo_cam">Tipo de Cambio:</label>
 
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_cam" id="tipo_cam" placeholder="Csmbio">
+                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_cambio" id="tipo_cam" placeholder="Csmbio">
 
                                 <?php
 
@@ -204,7 +205,7 @@ while ($row = $query->fetch_assoc()) {
                         <div class="form-group">
                             <label for="mone">Moneda:</label>
 
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="mone" id="mone" placeholder="Moneda">
+                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="moneda" id="mone" placeholder="Moneda">
 
                                 <?php
 
@@ -235,7 +236,7 @@ while ($row = $query->fetch_assoc()) {
                         <div class="form-group">
                             <label for="esta">Estado:</label>
 
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="esta" id="esta" placeholder="Estado">
+                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="estado" id="esta" placeholder="Estado">
 
                                 <?php
 
@@ -491,6 +492,7 @@ while ($row = $query->fetch_assoc()) {
 
         //$("tbody").html(rows);
         $('table tbody').append(rows);
+        $('#conteo').val(i_detalle);
         i_detalle++;
         $('#add_det').modal('hide');
         $('#cuenta_cod').val('');
@@ -498,7 +500,7 @@ while ($row = $query->fetch_assoc()) {
         $('#debe_detalle').val('');
         $('#haber_detalle').val('');
         $('#id_cuenta_auto').val('');
-        $('#conteo').val(i_detalle);
+
 
 
     });
@@ -541,7 +543,7 @@ while ($row = $query->fetch_assoc()) {
                 disable();
             }
         );
-        $("#crea").click(function(e){
+        $("#crea").click(function(){
             agregar();
         });
     });
@@ -657,7 +659,7 @@ while ($row = $query->fetch_assoc()) {
     function agregar(){
 
         var datastring = $("#static").serialize();
-        var form_action = $("#crea_com").find("form").attr("action");
+        var form_action = $("#static").attr("action");
 
 //donde carajo le meto el for each para cada fila
 
@@ -685,6 +687,8 @@ while ($row = $query->fetch_assoc()) {
 
             getPageData();
             upResult()
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error(data);
 
         });
 
