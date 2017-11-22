@@ -687,8 +687,8 @@ while ($row = $query->fetch_assoc()) {
 
 
             upResult();
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.success('Datos ingresados Correctamente');
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success('Datos ingresados Correctamente');
 
         });
 
