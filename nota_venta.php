@@ -28,11 +28,11 @@ $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 
 
 //get matched data from skills table
-$query = $db->query("SELECT * FROM cuenta  ");
+$query = $db->query("SELECT * FROM articulo  ");
 $data = array();
 while ($row = $query->fetch_assoc()) {
 
-    array_push($data, array('label'=> $row['codigo']." - ".$row['text'], 'value' => $row['codigo']." - ".$row['text'], 'id'=>$row['id']));
+    array_push($data, array('label'=> $row['nombre'], 'value' => $row['nombre'], 'id'=>$row['id']));
 }
 
 ?>
@@ -111,32 +111,32 @@ while ($row = $query->fetch_assoc()) {
                 <div class="row">
                     <div class="col-sm-2 col-lg-2">
                         <div class="form-group">
-                            <label for="serie">Serie:</label>
+                            <label for="serie">Nro:</label>
                             <input  disabled type="text" class="form-control" id="serie">
                             <input name="serie" type="hidden" class="form-control" id="serie">
                         </div>
                     </div>
                     <div id="div_tipoin" class="col-sm-2 col-lg-6">
                         <div class="form-group">
-                            <label for="tipo_comprobante">Tipo de Comprobante:</label>
+                            <label for="tipo_comprobante">Comprobante:</label>
                             <input  disabled type="text" class="form-control" id="tipo_comprobante" >
                         </div>
                     </div>
                     <div id="div_tipose" class="col-sm-2 col-lg-6">
                         <div class="form-group">
-                            <label for="tipo_compro">Tipo de Comprobante:</label>
+                            <label for="tipo_compro">Comprobante:</label>
                             <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo" id="tipo_compro" placeholder="Tipo Comprobante">
 
                                 <?php
 
                                 $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                                 $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from concepto where id >=6 and id <= 10");
+                                $result = $cxn->query("SELECT * from comprobante where id_empresa=".$_SESSION['id_emp']);
                                 while($row = $result->fetch_assoc())
 
 
 
-                                    echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
+                                    echo '<option value="'.$row['id'].'">'.$row['glosa'].'</option>';
 
 
                                 $cxn->close();
@@ -148,122 +148,15 @@ while ($row = $query->fetch_assoc()) {
                     </div>
                     <div class="col-sm-2 col-lg-4">
                         <div class="form-group">
-                            <label for="fecha">Fecha:</label>
-                            <input name="fecha" disabled type="text" class="form-control datepicker" id="fecha">
+                            <label for="fecha">Descripcion:</label>
+                            <input name="fecha" disabled type="text" class="form-control " id="fecha">
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2 col-lg-12">
-                        <div class="form-group">
-                            <label for="glosa">Glosa:</label>
-                            <input name="glosa" disabled type="text" class="form-control" id="glosa">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-
-                    <div id="div_cambioin" class="col-sm-2 col-lg-3">
-                        <div class="form-group">
-                            <label for="tipo_cambio">Tipo de Cambio:</label>
-                            <input disabled type="text" class="form-control" id="tipo_cambio">
-                        </div>
-                    </div>
-                    <div id="div_cambiose" class="col-sm-2 col-lg-3">
-                        <div class="form-group">
-                            <label for="tipo_cam">Tipo de Cambio:</label>
-
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_cambio" id="tipo_cam" placeholder="Csmbio">
-
-                                <?php
-
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from tipo_cambio where activo=1");
-                                while($row = $result->fetch_assoc())
 
 
-
-                                    echo '<option value="'.$row['id'].'">'.$row['cambio'].'</option>';
-
-
-                                $cxn->close();
-
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
-                    <div id="div_monedain" class="col-sm-2 col-lg-5">
-                        <div class="form-group">
-                            <label for="moneda">Moneda:</label>
-                            <input disabled type="text" class="form-control" id="moneda">
-                        </div>
-                    </div>
-                    <div id="div_monedase" class="col-sm-2 col-lg-5">
-                        <div class="form-group">
-                            <label for="mone">Moneda:</label>
-
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="moneda" id="mone" placeholder="Moneda">
-
-                                <?php
-
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from concepto where id >=1 and id <= 2");
-                                while($row = $result->fetch_assoc())
-
-
-
-                                    echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
-
-
-                                $cxn->close();
-
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
-                    <div id="div_estadoin" class="col-sm-2 col-lg-4">
-                        <div class="form-group">
-                            <label for="estado">Estado:</label>
-                            <input disabled type="text" class="form-control" id="estado">
-                        </div>
-                    </div>
-                    <div id="div_estadose" class="col-sm-2 col-lg-4">
-                        <div class="form-group">
-                            <label for="esta">Estado:</label>
-
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="estado" id="esta" placeholder="Estado">
-
-                                <?php
-
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from concepto where id >=3 and id <= 5");
-                                while($row = $result->fetch_assoc())
-
-
-
-                                    echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
-
-
-                                $cxn->close();
-
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
 
                 <!-- /.row this actually does not appear to be needed with the form-horizontal -->
-
-
-
                 <div class="row">
                     <div class='wrapper text-center'>
                         <div class="btn-group btn-group-lg" role="group" aria-label="...">
@@ -294,6 +187,9 @@ while ($row = $query->fetch_assoc()) {
                     </div>
 
                 </div>
+
+
+
             </div>
             <div class="btn-group-horizontal" style="position: relative;">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_det"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
@@ -311,10 +207,10 @@ while ($row = $query->fetch_assoc()) {
                         <thead>
                         <tr>
 
-                            <th>Cuenta</th>
-                            <th width="250px">Glosa</th>
-                            <th width="70px">Debe</th>
-                            <th width="70px">Haber</th>
+                            <th>Articulo</th>
+                            <th width="250px">Fecha Vencimiento</th>
+                            <th width="70px">Cantidad</th>
+                            <th width="70px">Precio Compra</th>
                             <th width="70px">Eliminar</th>
                         </tr>
                         </thead>
@@ -417,14 +313,14 @@ while ($row = $query->fetch_assoc()) {
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Detalle Cuenta</h4>
+                        <h4 class="modal-title" id="myModalLabel">Detalle Articulo</h4>
                     </div>
 
                     <div class="modal-body">
                         <div data-toggle="validator" >
 
                             <div class="form-group">
-                                <label class="control-label" for="cuenta_cod">Cuenta:</label>
+                                <label class="control-label" for="cuenta_cod">Articulo:</label>
                                 <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
                                 <div class="help-block with-errors"></div>
                                 <input type="hidden" name="id_cuenta_auto" id="id_cuenta_auto"></input>
@@ -433,17 +329,17 @@ while ($row = $query->fetch_assoc()) {
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label" for="glosa_detalle">Glosa:</label>
+                                <label class="control-label" for="glosa_detalle">Cantidad:</label>
                                 <input type="text" name="glosa_detalle" id="glosa_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="debe_detalle">Debe:</label>
+                                <label class="control-label" for="debe_detalle">Precio Compra:</label>
                                 <input type="number" name="debe_detalle"  id="debe_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="haber_detalle">Haber:</label>
+                                <label class="control-label" for="haber_detalle">Fecha Vencimiento:</label>
                                 <input type="number" name="haber_detalle"  id="haber_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                                 <input type="hidden" name="conteo" id="conteo">
