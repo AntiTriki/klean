@@ -75,6 +75,17 @@ while ($row = $query->fetch_assoc()) {
         {
             z-index: 8000; /
         }
+        #footer {
+            position:absolute;
+            left:0px;
+            bottom:0px;
+            height:30px;
+            width:100%;
+            background:#999;
+        }
+
+        /* IE 6 */
+
     </style>
     <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="css/bootstrap-select.min.css">
@@ -299,10 +310,10 @@ while ($row = $query->fetch_assoc()) {
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_det"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
 
             </div>
-            <div style="position: relative;" class="borde">
+            <div style="position: relative; " class="borde">
 
 
-                <div class="row">
+                <div class="row" style="position: relative; height:40%;overflow: auto;" >
                     <div class='wrapper text-center'>
 
                     </div>
@@ -319,13 +330,21 @@ while ($row = $query->fetch_assoc()) {
                         </tr>
                         </thead>
                         <tbody>
+
                         </tbody>
                     </table>
-
-                    <ul id="pagination" class="pagination-sm"></ul>
                 </div>
+                    <div id ="footer">
+                        <div style="margin-left: 580px">
+                            TOTAL:
+                        <input id="debtotal" style="width: 70px"  class ="" type="text"><input style="width: 70px"  class ="" id="habtotal" type="text">
 
-            </div>
+                        </div>
+                        </div>
+                    <ul id="pagination" class="pagination-sm"></ul>
+
+
+
 
         </div>
         <!--  <div class="modal fade" id="crea_com" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
@@ -346,7 +365,7 @@ while ($row = $query->fetch_assoc()) {
         <!--                          <div class="col-md-8">-->
         <!--                          <input type="text" class="form-control" id="input6" placeholder="input 6">-->
         <!--                        </div>-->
-        <!--                      </div> -->-->
+        <!--                      </div> -->
         <!---->
         <!--                              </div>-->
         <!--                          </div>-->
@@ -403,7 +422,7 @@ while ($row = $query->fetch_assoc()) {
         <!---->
         <!--                      </div>-->
         <!---->
-        <!--                      <!-- /.row this actually does not appear to be needed with the form-horizontal -->-->
+        <!--                      <!-- /.row this actually does not appear to be needed with the form-horizontal -->
         <!--                      <button type="submit" class="btn crud-submit btn-success crea">Agregar</button>-->
         <!--                  </form>-->
         <!---->
