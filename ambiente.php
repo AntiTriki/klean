@@ -33,6 +33,8 @@ $link->set_charset("utf8");
 $result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
 $row2 = mysqli_fetch_array($result_user);
 $_SESSION['nombreemp']=$row2['sigla'];
+$_SESSION['nivelemp']=$row2['nivel'];
+
 ?>
 <!DOCTYPE html>
 <html>

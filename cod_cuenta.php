@@ -19,7 +19,7 @@ $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 $searchTerm = $_GET['term'];
 
 //get matched data from skills table
-$query = $db->query("SELECT * FROM cuenta WHERE codigo LIKE '%".$searchTerm."%' ");
+$query = $db->query("SELECT * FROM cuenta WHERE nivel =".$_SESSION['nivelemp']." and id_empresa=".$_SESSION['id_emp']." and codigo LIKE '%".$searchTerm."%' ");
 while ($row = $query->fetch_assoc()) {
     $data[] = $row['codigo'].$row['text'];
 }

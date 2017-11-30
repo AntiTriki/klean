@@ -310,7 +310,7 @@ while ($row = $query->fetch_assoc()) {
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_det"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
 
             </div>
-            <div style="position: relative; " class="borde">
+            <div style="position: relative;   " class="borde">
 
 
                 <div class="row" style="position: relative; height:40%;overflow: auto;" >
@@ -326,7 +326,7 @@ while ($row = $query->fetch_assoc()) {
                             <th width="250px">Glosa</th>
                             <th width="70px">Debe</th>
                             <th width="70px">Haber</th>
-                            <th width="70px">Eliminar</th>
+                            <th width="90px">Eliminar</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -335,7 +335,7 @@ while ($row = $query->fetch_assoc()) {
                     </table>
                 </div>
                     <div id ="footer">
-                        <div style="margin-left: 580px">
+                        <div style="margin-left: 560px">
                             TOTAL:
                         <input id="debtotal" style="width: 70px"  class ="" type="text"><input style="width: 70px"  class ="" id="habtotal" type="text">
 
@@ -494,13 +494,20 @@ while ($row = $query->fetch_assoc()) {
         var id_detallecuenta = $('#id_cuenta_auto').val();
 
         var	rows = '';
+        if(document.getElementById('debe_detalle').disabled){
+            debe = 0.00;
 
+        }
+        if(document.getElementById('haber_detalle').disabled){
+            haber = 0.00;
+
+        }
         rows = rows + '<tr id="'+i_detalle+'">';
         rows = rows + '<td>'+codigo+'</td>';
 
         rows = rows + '<td><input type="hidden" id="glosa'+i_detalle+'" name="glosa'+i_detalle+'" value="'+glosa+'">'+glosa+'</input></td>';
-        rows = rows + '<td><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
-        rows = rows + '<td><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
+        rows = rows + '<td class= "col'+i_detalle+'"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
+        rows = rows + '<td class= "col'+i_detalle+'"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
 
         rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
 
@@ -1010,12 +1017,19 @@ while ($row = $query->fetch_assoc()) {
         });
     });
     //input puede que funciones
-    $('#sPriceRewards').on('input', function() {
+    $('#debe_detalle').on('input', function() {
 
         if($(this).val().length)
-            $('.inputReward').prop('disabled', true);
+            $('#haber_detalle').prop('disabled', true);
         else
-            $('.inputReward').prop('disabled', false);
+            $('#haber_detalle').prop('disabled', false);
+    });
+    $('#haber_detalle').on('input', function() {
+
+        if($(this).val().length)
+            $('#debe_detalle').prop('disabled', true);
+        else
+            $('#debe_detalle').prop('disabled', false);
     });
 </script>
 <script type="text/javascript" src="js/alertify.min.js"></script>
