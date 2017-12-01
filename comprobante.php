@@ -1,7 +1,8 @@
 <?php
+session_name('nilds');
+session_start();
+include_once('bars.php');
 include_once('conexion.php');
-include_once('bar.php');
-
 //El numero del comprobante debe ser correlatido por Empresa
 //Cuando se crea el estado es Abierto
 //Posibles Estados : "Abierto", "Cerrado" y "Anulado"
@@ -25,10 +26,13 @@ $dbName = 'n';
 $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 
 //get search term
-
+echo $_SESSION['nivel'];
+echo '<br>';
+echo $_SESSION['id_emp'];
 
 //get matched data from skills table
-$query = $db->query("SELECT * FROM cuenta  ");
+$query = $db->query("SELECT * FROM cuenta where nivel=".$_SESSION['nivel']." and id_empresa=".$_SESSION['id_emp']." ");
+
 $data = array();
 while ($row = $query->fetch_assoc()) {
 
@@ -253,7 +257,7 @@ while ($row = $query->fetch_assoc()) {
 
                                 $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                                 $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from concepto where id >=3 and id <= 5");
+                                $result = $cxn->query("SELECT * from concepto where id >=3 and id <= 5 order by descripcion");
                                 while($row = $result->fetch_assoc())
 
 
@@ -318,7 +322,7 @@ while ($row = $query->fetch_assoc()) {
 
                     </div>
 
-                    <table class="table table-bordered">
+                    <table id="tabla" class="table table-bordered">
                         <thead>
                         <tr>
 
@@ -458,12 +462,12 @@ while ($row = $query->fetch_assoc()) {
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="debe_detalle">Debe:</label>
-                                <input type="number" name="debe_detalle"  id="debe_detalle" class="form-control" >
+                                <input type="number" step="0.01" name="debe_detalle"  id="debe_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="haber_detalle">Haber:</label>
-                                <input type="number" name="haber_detalle"  id="haber_detalle" class="form-control" >
+                                <input type="number" step="0.01" name="haber_detalle"  id="haber_detalle" class="form-control" >
                                 <div class="help-block with-errors"></div>
                                 <input type="hidden" name="conteo" id="conteo">
                             </div>
@@ -485,7 +489,17 @@ while ($row = $query->fetch_assoc()) {
     </form>
 </div>
 <script language="javascript">
+    var array_auto =  <?php echo json_encode($data); ?>;
     var i_detalle = 1;
+    Array.prototype.removeValue = function(id, value){
+        var array = $.map(this, function(v,i){
+            return v[id] === value ? null : v;
+        });
+        this.length = 0; //clear original array
+        this.push.apply(this, array); //push all elements except the one we want to delete
+    }
+
+
     $('#addToTable').click(function() {
         var codigo = $('#cuenta_cod').val();
         var glosa = $('#glosa_detalle').val();
@@ -502,16 +516,17 @@ while ($row = $query->fetch_assoc()) {
             haber = 0.00;
 
         }
+        array_auto.removeValue('id', id_detallecuenta);
         rows = rows + '<tr id="'+i_detalle+'">';
         rows = rows + '<td>'+codigo+'</td>';
 
         rows = rows + '<td><input type="hidden" id="glosa'+i_detalle+'" name="glosa'+i_detalle+'" value="'+glosa+'">'+glosa+'</input></td>';
-        rows = rows + '<td class= "col'+i_detalle+'"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
-        rows = rows + '<td class= "col'+i_detalle+'"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
+        rows = rows + '<td class= "cold"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
+        rows = rows + '<td class= "colh"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
 
         rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
 
-        rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+        rows = rows + '<button onclick="deleteRow(this)" class="btn btn-danger ">Delete</button>';
         rows = rows + '</td>';
         rows = rows + '</tr>';
 
@@ -525,12 +540,59 @@ while ($row = $query->fetch_assoc()) {
         $('#glosa_detalle').val('');
         $('#debe_detalle').val('');
         $('#haber_detalle').val('');
+        $('#debe_detalle').prop('disabled', false);;
+        $('#haber_detalle').prop('disabled', false);;
         $('#id_cuenta_auto').val('');
+        suma();
 
 
 
     });
-    var array_auto =  <?php echo json_encode($data); ?>;
+    function deleteRow(btn) {
+        var row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        suma();
+    }
+    var getSum = function () {
+        var sum = 0;
+        var selector = '.cold' ;
+
+        $('#tabla').find(selector).each(function (index, element) {
+            sum += parseFloat($(element).text());
+
+        });
+
+        return Math.round(sum * 1e2) / 1e2  ;
+
+    };
+    var getSuma = function () {
+        var suma = 0;
+        var selector = '.colh' ;
+
+        $('#tabla').find(selector).each(function (index, element) {
+            suma += parseFloat($(element).text());
+
+        });
+
+        return Math.round(suma * 1e2) / 1e2  ;
+
+    };
+    function suma(){
+
+
+        $('#debtotal').each(function (index, element) {
+            $(this).val(getSum());
+
+        });
+        $('#habtotal').each(function (index, element) {
+            $(this).val(getSuma());
+
+        });
+
+
+    }
+
+
     $(document).ready(function () {
 
         capturar_com();
@@ -911,7 +973,7 @@ while ($row = $query->fetch_assoc()) {
 
             rows = rows + '<td data-id="'+value.id+'">';
 
-            rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+            rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
@@ -931,7 +993,7 @@ while ($row = $query->fetch_assoc()) {
 
             rows = rows + '<td data-id="'+value.id+'">';
 
-            rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+            rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
@@ -950,7 +1012,7 @@ while ($row = $query->fetch_assoc()) {
 
             rows = rows + '<td data-id="'+value.id+'">';
 
-            rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+            rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
@@ -970,7 +1032,7 @@ while ($row = $query->fetch_assoc()) {
 
             rows = rows + '<td data-id="'+value.id+'">';
 
-            rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+            rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
@@ -978,22 +1040,7 @@ while ($row = $query->fetch_assoc()) {
         $("tbody").html(rows);
 
     }
-    $("body").on("click",".remove-item",function(){
-        var id = $(this).parent("td").data('id');
-        var c_obj = $(this).parents("tr");
 
-        $.ajax({
-            dataType: 'json',
-            type:'POST',
-            url:  'api/delete.php',
-            data:{id:id}
-        }).done(function(data){
-            c_obj.remove();
-            toastr.success('Item Deleted Successfully.', 'Success Alert', {timeOut: 5000});
-            getPageData();
-        });
-
-    });
     $(function() {
 
         $('#cuenta_cod').autocomplete({

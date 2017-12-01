@@ -1,4 +1,7 @@
 <?php
+session_name('nilds');
+session_start();
+
 include_once('conexion.php');
 $id_emp=$_GET['id'];
 $_SESSION['nivel_empresa'] =$_GET['nivel'];
@@ -31,8 +34,9 @@ $link->set_charset("utf8");
 $result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
 $row2 = mysqli_fetch_array($result_user);
 $_SESSION['nombreemp']=$row2['sigla'];
-include_once('bar.php');
+include_once('bars.php');
 $_SESSION['id_emp']=$id_emp;
+$_SESSION['nombreemp']=$row2['sigla'];
 $_SESSION['nivel']=$row2['nivel'];
 echo $_SESSION['nivel'];
 date_default_timezone_set('America/La_Paz');
