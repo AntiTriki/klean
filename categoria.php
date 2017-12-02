@@ -331,6 +331,11 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Guardado');
                         $('#tree-container'). jstree("refresh");
+                        $("#id_padre").val('');
+                        $("#text").val('');
+                        $("#descripcion").val('');
+                        $("#id_tipocategoria").val('');
+
                     }else {
 
                         alertify.set('notifier', 'position', 'top-right');
