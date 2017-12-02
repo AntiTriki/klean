@@ -263,7 +263,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 <div class="col-sm-2 col-lg-6">
                     <div class="form-group">
                         <label for="descripcion">Descripcion:</label>
-                        <input  type="descripcion" class="form-control" id="descripcion" name="descripcion">
+                        <input  type="descripcion" class="form-control" id="descripcion" name="text">
                     </div>
                 </div>
             </div>
@@ -271,9 +271,8 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 <div class="col-sm-2 col-lg-12">
                     <div class="form-group">
                         <label for="id_tipocuenta">Categoria Padre:</label>
-                        <input title="Fije Categoria Padre" class="form-control"  id="id_tipocategoria" name="id_tipocategoria" >
-                        <input type="hidden" id="id_padre" name="id_padre">
-
+                        <input title="Fije Categoria Padre" class="form-control selectpicker show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="id_tipocuenta" name="id_tipocuenta" >
+                        </input>
 
                     </div>
                 </div>
@@ -323,8 +322,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
             $.ajax({
                 type: 'post',
-                url: 'categoriaguardar.php',
-
+                url: 'cuentaabm.php',
                 data: $('form').serialize(),
                 success: function (data) {
                     if(data=='1'){
@@ -430,31 +428,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
         });
 
     });
-
-    $('#tree-container').on("select_node.jstree", function (e, data) {
-
-
-        $.ajax({
-            type: 'post',
-            url: 'categoriaselect.php',
-            data: 'dato='+data.node.id,
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                if(data['result']===1){
-
-                    $("#id_padre").val(data['id']);
-                    $("#id_tipocategoria").val(data['text']);
-
-                }else {
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.error(data);
-
-                }
-            }
-
-        });
-    });
+    $('#text').val($('#tree-container').jstree('get_selected').attr('id'));
 </script>
 <script type="text/javascript" src="js/alertify.min.js"></script>
 </html>

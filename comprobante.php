@@ -26,9 +26,7 @@ $dbName = 'n';
 $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 
 //get search term
-echo $_SESSION['nivel'];
-echo '<br>';
-echo $_SESSION['id_emp'];
+
 
 //get matched data from skills table
 $query = $db->query("SELECT * FROM cuenta where nivel=".$_SESSION['nivel']." and id_empresa=".$_SESSION['id_emp']." ");
