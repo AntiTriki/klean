@@ -5,7 +5,9 @@ try{
 	$con = mysql_connect("localhost","root","");
 	mysql_select_db("n", $con);
 	if($_GET["accion"] == "listar")	{
-		$result = mysql_query("SELECT * FROM articulo where id_empresa=" . $_SESSION["id_emp"] . ";");
+		//$result = mysql_query("SELECT a.id as id, a.nombre as nombre ,c.text as categoria, a.descripcion as descripcion , a.cantidad as cantidad, a.precio_venta as precio_venta FROM articulo a, categoria c where a.id_categoria=c.id and a.id_empresa=".$_SESSION["id_emp"]." ");
+		$result = mysql_query("SELECT * FROM articulo where id_empresa=".$_SESSION["id_emp"]." ");
+
 		$rows = array();
 		while($row = mysql_fetch_array($result)){
 		    $rows[] = $row;
@@ -24,8 +26,8 @@ try{
         if ($row['conteo'] < 1) {
            
 
-                $result = mysql_query("INSERT INTO articulo(descripcion, precio_venta, nombre,cantidad,id_empresa) VALUES(
-'" . $_POST["descripcion"] . "','" . $_POST["precio_venta"] . "','" . $_POST["nombre"] . "'," . $_POST["cantidad"] . "," . $_SESSION["id_emp"] . ")");
+                $result = mysql_query("INSERT INTO articulo(descripcion, precio_venta, nombre,cantidad,id_empresa,id_categoria) VALUES(
+'" . $_POST["descripcion"] . "','" . $_POST["precio_venta"] . "','" . $_POST["nombre"] . "'," . $_POST["cantidad"] . "," . $_SESSION["id_emp"] . "," . $_POST['id_categoria'] . ")");
                 $result = mysql_query("SELECT * FROM articulo WHERE id = LAST_INSERT_ID();");
                 $row = mysql_fetch_array($result);
                 $jTableResult = array();
@@ -42,12 +44,12 @@ try{
             print json_encode($jTableResult);
         }
 	}else if($_GET["accion"] == "actualizar"){
-        $result = mysql_query("SELECT COUNT(*) AS conteo FROM articulo where  nombre='".$_POST["nombre"]."' ;");
+        $result = mysql_query("SELECT COUNT(*) AS conteo FROM articulo where  nombre='".$_POST["nombre"]."' and id <> " . $_POST["id"] . " ;");
         $row = mysql_fetch_array($result);
         if ($row['conteo'] < 1) {
 
 
-                $result = mysql_query("UPDATE articulo SET descripcion='" . $_POST["descripcion"] . "', precio_venta='" . $_POST["precio_venta"] . "', nombre='" . $_POST["nombre"] . "',
+                $result = mysql_query("UPDATE articulo SET descripcion='" . $_POST["descripcion"] . "', precio_venta='" . $_POST["precio_venta"] . "', id_categoria=" . $_POST["id_categoria"] . ", nombre='" . $_POST["nombre"] . "',
 		 cantidad=" . $_POST["cantidad"] . " WHERE id=" . $_POST["id"] . ";");
                 $jTableResult = array();
                 $jTableResult['Result'] = "OK";

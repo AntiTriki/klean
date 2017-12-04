@@ -1,5 +1,7 @@
 <?php
 include_once('bar.php');
+
+
 if(isset($_SESSION['id_lot'])) {
     unset($_SESSION['id_lot']);
 }
@@ -163,6 +165,14 @@ if(isset($_SESSION['id_lot'])) {
                         edit: true,
                         list: true
                     },
+            id_categoria: {
+                title: 'categoria',
+                width: '25%',
+                create: true,
+                edit: true,
+                list: true,
+                options:'categorialist.php'
+            },
             precio_venta: {
                         title: 'Precio',
                         create: true,
