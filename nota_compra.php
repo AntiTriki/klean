@@ -83,7 +83,7 @@ while ($row = $query->fetch_assoc()) {
 </head>
 <body>
 <div id="crea_com">
-    <form id="static" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">
+    <form id="static" class="" role="form" method="post" action="notav_crear.php" enctype="multipart/form-data">
         <div class="container-fluid" style="margin-left: 250px">
 
             <div class="btn-group-horizontal" style="position: relative;">
@@ -116,40 +116,17 @@ while ($row = $query->fetch_assoc()) {
                             <input name="serie" type="hidden" class="form-control" id="serie">
                         </div>
                     </div>
-                    <div id="div_tipoin" class="col-sm-2 col-lg-6">
+                    <div  class="col-sm-2 col-lg-6">
                         <div class="form-group">
-                            <label for="tipo_comprobante">Comprobante:</label>
-                            <input  disabled type="text" class="form-control" id="tipo_comprobante" >
+                            <label for="tipo_comprobante">Descripcion:</label>
+                            <input  disabled type="text" class="form-control" id="glosa" >
                         </div>
                     </div>
-                    <div id="div_tipose" class="col-sm-2 col-lg-6">
-                        <div class="form-group">
-                            <label for="tipo_compro">Comprobante:</label>
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo" id="tipo_compro" placeholder="Tipo Comprobante">
 
-                                <?php
-
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from comprobante where id_empresa=".$_SESSION['id_emp']);
-                                while($row = $result->fetch_assoc())
-
-
-
-                                    echo '<option value="'.$row['id'].'">'.$row['glosa'].'</option>';
-
-
-                                $cxn->close();
-
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-sm-2 col-lg-4">
                         <div class="form-group">
-                            <label for="fecha">Descripcion:</label>
-                            <input name="fecha" disabled type="text" class="form-control " id="fecha">
+                            <label for="fecha">Fecha:</label>
+                            <input name="fecha" disabled type="text" class="form-control datepicker" id="fecha">
                         </div>
                     </div>
                 </div>
@@ -224,90 +201,7 @@ while ($row = $query->fetch_assoc()) {
             </div>
 
         </div>
-        <!--  <div class="modal fade" id="crea_com" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-        <!--      <div class="modal-dialog" role="document">-->
-        <!--          <div class="modal-content">-->
-        <!--              <div class="modal-header">-->
-        <!--                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>-->
-        <!--                  <h4 class="modal-title" id="myModalLabel">Create Item</h4>-->
-        <!--              </div>-->
-        <!---->
-        <!--              <div class="modal-body">-->
-        <!--                  <form id = "compro" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">-->
-        <!--                      <div class="container">-->
-        <!--                          <div class="row row-centered">-->
-        <!--                              <div class="col-sm-3 col-lg-3 col-centered">-->
-        <!--                                  <!-- <div class="form-group">-->
-        <!--                          <label for="input6" class="col-md-4 control-label">123456789012:</label>-->
-        <!--                          <div class="col-md-8">-->
-        <!--                          <input type="text" class="form-control" id="input6" placeholder="input 6">-->
-        <!--                        </div>-->
-        <!--                      </div> -->-->
-        <!---->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!--                      </div>-->
-        <!--                      <div class="row">-->
-        <!--                          <div class="col-sm-2 col-lg-2">-->
-        <!--                              <div class="form-group">-->
-        <!--                                  <label for="serie">Serie:</label>-->
-        <!--                                  <input  type="text" class="form-control" id="serie" name="serie">-->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!--                          <div class="col-sm-2 col-lg-6">-->
-        <!--                              <div class="form-group">-->
-        <!--                                  <label for="tipo_comprobante">Tipo de Comprobante:</label>-->
-        <!--                                  <input  type="text" class="form-control" id="tipo_comprobante" name="tipo_comprobante">-->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!--                          <div class="col-sm-2 col-lg-4">-->
-        <!--                              <div class="form-group">-->
-        <!--                                  <label for="fecha">Fecha:</label>-->
-        <!--                                  <input  type="text" class="form-control " id="fecha" name="fecha">-->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!--                      </div>-->
-        <!--                      <div class="row">-->
-        <!--                          <div class="col-sm-2 col-lg-12">-->
-        <!--                              <div class="form-group">-->
-        <!--                                  <label for="glosa">Glosa:</label>-->
-        <!--                                  <input  type="text" class="form-control" id="glosa" name="glosa">-->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!---->
-        <!--                      </div>-->
-        <!--                      <div class="row">-->
-        <!---->
-        <!--                          <div class="col-sm-2 col-lg-3">-->
-        <!--                              <div class="form-group">-->
-        <!--                                  <label for="tipo_cambio">Tipo de Cambio:</label>-->
-        <!--                                  <input  type="text" class="form-control" id="tipo_cambio" name="tipo_cambio">-->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!--                          <div class="col-sm-2 col-lg-5">-->
-        <!--                              <div class="form-group">-->
-        <!--                                  <label for="moneda">Moneda:</label>-->
-        <!--                                  <input  type="text" class="form-control" id="moneda" name="moneda">-->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!--                          <div class="col-sm-2 col-lg-4">-->
-        <!--                              <div class="form-group">-->
-        <!--                                  <label for="estado">Estado:</label>-->
-        <!--                                  <input  type="text" class="form-control" id="estado" name="estado">-->
-        <!--                              </div>-->
-        <!--                          </div>-->
-        <!---->
-        <!--                      </div>-->
-        <!---->
-        <!--                      <!-- /.row this actually does not appear to be needed with the form-horizontal -->-->
-        <!--                      <button type="submit" class="btn crud-submit btn-success crea">Agregar</button>-->
-        <!--                  </form>-->
-        <!---->
-        <!--              </div>-->
-        <!--          </div>-->
-        <!---->
-        <!--      </div>-->
-        <!--  </div>-->
+
         <div class="modal fade" id="add_det" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -519,6 +413,7 @@ while ($row = $query->fetch_assoc()) {
     function disable(){
         $("#static").find("input[id='fecha']").prop('disabled', true);
         $("#static").find("input[id='glosa']").prop('disabled', true);
+
         ocultar_div();
         mostrar_input();
 
@@ -531,6 +426,7 @@ while ($row = $query->fetch_assoc()) {
 
         $("#static").find("input[id='fecha']").prop('disabled', false);
         $("#static").find("input[id='glosa']").prop('disabled', false);
+
         $('tbody').empty();
 
         $.ajax({
@@ -887,13 +783,7 @@ while ($row = $query->fetch_assoc()) {
         });
     });
     //input puede que funciones
-    $('#sPriceRewards').on('input', function() {
 
-        if($(this).val().length)
-            $('.inputReward').prop('disabled', true);
-        else
-            $('.inputReward').prop('disabled', false);
-    });
 </script>
 <script type="text/javascript" src="js/alertify.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
