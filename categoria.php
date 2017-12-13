@@ -256,7 +256,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
                 <div class="col-sm-2 col-lg-6">
                     <div class="form-group">
-                        <label for="text">Cuenta:</label>
+                        <label for="text">Categoria:</label>
                         <input  type="text" class="form-control" id="text" name="text">
                     </div>
                 </div>

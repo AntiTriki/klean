@@ -54,6 +54,7 @@ $_SESSION['nivelemp']=$row2['nivel'];
 
 
 <div class="container" style="padding-top: 100px">
+    <a href="gestiones/index.php"><img style="width:20px;margin-left:890px" src="css/imp.png" /></a>
     <div id="Productos" style="width: 60%;margin:auto"></div>
 </div>
 

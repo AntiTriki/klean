@@ -48,6 +48,7 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
 
 <div class="container" style="padding-top: 100px">
+    <a href="periodos/index.php"><img style="width:20px;margin-left:890px" src="css/imp.png" /></a>
     <div id="Productos" style="width: 60%;margin:auto"></div>
 </div>
 

@@ -175,6 +175,7 @@ unset($_SESSION['nombreemp']);
       </div>
   </div>
   <div class="container" style="padding-top: 100px">
+      <a href="empresas/index.php"><img style="width:20px;margin-left:890px" src="css/imp.png" /></a>
       <div id="Productos" style="width: 60%;margin:auto"></div>
   </div>
   <!-- <script>
@@ -216,7 +217,7 @@ unset($_SESSION['nombreemp']);
 				},
 				fields: {
             id: {
-                title: 'Id Producto',
+                title: 'Id Empresa',
 						key: true,
 						create: false,
 						edit: false,

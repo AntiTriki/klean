@@ -119,7 +119,7 @@ while ($row = $query->fetch_assoc()) {
                     <div  class="col-sm-2 col-lg-6">
                         <div class="form-group">
                             <label for="tipo_comprobante">Descripcion:</label>
-                            <input  disabled type="text" class="form-control" id="glosa" >
+                            <input  disabled type="text" class="form-control" id="glosa" name="glosa" >
                         </div>
                     </div>
 
@@ -188,7 +188,7 @@ while ($row = $query->fetch_assoc()) {
                             <th>Articulo</th>
 
                             <th width="70px">Cantidad</th>
-
+                            <th width="70px">SubTotal</th>
                             <th width="70px">Eliminar</th>
                         </tr>
                         </thead>
@@ -200,7 +200,7 @@ while ($row = $query->fetch_assoc()) {
                 <div id ="footer">
                     <div style="margin-left: 560px">
                         TOTAL:
-                        <input id="debtotal" style="width: 70px"  class ="" type="text"><input style="width: 70px"  class ="" id="habtotal" type="text">
+                       <input style="width: 70px"  class ="" id="habtotal" type="text">
 
                     </div>
                 </div>
@@ -312,9 +312,9 @@ while ($row = $query->fetch_assoc()) {
         rows = rows + '<tr id="'+i_detalle+'">';
         rows = rows + '<td>'+codigo+'</td>';
 
-        rows = rows + '<td><input type="hidden" id="glosa'+i_detalle+'" name="glosa'+i_detalle+'" value="'+glosa+'">'+glosa+'</input></td>';
+
         rows = rows + '<td class= "cold"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
-        rows = rows + '<td class= "colh"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
+        rows = rows + '<td class= "colh"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+debe*haber+'">'+debe*haber+'</input></td>';
 
         rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
 
@@ -465,7 +465,7 @@ while ($row = $query->fetch_assoc()) {
 
             $.ajax({
                 type: "POST",
-                url: "buscar_serie.php",
+                url: "",
                 data: 'dato='+f,
                 dataType: "json",
                 cache: false,
@@ -519,7 +519,7 @@ while ($row = $query->fetch_assoc()) {
         $.ajax({
             dataType: 'json',
             type:'POST',
-            url:  'serie_get.php',
+            url:  'serien_get.php',
             cache: false
 
 
@@ -558,10 +558,7 @@ while ($row = $query->fetch_assoc()) {
             $("#static").find("input[id='serie']").val(data.serie);
             $("#static").find("input[id='fecha']").val(data.fecha);
             $("#static").find("input[id='glosa']").val(data.glosa);
-            $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
-            $("#static").find("input[id='tipo_cambio']").val(data.cambio);
-            $("#static").find("input[id='moneda']").val(data.moneda);
-            $("#static").find("input[id='estado']").val(data.estado);
+
 
 
 
@@ -585,7 +582,7 @@ while ($row = $query->fetch_assoc()) {
 
             $.ajax({
                 type: "POST",
-                url: "comproc.php",
+                url: "notac.php",
                 data: 'dato='+f,
                 dataType: "json",
                 cache: false,
@@ -593,11 +590,8 @@ while ($row = $query->fetch_assoc()) {
                     $("#serie").val(data['serie']);
                     $("#fecha").val(data['fecha']);
                     $("#glosa").val(data['glosa']);
-                    $("#tipo_comprobante").val(data['tipocom']);
-                    $("#tipo_cambio").val(data['cambio']);
-                    $("#moneda").val(data['moneda']);
-                    $("#estado").val(data['estado']);
-                    detalle(data['id']);
+
+                    detalle2(data['id']);
 
                 }
             });
@@ -608,17 +602,14 @@ while ($row = $query->fetch_assoc()) {
         var data;
         $.ajax({
             dataType: "json",
-            url: 'comprob.php',
+            url: 'notab.php',
             data: data,
             success: function (data) {
 
                 $("#serie").val(data['serie']);
                 $("#fecha").val(data['fecha']);
                 $("#glosa").val(data['glosa']);
-                $("#tipo_comprobante").val(data['tipocom']);
-                $("#tipo_cambio").val(data['cambio']);
-                $("#moneda").val(data['moneda']);
-                $("#estado").val(data['estado']);
+
 
                 detalle2(data['id']);
 
@@ -636,7 +627,7 @@ while ($row = $query->fetch_assoc()) {
 
             $.ajax({
                 type: "POST",
-                url: "comproc.php",
+                url: "notac.php",
                 data: 'dato='+f,
                 dataType: "json",
                 cache: false,
@@ -644,11 +635,8 @@ while ($row = $query->fetch_assoc()) {
                     $("#serie").val(data['serie']);
                     $("#fecha").val(data['fecha']);
                     $("#glosa").val(data['glosa']);
-                    $("#tipo_comprobante").val(data['tipocom']);
-                    $("#tipo_cambio").val(data['cambio']);
-                    $("#moneda").val(data['moneda']);
-                    $("#estado").val(data['estado']);
-                    detalle3(data['id']);
+
+                    detalle2(data['id']);
 
                 }
             });
@@ -662,7 +650,7 @@ while ($row = $query->fetch_assoc()) {
         var yo;
         $.ajax({
             dataType: "json",
-            url: 'comprobanteregister.php',
+            url: 'notaregister.php',
             data: data,
             success: function (data) {
 
@@ -670,12 +658,9 @@ while ($row = $query->fetch_assoc()) {
                 $("#serie").val(data['serie']);
                 $("#fecha").val(data['fecha']);
                 $("#glosa").val(data['glosa']);
-                $("#tipo_comprobante").val(data['tipocom']);
-                $("#tipo_cambio").val(data['cambio']);
-                $("#moneda").val(data['moneda']);
-                $("#estado").val(data['estado']);
 
-                detalle4(data['id']);
+
+                detalle2(data['id']);
 
 
             }
@@ -683,27 +668,12 @@ while ($row = $query->fetch_assoc()) {
 
 
     }
-    function detalle(a) {
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: 'detalle_get.php',
-            data: 'dato=' + a,
-            cache: false,
-            beforeSend: function(){
-                jQuery('tbody').html('');
 
-            },
-            success: function (yo) {
-                manageRow(yo.data);
-            }
-        });
-    }
     function detalle2(a) {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detalle_get2.php',
+            url: 'detallen_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -717,70 +687,18 @@ while ($row = $query->fetch_assoc()) {
             }
         });
     }
-    function detalle3(a) {
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: 'detalle_get3.php',
-            data: 'dato=' + a,
-            cache: false,
-            beforeSend: function(){
-                jQuery('tbody').html('');
-
-            },
-            success: function (yo) {
-                manageRow3(yo.data);
 
 
-            }
-        });
-    }
-    function detalle4(a) {
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: 'detalle_get4.php',
-            data: 'dato=' + a,
-            cache: false,
-            beforeSend: function(){
-                jQuery('tbody').html('');
 
-            },
-            success: function (yo) {
-                manageRow4(yo.data);
-
-            }
-        });
-    }
-    function manageRow(data) {
-        var	rows = '';
-        $.each( data, function( key, value ) {
-            rows = rows + '<tr>';
-            rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
-
-            rows = rows + '<td>'+value.glosa+'</td>';
-            rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.haber+'</td>';
-
-            rows = rows + '<td data-id="'+value.id+'">';
-
-            rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
-            rows = rows + '</td>';
-            rows = rows + '</tr>';
-        });
-
-        $("tbody").html(rows);
-
-    }
     function manageRow2(data) {
         var	rows = '';
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
-            rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+            rows = rows + '<td>'+value.codigo+' </td>';
 
-            rows = rows + '<td>'+value.glosa+'</td>';
+
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td>'+value.debe*value.haber+'</td>';
 
             rows = rows + '<td data-id="'+value.id+'">';
 
@@ -791,46 +709,7 @@ while ($row = $query->fetch_assoc()) {
 
         $("tbody").html(rows);
     }
-    function manageRow3(data) {
-        var	rows = '';
-        $.each( data, function( key, value ) {
-            rows = rows + '<tr>';
-            rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
 
-            rows = rows + '<td>'+value.glosa+'</td>';
-            rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.haber+'</td>';
-
-            rows = rows + '<td data-id="'+value.id+'">';
-
-            rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
-            rows = rows + '</td>';
-            rows = rows + '</tr>';
-        });
-
-        $("tbody").html(rows);
-
-    }
-    function manageRow4(data) {
-        var	rows = '';
-        $.each( data, function( key, value ) {
-            rows = rows + '<tr>';
-            rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
-
-            rows = rows + '<td>'+value.glosa+'</td>';
-            rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.haber+'</td>';
-
-            rows = rows + '<td data-id="'+value.id+'">';
-
-            rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
-            rows = rows + '</td>';
-            rows = rows + '</tr>';
-        });
-
-        $("tbody").html(rows);
-
-    }
 
 
 
