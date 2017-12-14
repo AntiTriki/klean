@@ -253,7 +253,44 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-2 col-lg-2">
+                    <div class="form-group">
+                        <label for="nivel">Nivel:</label>
+                        <select title="Nivel" class="form-control selectpicker show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="nivel" name="nivel" placeholder="Nivel" >
 
+                                                               <?php
+
+                                                               $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+                                                               $cxn->set_charset("utf8");
+                                                               $result = $cxn->query("SELECT
+                                                                                               max(c.nivel) AS nivel
+                                                                                              FROM empresa c
+                                                                                              WHERE c.id=". $_SESSION["id_emp"]." ");
+                                                               $row = $result->fetch_assoc();
+                                                               if($row['nivel'] === NULL){
+                                                                   $row['nivel'] = 1;
+
+                                                               }else{
+                                                                   if($row['nivel']+1 > $_SESSION['nivel_empresa']){
+                                                                       $row['nivel']=$_SESSION['nivel_empresa'];
+
+                                                                   }else {
+
+                                                                       $row['nivel'] = $row['nivel'] + 1;
+                                                                   }
+                                                               }
+                                                               $i=1;
+                                                               for ($i;$i<=$row['nivel'];$i++) {
+
+                                                                       echo '<option value="'.$i.'">'.$i.'</option>';
+
+                                                               }
+                                                               $cxn->close();
+
+                                                               ?>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-2 col-lg-6">
                     <div class="form-group">
                         <label for="text">Cuenta:</label>
@@ -266,8 +303,8 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 <div class="col-sm-2 col-lg-12">
                     <div class="form-group">
                         <label for="id_tipocuenta">Cuenta Padre:</label>
-                        <input title="Fije Cuenta Padre" class="form-control  show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="id_tipocuenta" name="id_tipocuenta" >
-                        </input>
+                        <select title="Fije Cuenta Padre" class="form-control selectpicker show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="id_tipocuenta" name="id_tipocuenta" >
+                        </select>
 
                     </div>
                 </div>
@@ -406,31 +443,6 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
     });
 
-    $('#tree-container').on("select_node.jstree", function (e, data) {
-
-
-        $.ajax({
-            type: 'post',
-            url: 'cuentaselect.php',
-            data: 'dato='+data.node.id,
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                if(data['result']===1){
-
-                    $("#id_padre").val(data['id']);
-                    $("#id_tipocuenta").val(data['text']);
-
-                }else {
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.error(data);
-
-                }
-            }
-
-        });
-    });
 </script>
-
 <script type="text/javascript" src="js/alertify.min.js"></script>
 </html>
