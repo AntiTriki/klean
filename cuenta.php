@@ -260,14 +260,18 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                         <input  type="text" class="form-control" id="text" name="text">
                     </div>
                 </div>
+                <input  type="hidden" id="nivel" name="nivel"  >
 
+
+                </input>
             </div>
             <div class="row">
                 <div class="col-sm-2 col-lg-12">
                     <div class="form-group">
                         <label for="id_tipocuenta">Cuenta Padre:</label>
-                        <input title="Fije Cuenta Padre" class="form-control  show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="id_tipocuenta" name="id_tipocuenta" >
-                        </input>
+                        <input title="Fije Cuenta Padre" class="form-control  show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="textopadre" name="textopadre" >
+                        <input type="hidden"  id="id_tipocuenta" name="id_tipocuenta" >
+
 
                     </div>
                 </div>
@@ -419,7 +423,9 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 if(data['result']===1){
 
                     $("#id_padre").val(data['id']);
-                    $("#id_tipocuenta").val(data['text']);
+                    $("#textopadre").val(data['text']);
+                    $("#id_tipocuenta").val(data['id_tipocuenta']);
+                    $("#nivel").val(data['nivel']);
 
                 }else {
                     alertify.set('notifier', 'position', 'top-right');

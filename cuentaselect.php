@@ -14,7 +14,8 @@ if ($result) {
     while ($row = mysql_fetch_assoc($result)) {
         $array['id'] = $row['id'];
         $array['id_tipocuenta'] = $row['id_tipocuenta'];
-        $array['text'] = $row['text'];
+        $array['nivel'] = $row['nivel'];
+        $array['text'] =$row['codigo'].' - '.$row['text'];
 
        $i++;
         $array['result']=1;
