@@ -77,7 +77,10 @@ if(isset($_GET['operation'])) {
                 if($node!=1){
 				$node = isset($_GET['id']) && $_GET['id'] !== '#' ? (int)$_GET['id'] : 0;
 				$sql ="DELETE FROM `cuenta` WHERE `id`= '".$node."'";
-				mysqli_query($conn, $sql);}
+				mysqli_query($conn, $sql);
+                    $sql1 ="DELETE FROM `cuenta` WHERE `id_tipocuenta`= '".$node."'";
+                    mysqli_query($conn, $sql1);
+                }
 				break;
 			default:
 				throw new Exception('Unsupported operation: ' . $_GET['operation']);

@@ -13,7 +13,7 @@ if ($result) {
     $i = 1;
     while ($row = mysql_fetch_assoc($result)) {
         $array['id'] = $row['id'];
-        $array['id_tipocuenta'] = $row['id_tipocuenta'];
+        $array['id_tipocuenta'] = $row['id'];
         $array['nivel'] = $row['nivel'];
         $array['text'] =$row['codigo'].' - '.$row['text'];
 

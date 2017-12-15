@@ -269,7 +269,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 <div class="col-sm-2 col-lg-12">
                     <div class="form-group">
                         <label for="id_tipocuenta">Cuenta Padre:</label>
-                        <input title="Fije Cuenta Padre" class="form-control  show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="textopadre" name="textopadre" >
+                        <input  readonly class="form-control  show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="textopadre" name="textopadre" >
                         <input type="hidden"  id="id_tipocuenta" name="id_tipocuenta" >
 
 
@@ -426,6 +426,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                     $("#textopadre").val(data['text']);
                     $("#id_tipocuenta").val(data['id_tipocuenta']);
                     $("#nivel").val(data['nivel']);
+                    $("#text").val('');
 
                 }else {
                     alertify.set('notifier', 'position', 'top-right');
