@@ -1,4 +1,6 @@
 <?php
+session_name('nilds');
+session_start();
 require_once "stimulsoft/helper.php";
 
 // Please configure the security level as you required.
@@ -10,6 +12,10 @@ $handler = new StiHandler();
 $handler->registerErrorHandlers();
 
 $handler->onBeginProcessData = function ($args) {
+	$database = $args->database;
+    $connectionString = $args->connectionString;
+    $queryString = $args->queryString;
+    $args->parameters["var"] = $_SESSION['id_emp'];
 	return StiResult::success();
 };
 

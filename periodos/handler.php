@@ -1,4 +1,6 @@
 <?php
+session_name('nilds');
+session_start();
 require_once "stimulsoft/helper.php";
 
 // Please configure the security level as you required.
