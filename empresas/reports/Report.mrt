@@ -1,10 +1,10 @@
 {
-  "ReportVersion": "2017.2.4.0",
-  "ReportGuid": "75ddb5eef97c405f99ae69b9dcdb4f2e",
+  "ReportVersion": "2018.1.4.0",
+  "ReportGuid": "1a0db1a9bfebcae7b1a71a574c795c8a",
   "ReportName": "Report",
   "ReportAlias": "Report",
-  "ReportCreated": "/Date(1512322015000-0400)/",
-  "ReportChanged": "/Date(1512422780449-0400)/",
+  "ReportCreated": "/Date(1512307615000+0000)/",
+  "ReportChanged": "/Date(1512307615000+0000)/",
   "EngineVersion": "EngineV2",
   "CalculationMode": "Interpretation",
   "Script": "using System;\r\nusing System.Drawing;\r\nusing System.Windows.Forms;\r\nusing System.Data;\r\nusing Stimulsoft.Controls;\r\nusing Stimulsoft.Base.Drawing;\r\nusing Stimulsoft.Report;\r\nusing Stimulsoft.Report.Dialogs;\r\nusing Stimulsoft.Report.Components;\r\n\r\nnamespace Reports\r\n{\r\n    public class Report : Stimulsoft.Report.StiReport\r\n    {\r\n        public Report()        {\r\n            this.InitializeComponent();\r\n        }\r\n\r\n        #region StiReport Designer generated code - do not modify\r\n\t\t#endregion StiReport Designer generated code - do not modify\r\n    }\r\n}\r\n",
@@ -92,7 +92,7 @@
           }
         },
         "NameInSource": "Connection",
-        "SqlCommand": "select * from empresa WHERE id_usuario = 1"
+        "SqlCommand": "select * from empresa WHERE id_usuario = {usu}"
       },
       "1": {
         "Ident": "StiMySqlSource",
@@ -157,7 +157,7 @@
           }
         },
         "NameInSource": "Connection",
-        "SqlCommand": "select * from usuario where id = 1"
+        "SqlCommand": "select * from usuario where id = {usu}"
       }
     },
     "Databases": {
