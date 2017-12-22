@@ -235,7 +235,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
     <div class="btn-group-horizontal" style="position: relative;">
       <button type="button" id ="guardar" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-
+        <button type="button" class="btn btn-"> <a class="" href="cuentas/index.php"><img style="width:20px;" src="css/imp.png" /></a></button>
     </div>
     <div style="position: relative;" class="borde">
         <form id="static" class="" role="form"  enctype="multipart/form-data">

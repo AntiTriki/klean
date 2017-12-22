@@ -62,6 +62,24 @@ $_SESSION['nivelemp']=$row2['nivel'];
     $(document).ready(function () {
         $('#Productos').jtable({
             title: 'Gestiones',
+			toolbar: {
+           hoverAnimation: true,
+                    hoverAnimationDuration: 60,
+                    hoverAnimationEasing: undefined,
+                    items: [{
+                        tooltip: 'Export to Exel',
+                        text: 'XLS',
+                        click: function () {
+                            alert('excel');
+                        }
+                    },{
+                        tooltip: 'Export to Pdf',
+                        text: 'PDF',
+                        click: function () {
+                            alert('adobe');
+                        }
+                    }]
+                },
 
             actions: {
                 //READ
