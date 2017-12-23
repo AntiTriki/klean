@@ -47,15 +47,19 @@ $_SESSION['nivelemp']=$row2['nivel'];
 
             color: #000000;
         }
+
     </style>
+      <link rel="stylesheet" href="custom/jquery-ui.css">
+
   </head>
   <body>
 
 
 
-<div class="container" style="padding-top: 100px">
-    <a href="gestiones/index.php"><img style="width:20px;margin-left:890px" src="css/imp.png" /></a>
-    <div id="Productos" style="width: 60%;margin:auto"></div>
+<div class="container" style="padding-top: 100px;
+    ">
+
+    <div id="Productos" style="width: 80%;margin:auto;text-align: center;"></div>
 </div>
 
 <script type="text/javascript">
@@ -67,16 +71,11 @@ $_SESSION['nivelemp']=$row2['nivel'];
                     hoverAnimationDuration: 60,
                     hoverAnimationEasing: undefined,
                     items: [{
-                        tooltip: 'Export to Exel',
-                        text: 'XLS',
+                        icon: 'css/s.png',
+                        tooltip: 'Imprimir',
+                        text: 'Reportes',
                         click: function () {
-                            alert('excel');
-                        }
-                    },{
-                        tooltip: 'Export to Pdf',
-                        text: 'PDF',
-                        click: function () {
-                            alert('adobe');
+                            window.location = "gestiones/index.php";
                         }
                     }]
                 },
