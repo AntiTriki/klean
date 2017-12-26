@@ -29,6 +29,21 @@ require_once "stimulsoft/helper.php";
 
 		viewer.report = report;
 		viewer.renderHtml("viewerContent");
+
+        var userButton = viewer.jsObject.SmallButton("userButton", "Atrás", "emptyImage");
+        //userButton.image.src = "https://www.stimulsoft.com/favicon.png";
+        userButton.image.src = "../css/arrow.png";
+
+        userButton.action = function () {
+            window.history.back();
+
+        }
+
+        var toolbarTable = viewer.jsObject.controls.toolbar.firstChild.firstChild;
+        var buttonsTable = toolbarTable.rows[0].firstChild.firstChild;
+        var userButtonCell = buttonsTable.rows[0].insertCell(0);
+        userButtonCell.className = "stiJsViewerClearAllStyles";
+        userButtonCell.appendChild(userButton);
 	</script>
 </head>
 <body>

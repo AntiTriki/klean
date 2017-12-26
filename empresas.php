@@ -32,7 +32,7 @@ unset($_SESSION['nombreemp']);
 
 
     <script src="localization/jquery.jtable.es.js" type="text/javascript"></script>
-	<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="custom/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 	<link href="css/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" />
 <!--	<link href="themes\lightcolor\gray\jtable.min.css" rel="stylesheet" type="text/css" />-->
 	<link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
@@ -41,6 +41,9 @@ unset($_SESSION['nombreemp']);
       <link rel="stylesheet" href="themes\metro\blue\jtable.min.css">
 <!--	<link href="Scripts/jtable/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />-->
       <style media="screen">
+          .yo{
+              width: 300px;
+          }
           .profile-img{
               margin-top: -8px;
               margin-right: 5px;
@@ -175,7 +178,7 @@ unset($_SESSION['nombreemp']);
       </div>
   </div>
   <div class="container" style="padding-top: 100px">
-      <a href="empresas/index.php"><img style="width:20px;margin-left:890px" src="css/imp.png" /></a>
+
       <div id="Productos" style="width: 60%;margin:auto"></div>
   </div>
   <!-- <script>
@@ -203,7 +206,19 @@ unset($_SESSION['nombreemp']);
     $(document).ready(function () {
         $('#Productos').jtable({
 				title: 'Empresas',
-
+            toolbar: {
+                hoverAnimation: true,
+                hoverAnimationDuration: 60,
+                hoverAnimationEasing: undefined,
+                items: [{
+                    icon: 'css/s.png',
+                    tooltip: 'Imprimir',
+                    text: 'Reportes',
+                    click: function () {
+                        window.location = "empresas/index.php";
+                    }
+                }]
+            },
 				defaultSorting: 'id ASC',
 				actions: {
             //READ
@@ -269,13 +284,13 @@ unset($_SESSION['nombreemp']);
         },
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
-                data.form.find('input[name="razon_social"]').addClass('validate[required]');
-                data.form.find('input[name="correo"]').addClass('validate[required,custom[email]]');
-                data.form.find('input[name="sigla"]').addClass('validate[required]');
-                data.form.find('input[name="direccion"]').addClass('validate[required]');
-                data.form.find('input[name="nit"]').addClass('validate[required],custom[integer]');
+                data.form.find('input[name="razon_social"]').addClass('validate[required] yo');
+                data.form.find('input[name="correo"]').addClass('validate[required,custom[email]] yo');
+                data.form.find('input[name="sigla"]').addClass('validate[required] yo' );
+                data.form.find('input[name="direccion"]').addClass('validate[required] yo');
+                data.form.find('input[name="nit"]').addClass('validate[required],custom[integer] yo');
 
-                data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7]');
+                data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7] yo');
 
                 data.form.validationEngine();
                 data.form.css('width','300px');
