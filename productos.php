@@ -52,10 +52,10 @@ try{
             print json_encode($jTableResult);
         }
 	}else if($_GET["accion"] == "actualizar"){
-        $result = mysql_query("SELECT COUNT(*) AS conteo FROM empresa where  razon_social='".$_POST["razon_social"]."' ;");
+        $result = mysql_query("SELECT COUNT(*) AS conteo FROM empresa where  razon_social='".$_POST["razon_social"]."' and id <> " . $_POST["id"] . " ;");
         $row = mysql_fetch_array($result);
         if ($row['conteo'] < 1) {
-            $result = mysql_query("SELECT COUNT(*) AS conteo FROM empresa where  sigla='".$_POST["sigla"]."' ;");
+            $result = mysql_query("SELECT COUNT(*) AS conteo FROM empresa where  sigla='".$_POST["sigla"]."' and id <> " . $_POST["id"] . " ;");
             $row = mysql_fetch_array($result);
             if ($row['conteo'] < 1) {
 

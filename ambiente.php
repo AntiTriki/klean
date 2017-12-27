@@ -49,7 +49,7 @@ $_SESSION['nivelemp']=$row2['nivel'];
         }
 
     </style>
-      <link rel="stylesheet" href="custom/jquery-ui.css">
+
 
   </head>
   <body>

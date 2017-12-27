@@ -20,12 +20,12 @@ try{
        $finicio = date('Y-m-d', strtotime($finicio));
        $ffin = str_replace('/', '-', $_POST["fecha_fin"]);
        $ffin = date('Y-m-d', strtotime($ffin));
-       $result = mysql_query("SELECT COUNT(*) AS conteo FROM gestion where id_empresa=".$_SESSION['id_emp']." and estado=1 ;");
+       $result = mysql_query("SELECT COUNT(*) AS con FROM gestion where id_empresa=".$_SESSION['id_emp']." and estado=1 ;");
        $row = mysql_fetch_array($result);
-       if ($row['conteo'] < 3){
+       if ($row['con'] <= 1){
         $result = mysql_query("SELECT COUNT(*) AS conteo FROM gestion where id_empresa=".$_SESSION['id_emp']." and nombre='".$_POST["nombre"]."' ;");
         $row = mysql_fetch_array($result);
-          if ($row['conteo'] < 3){
+          if ($row['conteo'] < 1){
             if($finicio<$ffin){
               $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
               $row = mysql_fetch_array($result);
@@ -83,11 +83,11 @@ try{
         $result = mysql_query("SELECT COUNT(*) AS conteo FROM gestion where id_empresa=".$_SESSION['id_emp']." and estado=1 ;");
         $row = mysql_fetch_array($result);
         if ($row['conteo'] < 3){
-            $result = mysql_query("SELECT COUNT(*) AS conteo FROM gestion where id_empresa=".$_SESSION['id_emp']." and nombre='".$_POST["nombre"]."' ;");
+            $result = mysql_query("SELECT COUNT(*) AS conteo FROM gestion where id_empresa=".$_SESSION['id_emp']." and nombre='".$_POST["nombre"]."' and id <> " . $_POST["id"] . " ;");
             $row = mysql_fetch_array($result);
-            if ($row['conteo'] < 3){
+            if ($row['conteo'] < 1){
                 if($finicio<$ffin){
-                    $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
+                    $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and id <> " . $_POST["id"] . "  and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
                     $row = mysql_fetch_array($result);
                     if($row['cont'] == 0){
         $result = mysql_query("UPDATE gestion SET nombre='".$_POST["nombre"]."', fecha_inicio='$finicio', fecha_fin='$ffin',

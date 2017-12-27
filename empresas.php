@@ -41,9 +41,7 @@ unset($_SESSION['nombreemp']);
       <link rel="stylesheet" href="themes\metro\blue\jtable.min.css">
 <!--	<link href="Scripts/jtable/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />-->
       <style media="screen">
-          .yo{
-              width: 300px;
-          }
+
           .profile-img{
               margin-top: -8px;
               margin-right: 5px;
@@ -285,10 +283,10 @@ unset($_SESSION['nombreemp']);
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
                 data.form.find('input[name="razon_social"]').addClass('validate[required] yo');
-                data.form.find('input[name="correo"]').addClass('validate[required,custom[email]] yo');
+                data.form.find('input[name="correo"]').addClass('custom[email]] yo');
                 data.form.find('input[name="sigla"]').addClass('validate[required] yo' );
-                data.form.find('input[name="direccion"]').addClass('validate[required] yo');
-                data.form.find('input[name="nit"]').addClass('validate[required],custom[integer] yo');
+                data.form.find('input[name="direccion"]').addClass(' yo');
+                data.form.find('input[name="nit"]').addClass('custom[integer] yo');
 
                 data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7] yo');
 

@@ -5,7 +5,7 @@ include_once('tipo.php');
 ?>
 
 
-    <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="custom/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="css/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" />
     <!--	<link href="themes\lightcolor\gray\jtable.min.css" rel="stylesheet" type="text/css" />-->
     <link href="css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
