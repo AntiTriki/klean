@@ -167,15 +167,15 @@ $_SESSION['nivelemp']=$row2['nivel'];
             },
             rowInserted: function(event, data){
                 if (data.record.estado == 0){
-
-                    data.row.find('.jtable-delete-command-button').hide();
+                    data.row.find('.jtable-edit-command-button').hide();
+                    //data.row.find('.jtable-delete-command-button').hide();
                 }
 
             },
             rowUpdated: function(event, data){
                 if (data.record.estado == 0){
-                    //data.row.find('.jtable-edit-command-button').hide();
-                    data.row.find('.jtable-delete-command-button').hide();
+                    data.row.find('.jtable-edit-command-button').hide();
+                    //data.row.find('.jtable-delete-command-button').hide();
                 }
             },
             //Dispose validation logic when form is closed
