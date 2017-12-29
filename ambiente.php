@@ -113,6 +113,10 @@ $_SESSION['nivelemp']=$row2['nivel'];
                     create: true,
                     edit: true,
                     list: true,
+//                    input:function(data){
+//
+//
+//                    }
 
 
                 },
@@ -123,7 +127,11 @@ $_SESSION['nivelemp']=$row2['nivel'];
                     displayFormat: 'dd/mm/yy',
                     create: true,
                     edit: true,
-                    list: true
+                    list: true,
+//                    input:function(data){
+//
+//
+//                    }
                 },
                 estado: {
                     title: 'Estado',

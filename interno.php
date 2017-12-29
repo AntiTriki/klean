@@ -67,11 +67,11 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
 
 <div class="container" style ="height: 100px;margin:auto; ">
-    <p class="text-center" style="margin-top: 20px"><?php echo $row2['nombre'];
+    <p class="text-center " style="margin-top: 20px"><?php echo $row2['nombre'];
     ?></p>
 </div>
 <div class="container" style="">
-    <a href="periodos/index.php"><img style="width:20px;margin-left:890px" src="css/imp.png" /></a>
+    
     <div id="Productos" style="width: 60%;margin:auto"></div>
 </div>
 
@@ -79,10 +79,19 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
     $(document).ready(function () {
         $('#Productos').jtable({
             title: 'Periodos',
-            paging: true,
-            pageSize:5,
-            sorting: true,
-            defaultSorting: 'id ASC',
+            toolbar: {
+                hoverAnimation: true,
+                hoverAnimationDuration: 60,
+                hoverAnimationEasing: undefined,
+                items: [{
+                    icon: 'css/s.png',
+                    tooltip: 'Imprimir',
+                    text: 'Reportes',
+                    click: function () {
+                        window.location = "periodos/index.php";
+                    }
+                }]
+            },
             actions: {
                 //READ
                 listAction: 'periodos.php?accion=listar',
@@ -132,18 +141,10 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                     width: '20%',
                     create: false,
                     edit: true,
-                    list: true
-                },
-                ShowDetailColumn: {
-                    title: '',
-                    create: false,
-                    edit: false,
                     list: true,
-                    display: function (data) {
-                        return '<a href="comprobante.php?id=' + data.record.id + '"><img style="width:20px" src="22.png" /></a>';
-                    },
-                    width: '2%'
+                    options: { 0: 'Cerrado', 1: 'Abierto' }
                 },
+
 
 
             },

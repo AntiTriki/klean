@@ -5,17 +5,14 @@ try{
     $con = mysql_connect("localhost","root","");
     mysql_select_db("n", $con);
     if($_GET["accion"] == "listar")	{
-        $result = mysql_query("SELECT COUNT(*) AS RecordCount FROM periodo where id_gestion=".$_SESSION['id_ges'].";");
-        $row = mysql_fetch_array($result);
-        $recordCount = $row['RecordCount'];
-        $result = mysql_query("SELECT * FROM periodo where id_gestion=".$_SESSION['id_ges']." ORDER BY " . $_GET["jtSorting"] . " LIMIT " . $_GET["jtStartIndex"] . "," . $_GET["jtPageSize"] . ";");
+        $result = mysql_query("SELECT * FROM periodo where id_gestion=".$_SESSION['id_ges']." ;");
         $rows = array();
         while($row = mysql_fetch_array($result)){
             $rows[] = $row;
         }
         $jTableResult = array();
         $jTableResult['Result'] = "OK";
-        $jTableResult['TotalRecordCount'] = $recordCount;
+
         $jTableResult['Records'] = $rows;
         print json_encode($jTableResult);
     }else if($_GET["accion"] == "crear"){
