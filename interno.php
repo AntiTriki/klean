@@ -4,6 +4,26 @@ include_once('bar.php');
 include_once('conexion.php');
 date_default_timezone_set('America/La_Paz');
 $id_ges=$_GET['id'];
+$link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+
+
+$query_user = sprintf("SELECT
+             u.*
+
+
+
+						 FROM
+             gestion u
+ 						 WHERE
+						 u.id=$id_ges
+
+
+						 ");
+$link->set_charset("utf8");
+$result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
+$row2 = mysqli_fetch_array($result_user);
+
+
 $_SESSION['id_ges']=$id_ges;
 
 $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
@@ -46,8 +66,11 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
   <body>
 
 
-
-<div class="container" style="padding-top: 100px">
+<div class="container" style ="height: 100px;margin:auto; ">
+    <p class="text-center" style="margin-top: 20px"><?php echo $row2['nombre'];
+    ?></p>
+</div>
+<div class="container" style="">
     <a href="periodos/index.php"><img style="width:20px;margin-left:890px" src="css/imp.png" /></a>
     <div id="Productos" style="width: 60%;margin:auto"></div>
 </div>

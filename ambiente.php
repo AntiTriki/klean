@@ -112,7 +112,8 @@ $_SESSION['nivelemp']=$row2['nivel'];
                     displayFormat: 'dd/mm/yy',
                     create: true,
                     edit: true,
-                    list: true
+                    list: true,
+
 
                 },
                 fecha_fin: {

@@ -90,11 +90,22 @@ try{
                     $result = mysql_query("SELECT COUNT(*) AS cont FROM gestion where id_empresa=".$_SESSION['id_emp']." and id <> " . $_POST["id"] . "  and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
                     $row = mysql_fetch_array($result);
                     if($row['cont'] == 0){
-        $result = mysql_query("UPDATE gestion SET nombre='".$_POST["nombre"]."', fecha_inicio='$finicio', fecha_fin='$ffin',
-		 estado=".$_POST["estado"]." WHERE id=" . $_POST["id"] . ";");
-        $jTableResult = array();
-        $jTableResult['Result'] = "OK";
-        print json_encode($jTableResult);
+                        $result = mysql_query("SELECT COUNT(*) AS cont FROM periodo where id_gestion=".$_POST['id']." ");
+                        $row = mysql_fetch_array($result);
+                        if($row['cont'] == 0) {
+                            $result = mysql_query("UPDATE gestion SET nombre='" . $_POST["nombre"] . "', fecha_inicio='$finicio', fecha_fin='$ffin',
+		 estado=" . $_POST["estado"] . " WHERE id=" . $_POST["id"] . ";");
+                            $jTableResult = array();
+                            $jTableResult['Result'] = "OK";
+                            print json_encode($jTableResult);
+                        }else{
+                            $result = mysql_query("UPDATE gestion SET nombre='" . $_POST["nombre"] . "', 
+		 estado=" . $_POST["estado"] . " WHERE id=" . $_POST["id"] . ";");
+                            $jTableResult = array();
+                            $jTableResult['Result'] = "OK";
+                            $jTableResult['Message']="No se pueden editar las fechas porque tiene creados periodos en esta gestion";
+                            print json_encode($jTableResult);
+                        }
                 }else{
                     $row = mysql_fetch_array($result);
                     $jTableResult = array();
