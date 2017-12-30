@@ -64,7 +64,7 @@ try{
             $row = mysql_fetch_array($result);
             $jTableResult = array();
             $jTableResult['Result'] = "ERROR";
-            $jTableResult['Message'] = "Ya existe una periodo con el mismo nombre";
+            $jTableResult['Message'] = "Ya existe un periodo con el mismo nombre";
             print json_encode($jTableResult);
           }
       }else {

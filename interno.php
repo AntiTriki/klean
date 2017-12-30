@@ -25,6 +25,11 @@ $row2 = mysqli_fetch_array($result_user);
 
 
 $_SESSION['id_ges']=$id_ges;
+$finicio = str_replace('-', '/', $row2["fecha_inicio"]);
+$row2["fecha_inicio"] = date('d/m/Y', strtotime($finicio));
+$finicio = str_replace('-', '/', $row2["fecha_fin"]);
+$row2["fecha_fin"] = date('d/m/Y', strtotime($finicio));
+
 
 $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
@@ -44,7 +49,16 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 //  						 WHERE
 // 						 u.id=$id_emp
 //
-//
+//Validar tamaño y tipo de dato según la BD
+//No pueden Existir 2 periodos con el mismo nombre para la misma gestion
+//Fecha Inicio debe ser menor a la fecha Fin
+//Las fechas tienen que estar dentro del rango de fechas de la gestion a la que pertenece
+//Validar solapamiento de Periodos. Las fechas no se deben superponer.
+//Al crear el estado se crea abierto.
+//No se pueden modificar los datos de un periodo cerrado
+//Se podrá eliminar de la BD siempre que no este relacionado
+//Solo debería ver los periodos de la gestión seleccionada.
+
 // 						 ");
 // $link->set_charset("utf8");
 // $result_user = mysqli_query($link,$query_user) or die("Error usu:".mysqli_error($link));
@@ -67,11 +81,11 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
 
 <div class="container" style ="height: 100px;margin:auto; ">
-    <p class="text-center " style="margin-top: 20px"><?php echo $row2['nombre'];
-    ?></p>
+    <p class="text-center " style="margin-top: 20px;"><font size="6"> <?php echo $row2['nombre'].' del '.$row2['fecha_inicio'].' al '.$row2['fecha_fin'];
+            ?></font> </p>
 </div>
 <div class="container" style="">
-    
+
     <div id="Productos" style="width: 60%;margin:auto"></div>
 </div>
 
@@ -165,6 +179,19 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
             //Validate form when it is being submitted
             formSubmitting: function (event, data) {
                 return data.form.validationEngine('validate');
+            },
+            rowInserted: function(event, data){
+                if (data.record.estado == 0){
+                    data.row.find('.jtable-edit-command-button').hide();
+                    //data.row.find('.jtable-delete-command-button').hide();
+                }
+
+            },
+            rowUpdated: function(event, data){
+                if (data.record.estado == 0){
+                    data.row.find('.jtable-edit-command-button').hide();
+                    //data.row.find('.jtable-delete-command-button').hide();
+                }
             },
             //Dispose validation logic when form is closed
             formClosed: function (event, data) {
