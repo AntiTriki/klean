@@ -16,7 +16,7 @@ $handler->onBeginProcessData = function ($args) {
     $connectionString = $args->connectionString;
     $queryString = $args->queryString;
     $args->parameters["var"] = $_SESSION['id_emp'];
-    $args->parameters["var"] = $_SESSION['id_emp'];
+    $args->parameters["usu"] = $_SESSION['id_usuario'];
 	return StiResult::success();
 };
 
