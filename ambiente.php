@@ -66,6 +66,9 @@ $_SESSION['nivelemp']=$row2['nivel'];
     $(document).ready(function () {
         $('#Productos').jtable({
             title: 'Gestiones',
+            messages: {
+                addNewRecord: 'Nueva Gestion'
+            },
 			toolbar: {
            hoverAnimation: true,
                     hoverAnimationDuration: 60,

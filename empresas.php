@@ -204,6 +204,9 @@ unset($_SESSION['nombreemp']);
     $(document).ready(function () {
         $('#Productos').jtable({
 				title: 'Empresas',
+            messages: {
+                addNewRecord: 'Nueva Empresa'
+            },
             toolbar: {
                 hoverAnimation: true,
                 hoverAnimationDuration: 60,

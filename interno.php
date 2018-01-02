@@ -93,6 +93,9 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
     $(document).ready(function () {
         $('#Productos').jtable({
             title: 'Periodos',
+            messages: {
+                addNewRecord: 'Nuevo Periodo'
+            },
             toolbar: {
                 hoverAnimation: true,
                 hoverAnimationDuration: 60,
