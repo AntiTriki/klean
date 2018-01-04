@@ -1052,16 +1052,45 @@ while ($row = $query->fetch_assoc()) {
     });
 
 </script>
+<script type="text/javascript" src="js/alertify.min.js"></script>
 
 <script> //date picker js
     $(document).ready(function() {
+
         $('.datepicker').datepicker({
             todayHighlight: true,
             "autoclose": true,
             format: 'dd-mm-yyyy'
+
+
+
+        }).on('changeDate', function() {
+            var date= $('#fecha').val();
+
+
+                $.ajax
+                ({
+
+                    type: "POST",
+                    url: "fecha_per.php",
+                    data: "fecha_per="+date,
+
+                    success: function(result)
+                    {
+                        if(result !=0){
+                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.success(result);
+                        }else{
+                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.error('La fecha no pertenece a un periodo');
+
+                        }
+
+
+                    }
+                });
         });
     });
-    //input puede que funciones
     $('#debe_detalle').on('input', function() {
 
         if($(this).val().length)
@@ -1077,7 +1106,6 @@ while ($row = $query->fetch_assoc()) {
             $('#debe_detalle').prop('disabled', false);
     });
 </script>
-<script type="text/javascript" src="js/alertify.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
 
 </body>

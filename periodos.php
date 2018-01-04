@@ -37,8 +37,8 @@ try{
               if($row['cont'] == 0){
 
 
-              $result = mysql_query("INSERT INTO periodo(nombre, fecha_inicio, fecha_fin,estado,id_gestion) VALUES(
-      '".$_POST["nombre"]."','".$finicio."','".$ffin."',1,". $_SESSION["id_ges"].")");
+              $result = mysql_query("INSERT INTO periodo(nombre, fecha_inicio, fecha_fin,estado,id_gestion,id_empresa) VALUES(
+      '".$_POST["nombre"]."','".$finicio."','".$ffin."',1,". $_SESSION["id_ges"].",". $_SESSION["id_emp"].")");
               $result = mysql_query("SELECT * FROM periodo WHERE id = LAST_INSERT_ID() and id_gestion=".$_SESSION['id_ges'].";");
               $row = mysql_fetch_array($result);
               $jTableResult = array();
