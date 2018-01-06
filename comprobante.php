@@ -759,22 +759,28 @@ while ($row = $query->fetch_assoc()) {
             data:
             datastring,
 
-        }).done(function(data){
+        }).done(
+
+            function(data){
+                if(data.valido == 1) {
+
+                    $("#static").find("input[id='serie']").val(data.serie);
+                    $("#static").find("input[id='fecha']").val(data.fecha);
+                    $("#static").find("input[id='glosa']").val(data.glosa);
+                    $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
+                    $("#static").find("input[id='tipo_cambio']").val(data.cambio);
+                    $("#static").find("input[id='moneda']").val(data.moneda);
+                    $("#static").find("input[id='estado']").val(data.estado);
 
 
-            $("#static").find("input[id='serie']").val(data.serie);
-            $("#static").find("input[id='fecha']").val(data.fecha);
-            $("#static").find("input[id='glosa']").val(data.glosa);
-            $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
-            $("#static").find("input[id='tipo_cambio']").val(data.cambio);
-            $("#static").find("input[id='moneda']").val(data.moneda);
-            $("#static").find("input[id='estado']").val(data.estado);
+                    upResult();
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success('Datos ingresados Correctamente');
+                }else{
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error('Fecha no pertenece a un periodo');
 
-
-
-            upResult();
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.success('Datos ingresados Correctamente');
+                }
 
         });
 
