@@ -20,9 +20,9 @@ $result = mysql_query("select * from periodo where id_empresa=".$_SESSION['id_em
 while ($row = mysql_fetch_array($result)) {
 
     if( $fecha >= $row['fecha_inicio'] and $fecha <= $row['fecha_fin']  ) {
-        $result = mysql_query("INSERT INTO comprobante (serie,glosa,id_tipocomprobante,fecha,id_tipocambio,id_moneda,id_estado,id_empresa) 
+        $result = mysql_query("INSERT INTO comprobante (serie,glosa,id_tipocomprobante,fecha,id_tipocambio,id_moneda,id_estado,id_empresa,id_periodo) 
 VALUES 
-(" . $serie . ",'" . $glosa . "'," . $tipo_comprobante . ",'" . $fecha . "'," . $tipo_cambio . "," . $moneda . "," . $estado . "," . $_SESSION['id_emp'] . ")");
+(" . $serie . ",'" . $glosa . "'," . $tipo_comprobante . ",'" . $fecha . "'," . $tipo_cambio . "," . $moneda . "," . $estado . "," . $_SESSION['id_emp'] . ",".$row['id'].")");
 
         $result = mysql_query("SELECT 
 c.id,c.serie , ti.tipocom, c.fecha,c.glosa, t.cambio,e.estado,m.moneda 
