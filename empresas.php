@@ -216,7 +216,10 @@ unset($_SESSION['nombreemp']);
                     tooltip: 'Imprimir',
                     text: 'Reportes',
                     click: function () {
-                        window.location = "empresas/index.php";
+
+
+                        window.open("empresas/index.php", 'mywin',
+                            'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0'); return false;
                     }
                 }]
             },
