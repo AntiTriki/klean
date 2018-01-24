@@ -234,8 +234,8 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
     <div><h3>Plan de Cuentas</h3></div>
 
     <div class="btn-group-horizontal" style="position: relative;">
-      <button type="button" id ="guardar" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-        <button type="button" class="btn btn-"> <a class="" href="cuentas/index.php"><img style="width:20px;" src="css/imp.png" /></a></button>
+      <button type="button" id ="guardar" class="btn btn-success" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+         <a class="btn btn-primary" href="cuentas/index.php" style="display: inline"><img style="width:20px;" src="css/s.png" /> Reporte</a>
     </div>
     <div style="position: relative;" class="borde">
         <form id="static" class="" role="form"  enctype="multipart/form-data">
