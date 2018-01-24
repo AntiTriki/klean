@@ -80,11 +80,11 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
   <body>
 
 
-<div class="container" style ="height: 100px;margin:auto; ">
+<div  style ="height: 100px;margin:auto; margin-left:150px">
     <p class="text-center " style="margin-top: 20px;"><font size="6"> <?php echo $row2['nombre'].' del '.$row2['fecha_inicio'].' al '.$row2['fecha_fin'];
             ?></font> </p>
 </div>
-<div class="container" style="">
+<div  style="margin-left:150px">
 
     <div id="Productos" style="width: 60%;margin:auto"></div>
 </div>
@@ -105,7 +105,8 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                     tooltip: 'Imprimir',
                     text: 'Reportes',
                     click: function () {
-                        window.location = "periodos/index.php";
+                        window.open("periodos/index.php", 'mywin',
+                            'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0'); return false;
                     }
                 }]
             },
@@ -157,7 +158,7 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                     title: 'Estado',
                     width: '20%',
                     create: false,
-                    edit: true,
+                    edit: false,
                     list: true,
                     options: { 0: 'Cerrado', 1: 'Abierto' }
                 },
@@ -167,16 +168,18 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
             },
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
-                data.form.find('input[name="nombre"]').addClass('validate[required]');
-                data.form.find('input[name="fecha_inicio"]').addClass('validate[required]');
-                data.form.find('input[name="fecha_fin"]').addClass('validate[required]');
+                data.form.find('input[name="nombre"]').addClass('validate[required] yo');
+                data.form.find('input[name="fecha_inicio"]').addClass('validate[required] yo');
+                data.form.find('input[name="fecha_fin"]').addClass('validate[required] yo');
 
-                data.form.find('input[name="estado"]').addClass('validate[required]');
+                data.form.find('input[name="estado"]').addClass('validate[required] yo');
 
 
                 data.form.validationEngine();
                 data.form.css('width','300px');
-
+                data.form.parent().dialog("option", "resizable", false);
+                data.form.parent().dialog("option", "modal", true);
+                data.form.parent().dialog("option", "draggable", false);
 
             },
             //Validate form when it is being submitted

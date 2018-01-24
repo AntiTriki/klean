@@ -32,7 +32,7 @@ try{
         $row = mysql_fetch_array($result);
           if ($row['conteo'] == 0){
             if($finicio<$ffin){
-              $result = mysql_query("SELECT COUNT(*) AS cont FROM periodo where id_gestion=".$_SESSION['id_ges']." and ((fecha_inicio between '\".$finicio.\"' and '\".$ffin.\"') or (fecha_fin between '\".$finicio.\"' and '\".$ffin.\"')) ;");
+              $result = mysql_query("SELECT COUNT(*) AS cont FROM periodo where id_gestion=".$_SESSION['id_ges']." and ((fecha_inicio between '".$finicio."' and '".$ffin."') or (fecha_fin between '".$finicio."' and '".$ffin."')) ;");
               $row = mysql_fetch_array($result);
               if($row['cont'] == 0){
 
@@ -49,7 +49,7 @@ try{
               $row = mysql_fetch_array($result);
               $jTableResult = array();
               $jTableResult['Result'] = "ERROR";
-              $jTableResult['Message'] = "Se solapan las fechas de creacion con otras registradas";
+              $jTableResult['Message'] = "Se solapan las fechas de creacion con otros periodos registrados";
               print json_encode($jTableResult);
             }
             }else{
@@ -97,7 +97,7 @@ try{
                     $row = mysql_fetch_array($result);
                     $jTableResult = array();
                     $jTableResult['Result'] = "ERROR";
-                    $jTableResult['Message'] = "Se solapan las fechas de creacion con otras registradas";
+                    $jTableResult['Message'] = "Se solapan las fechas de creacion con otros periodos registrados";
                     print json_encode($jTableResult);
                 }
             }else{

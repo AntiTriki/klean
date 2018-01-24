@@ -56,7 +56,7 @@ $_SESSION['nivelemp']=$row2['nivel'];
 
 
 
-<div class="container" style="padding-top: 100px;
+<div class="container" style="padding-top: 100px; padding-left: 200px;
     ">
 
     <div id="Productos" style="width: 80%;margin:auto;text-align: center;"></div>
@@ -78,7 +78,8 @@ $_SESSION['nivelemp']=$row2['nivel'];
                         tooltip: 'Imprimir',
                         text: 'Reportes',
                         click: function () {
-                            window.location = "gestiones/index.php";
+                            window.open("gestiones/index.php", 'mywin',
+                                'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0'); return false;
                         }
                     }]
                 },
@@ -140,8 +141,8 @@ $_SESSION['nivelemp']=$row2['nivel'];
                     title: 'Estado',
                     width: '20%',
                     create: false,
-                    edit: true,
-                    list: true,
+                    edit: false,
+                    list: false,
                     // type: 'checkbox',
                     // values: { 0: 'Cerrado', 1: 'Abierto' },
                     // defaultValue: 0
@@ -161,15 +162,19 @@ $_SESSION['nivelemp']=$row2['nivel'];
             },
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
-                data.form.find('input[name="nombre"]').addClass('validate[required]');
-                data.form.find('input[name="fecha_inicio"]').addClass('validate[required]');
-                data.form.find('input[name="fecha_fin"]').addClass('validate[required]');
+                data.form.find('input[name="nombre"]').addClass('validate[required] yo');
+                data.form.find('input[name="fecha_inicio"]').addClass('validate[required] yo');
+                data.form.find('input[name="fecha_fin"]').addClass('validate[required] yo');
 
 
 
 
                 data.form.validationEngine();
                 data.form.css('width','300px');
+
+                data.form.parent().dialog("option", "resizable", false);
+                data.form.parent().dialog("option", "modal", true);
+                data.form.parent().dialog("option", "draggable", false);
 
 
             },

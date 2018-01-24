@@ -42,6 +42,7 @@ unset($_SESSION['nombreemp']);
 <!--	<link href="Scripts/jtable/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />-->
       <style media="screen">
 
+
           .profile-img{
               margin-top: -8px;
               margin-right: 5px;
@@ -108,12 +109,23 @@ unset($_SESSION['nombreemp']);
 
               color: #000000;
           }
+          #Edit-nit{
+
+
+          }
+          input[type=number]::-webkit-inner-spin-button,
+          input[type=number]::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+              margin: 0;
+          }
       </style>
 <!-- Import Javascript files for validation engine (in Head section of HTML) -->
 <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="js/jquery.validationEngine-es.js"></script>
       <script src="js/bootstrap.min.js" charset="utf-8"></script>
-      onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+
   </head>
   <body>
   <div id="navbar-auto-hidden" class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -251,6 +263,12 @@ unset($_SESSION['nombreemp']);
 						width: '25%'
 
 					},
+                    nit: {
+                        title: 'Nit',
+                        create: true,
+                        edit: true,
+                        list: false
+                    },
             direccion: {
                 title: 'Direccion',
 						create: true,
@@ -263,17 +281,13 @@ unset($_SESSION['nombreemp']);
                         edit: true,
                         list: false
                     },
-            nit: {
-                        title: 'Nit',
-                        create: true,
-                        edit: true,
-                        list: false
-                    },
+
             nivel: {
                         title: 'Nivel',
                         create: true,
                         edit: true,
-                        list: false
+                        list: false,
+                options: { 3: '3', 4: '4', 5: '5', 6: '6', 7: '7' }
                     },
             ShowDetailColumn: {
                 title: '',
@@ -289,15 +303,19 @@ unset($_SESSION['nombreemp']);
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
                 data.form.find('input[name="razon_social"]').addClass('validate[required] yo');
+                data.form.find('input[name="nit"]').addClass(' validate[required],custom[integer] yo');
                 data.form.find('input[name="correo"]').addClass('custom[email]] yo');
                 data.form.find('input[name="sigla"]').addClass('validate[required] yo' );
                 data.form.find('input[name="direccion"]').addClass(' yo');
-                data.form.find('input[name="nit"]').addClass('custom[integer] yo');
+
 
                 data.form.find('input[name="nivel"]').addClass('validate[required],custom[integer],min[3],max[7] yo');
 
                 data.form.validationEngine();
                 data.form.css('width','300px');
+                data.form.parent().dialog("option", "resizable", false);
+                data.form.parent().dialog("option", "modal", true);
+                data.form.parent().dialog("option", "draggable", false);
 
                 data.form.closest('.ui-dialog').dialog('option', 'position', 'center');
             },
@@ -314,6 +332,8 @@ unset($_SESSION['nombreemp']);
 
 			//Load person list from server
 			$('#Productos').jtable('load');
+			$('#Edit-nit').setAttribute("type", "number");
+
 
 		});
 

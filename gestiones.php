@@ -136,10 +136,22 @@ try{
     }
 
     }else if($_GET["accion"] == "eliminar"){
+        $result = mysql_query("SELECT count(*) as cont FROM periodo where id_gestion=".$_POST["id"].";");
+        $row = mysql_fetch_array($result);
+        if($row['cont'] == 0){
         $result = mysql_query("DELETE FROM gestion WHERE id= " . $_POST["id"] . ";");
         $jTableResult = array();
         $jTableResult['Result'] = "OK";
         print json_encode($jTableResult);
+    }else{
+            $row = mysql_fetch_array($result);
+            $jTableResult = array();
+            $jTableResult['Result'] = "ERROR";
+            $jTableResult['Message'] = "No puede eliminar teniendo periodos en la gestion";
+            print json_encode($jTableResult);
+
+        }
+
     }
     mysql_close($con);
 }catch(Exception $ex){
