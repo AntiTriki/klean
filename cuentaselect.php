@@ -16,6 +16,7 @@ if ($result) {
         $array['id_tipocuenta'] = $row['id'];
         $array['nivel'] = $row['nivel'];
         $array['text'] =$row['codigo'].' - '.$row['text'];
+        $array['nombre'] =$row['text'];
 
        $i++;
         $array['result']=1;

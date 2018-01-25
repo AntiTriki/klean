@@ -219,13 +219,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
 
     </script>
-    <script>
-        $(document).ready(function(){
 
-
-
-        });
-    </script>
     <link rel="stylesheet" href="css/style.min.css">
     <script type="text/javascript" src="js/jstree.min.js"></script>
 </head>
@@ -233,14 +227,23 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 <div class="container" style="padding-left:150px;">
     <div><h3>Plan de Cuentas</h3></div>
 
-    <div class="btn-group-horizontal" style="position: relative;">
-      <button type="button" id ="guardar" class="btn btn-success" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+    <div class="btn-group" style="position: relative; ">
+      <button type="button" id="agre" class="btn btn-success alerta" style="border-radius: 0px"   ><span style="line-height: 1.5;" class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+      <button type="button" id="agr" class="btn btn-success " style="display: none;"  data-target="#agregarc" ><span style="line-height: 1.5;" class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
          <a class="btn btn-primary" id="rep" style="display: inline"><img style="width:20px;" src="css/s.png" /> Reporte</a>
-        <button type="button" class="btn btn-success" style="" data-toggle="modal" data-target="#e"><img style="width:20px;" src="css/s.png" /> Renombrar</button>
-         <a class="btn btn-primary" id="elim" style="display: inline"><img style="width:20px;" src="css/s.png" /> Eliminar</a>
+        <button type="button" id="edit" class="btn btn-success alerta" style=""  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Renombrar</button>
+        <button type="button" id="edi" class="btn btn-success " style="display: none;"  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Renombrar</button>
+         <a class="btn btn-primary alerta" id="elim" style="display: inline"><img style="width:20px;" src="css/s.png" /> Eliminar</a>
+         <a class="btn btn-primary " id="eli" style="display: none; border-radius: 0px"><img style="width:20px;" src="css/s.png" /> Eliminar</a>
     </div>
-    <div style="position: relative;" class="borde">
-        <form id="static" class="" role="form"  enctype="multipart/form-data">
+    <div class="modal fade" id="agregarc" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                     <h4 class="modal-title" id="myModalLabel">Agregar Cuenta</h4>
+                </div>
+                <div class="modal-body">
+        <form id="forma" class="" role="form"  style="    margin-bottom: 0;" enctype="multipart/form-data">
             <div class="container">
                 <div class="row row-centered">
                     <div class="col-sm-3 col-lg-3 col-centered">
@@ -256,7 +259,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
             </div>
             <div class="row">
 
-                <div class="col-sm-2 col-lg-6">
+                <div class="col-sm-2 col-lg-12">
                     <div class="form-group">
                         <label for="text">Cuenta:</label>
                         <input  type="text" class="form-control" id="text" name="text">
@@ -270,8 +273,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
             <div class="row">
                 <div class="col-sm-2 col-lg-12">
                     <div class="form-group">
-                        <label for="id_tipocuenta">Cuenta Padre:</label>
-                        <input  readonly class="form-control  show-menu-arrow show-tick" data-size="5" data-dropup-auto="false" id="textopadre" name="textopadre" >
+                        <button type="button" id ="guardar" class="btn btn-success" >Agregar</button>
                         <input type="hidden"  id="id_tipocuenta" name="id_tipocuenta" >
 
 
@@ -281,7 +283,12 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
             </div>
             <!-- /.row this actually does not appear to be needed with the form-horizontal -->
         </form>
-    </div>
+
+
+            </div>
+            </div>
+            </div>
+            </div>
 
     <?php if(isset($_SESSION['id_emp']))
     { ?>
@@ -305,7 +312,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
             <div class="modal-body">
                 <div data-toggle="validator" >
-
+                    <form id="forme" class="" role="form"  style="    margin-bottom: 0;" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="control-label" for="cuenta_nom">Cuenta:</label>
                         <input type="text" name="cuenta_nom" id="cuenta_nom" class="form-control"  />
@@ -315,7 +322,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
                     </div>
 
-
+                    </form>
 
                     <div class="form-group">
                         <button id="edit" type="button" class="btn crud-submit btn-success ">Editar</button>
@@ -333,6 +340,15 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
+        var ya = 0;
+        $(".alerta").click(function () {
+            if(ya == 0) {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error('Debe seleccionar cuenta');
+            }else{
+                alertify.alert().destroy();
+            }
+        });
         $('#rep').click( function(e) {e.preventDefault(); window.open("cuentas/index.php", 'mywin',
             'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0');  return false; } );
 
@@ -348,7 +364,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
             $.ajax({
                 type: 'post',
                 url: 'cuentaabm.php',
-                data: $('form').serialize(),
+                data: $('#forma').serialize(),
                 success: function (data) {
                     if(data=='1'){
                         alertify.set('notifier', 'position', 'top-right');
@@ -360,6 +376,42 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                         alertify.error(data);
                         }
                     }
+            });
+        });
+        $('#editar').click(function(){
+            $.ajax({
+                type: 'post',
+                url: 'cuentaedit.php',
+                data: $('#forme').serialize(),
+                success: function (data) {
+                    if(data=='1'){
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success('Guardado');
+                        $('#tree-container'). jstree("refresh");
+                    }else {
+
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.error(data);
+                    }
+                }
+            });
+        });
+        $('#eliminar').click(function(){
+            $.ajax({
+                type: 'post',
+                url: 'cuentadelete.php',
+                data: $('#formd').serialize(),
+                success: function (data) {
+                    if(data=='1'){
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success('Guardado');
+                        $('#tree-container'). jstree("refresh");
+                    }else {
+
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.error(data);
+                    }
+                }
             });
         });
         $('#tree-container').jstree({
@@ -378,62 +430,62 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                     'responsive' : false,
                     "icons": false
                 }
-            },
-
-            'plugins' : ['state','contextmenu'],
-            "contextmenu": {
-                items : function (o, cb) {
-                    return {
-                        "rename" : {
-                            "separator_before"	: false,
-                            "separator_after"	: false,
-                            "_disabled"			: false, //(this.check("rename_node", data.reference, this.get_parent(data.reference), "")),
-                            "label"				: "Editar",
-                            /*!
-                             "shortcut"			: 113,
-                             "shortcut_label"	: 'F2',
-                             "icon"				: "glyphicon glyphicon-leaf",
-                             */
-                            "action"			: function (data) {
-                                var inst = $.jstree.reference(data.reference),
-                                    obj = inst.get_node(data.reference);
-                                inst.edit(obj);
-
-                            }
-                        },
-                        "remove" : {
-                            "separator_before"	: false,
-                            "icon"				: false,
-                            "separator_after"	: false,
-                            "_disabled"			: false, //(this.check("delete_node", data.reference, this.get_parent(data.reference), "")),
-                            "label"				: "Eliminar",
-                            "action"			: function (data) {
-                                var inst = $.jstree.reference(data.reference),
-                                    obj = inst.get_node(data.reference);
-                                if(inst.is_selected(obj)) {
-                                    inst.delete_node(inst.get_selected());
-
-                                }
-                                else {
-                                    inst.delete_node(obj);
-                                }
-                            }
-                        }
-
-                    }
-
-
-                }
-//                    "items": {
-//                    "create" : false,
-//                    "ccp" : false,
-//                    "rename" : false,
-//                    "remove" : {
-//                        "label" : "&nbsp;Delete",
-//                        "icon" : "/images/icon/cross.png"
-//                    }
-//                }
             }
+
+            //'plugins' : ['state','contextmenu'],
+//            "contextmenu": {
+//                items : function (o, cb) {
+//                    return {
+//                        "rename" : {
+//                            "separator_before"	: false,
+//                            "separator_after"	: false,
+//                            "_disabled"			: false, //(this.check("rename_node", data.reference, this.get_parent(data.reference), "")),
+//                            "label"				: "Editar",
+//                            /*!
+//                             "shortcut"			: 113,
+//                             "shortcut_label"	: 'F2',
+//                             "icon"				: "glyphicon glyphicon-leaf",
+//                             */
+//                            "action"			: function (data) {
+//                                var inst = $.jstree.reference(data.reference),
+//                                    obj = inst.get_node(data.reference);
+//                                inst.edit(obj);
+//
+//                            }
+//                        },
+//                        "remove" : {
+//                            "separator_before"	: false,
+//                            "icon"				: false,
+//                            "separator_after"	: false,
+//                            "_disabled"			: false, //(this.check("delete_node", data.reference, this.get_parent(data.reference), "")),
+//                            "label"				: "Eliminar",
+//                            "action"			: function (data) {
+//                                var inst = $.jstree.reference(data.reference),
+//                                    obj = inst.get_node(data.reference);
+//                                if(inst.is_selected(obj)) {
+//                                    inst.delete_node(inst.get_selected());
+//
+//                                }
+//                                else {
+//                                    inst.delete_node(obj);
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//
+//
+//                }
+////                    "items": {
+////                    "create" : false,
+////                    "ccp" : false,
+////                    "rename" : false,
+////                    "remove" : {
+////                        "label" : "&nbsp;Delete",
+////                        "icon" : "/images/icon/cross.png"
+////                    }
+////                }
+//            }
 
         }).on('rename_node.jstree', function (e, data) {
             $.get('response.php?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
@@ -455,6 +507,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
     $('#tree-container').on("select_node.jstree", function (e, data) {
 
 
+
         $.ajax({
             type: 'post',
             url: 'cuentaselect.php',
@@ -465,10 +518,22 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 if(data['result']===1){
 
                     $("#id_padre").val(data['id']);
+                    $("#id_cuenta_e").val(data['id']);
+
                     $("#textopadre").val(data['text']);
+                    $("#cuenta_nom").val(data['nombre']);
                     $("#id_tipocuenta").val(data['id_tipocuenta']);
                     $("#nivel").val(data['nivel']);
                     $("#text").val('');
+                    $("#edi").attr('data-toggle','modal');
+
+                    $("#agr").attr('data-toggle','modal');
+
+
+                    document.getElementById("edi").style.display = "block";
+                    document.getElementById("edit").style.display = "none";
+                    document.getElementById("agr").style.display = "block";
+                    document.getElementById("agre").style.display = "none";
 
                 }else {
                     alertify.set('notifier', 'position', 'top-right');
