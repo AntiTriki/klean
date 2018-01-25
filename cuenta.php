@@ -235,7 +235,9 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
     <div class="btn-group-horizontal" style="position: relative;">
       <button type="button" id ="guardar" class="btn btn-success" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-         <a class="btn btn-primary" href="cuentas/index.php" style="display: inline"><img style="width:20px;" src="css/s.png" /> Reporte</a>
+         <a class="btn btn-primary" id="rep" style="display: inline"><img style="width:20px;" src="css/s.png" /> Reporte</a>
+        <button type="button" class="btn btn-success" style="" data-toggle="modal" data-target="#e"><img style="width:20px;" src="css/s.png" /> Renombrar</button>
+         <a class="btn btn-primary" id="elim" style="display: inline"><img style="width:20px;" src="css/s.png" /> Eliminar</a>
     </div>
     <div style="position: relative;" class="borde">
         <form id="static" class="" role="form"  enctype="multipart/form-data">
@@ -293,9 +295,47 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
 </div>
 <!-- /.container -->
+<div class="modal fade" id="e" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Cuenta</h4>
+            </div>
+
+            <div class="modal-body">
+                <div data-toggle="validator" >
+
+                    <div class="form-group">
+                        <label class="control-label" for="cuenta_nom">Cuenta:</label>
+                        <input type="text" name="cuenta_nom" id="cuenta_nom" class="form-control"  />
+                        <div class="help-block with-errors"></div>
+                        <input type="hidden" name="id_cuenta_e" id="id_cuenta_e"></input>
+
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <button id="edit" type="button" class="btn crud-submit btn-success ">Editar</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('#rep').click( function(e) {e.preventDefault(); window.open("cuentas/index.php", 'mywin',
+            'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0');  return false; } );
+
         $("#nivel").change(function () {
             $("#nivel option:selected").each(function () {
                var id = $(this).val();
@@ -405,6 +445,8 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
             $.get('response.php?operation=delete_node', { 'id' : data.node.id })
                 .fail(function () {
                     data.instance.refresh();
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error('Tiene cuentas dependientes a esta cuenta');
                 });
         });
 

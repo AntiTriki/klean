@@ -78,8 +78,7 @@ if(isset($_GET['operation'])) {
 				$node = isset($_GET['id']) && $_GET['id'] !== '#' ? (int)$_GET['id'] : 0;
 				$sql ="DELETE FROM `cuenta` WHERE `id`= '".$node."'";
 				mysqli_query($conn, $sql);
-                    $sql1 ="DELETE FROM `cuenta` WHERE `id_tipocuenta`= '".$node."'";
-                    mysqli_query($conn, $sql1);
+
                 }
 				break;
 			default:
