@@ -16,19 +16,27 @@ include_once('conexion.php');
 //Los tipos de comprobantes serán: "Ingreso", "Egreso", "Traspaso", "Apertura" y "Ajuste"
 //Solo puede haber un comprobante de apertura en una gestión
 date_default_timezone_set('America/La_Paz');
+
 $dbHost = 'localhost';
 $dbUsername = 'root';
 $dbPassword = '';
 $dbName = 'n';
+
 //connect with the database
 $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
+
 //get search term
+
+
 //get matched data from skills table
 $query = $db->query("SELECT * FROM cuenta where nivel=".$_SESSION['nivel']." and id_empresa=".$_SESSION['id_emp']." ");
+
 $data = array();
 while ($row = $query->fetch_assoc()) {
+
     array_push($data, array('label'=> $row['codigo']." - ".$row['text'], 'value' => $row['codigo']." - ".$row['text'], 'id'=>$row['id']));
 }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,14 +44,19 @@ while ($row = $query->fetch_assoc()) {
     <meta charset="utf-8">
     <title></title>
     <style>
+
         button, input, optgroup, select, textarea {
+
             color: #000000;
         }
+
+
         .borde {
             border: 2px solid #a1a1a1;
             padding: 10px 40px;
             border-radius: 3px;
             width: 80%;
+
         }
         label{
             margin-bottom: 0px;
@@ -72,7 +85,9 @@ while ($row = $query->fetch_assoc()) {
             width:100%;
             background:#999;
         }
+
         /* IE 6 */
+
     </style>
     <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="css/bootstrap-select.min.css">
@@ -126,12 +141,19 @@ while ($row = $query->fetch_assoc()) {
                             <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo" id="tipo_compro" placeholder="Tipo Comprobante">
 
                                 <?php
+
                                 $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                                 $cxn->set_charset("utf8");
                                 $result = $cxn->query("SELECT * from concepto where id >=6 and id <= 10");
                                 while($row = $result->fetch_assoc())
+
+
+
                                     echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
+
+
                                 $cxn->close();
+
                                 ?>
 
                             </select>
@@ -168,12 +190,19 @@ while ($row = $query->fetch_assoc()) {
                             <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_cambio" id="tipo_cam" placeholder="Csmbio">
 
                                 <?php
+
                                 $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                                 $cxn->set_charset("utf8");
                                 $result = $cxn->query("SELECT * from tipo_cambio where activo=1");
                                 while($row = $result->fetch_assoc())
+
+
+
                                     echo '<option value="'.$row['id'].'">'.$row['cambio'].'</option>';
+
+
                                 $cxn->close();
+
                                 ?>
 
                             </select>
@@ -192,12 +221,19 @@ while ($row = $query->fetch_assoc()) {
                             <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="moneda" id="mone" placeholder="Moneda">
 
                                 <?php
+
                                 $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                                 $cxn->set_charset("utf8");
                                 $result = $cxn->query("SELECT * from concepto where id >=1 and id <= 2");
                                 while($row = $result->fetch_assoc())
+
+
+
                                     echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
+
+
                                 $cxn->close();
+
                                 ?>
 
                             </select>
@@ -216,12 +252,19 @@ while ($row = $query->fetch_assoc()) {
                             <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="estado" id="esta" placeholder="Estado">
 
                                 <?php
+
                                 $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
                                 $cxn->set_charset("utf8");
                                 $result = $cxn->query("SELECT * from concepto where id >=3 and id <= 5 order by descripcion");
                                 while($row = $result->fetch_assoc())
+
+
+
                                     echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
+
+
                                 $cxn->close();
+
                                 ?>
 
                             </select>
@@ -293,154 +336,154 @@ while ($row = $query->fetch_assoc()) {
                         </tbody>
                     </table>
                 </div>
-                <div id ="footer">
-                    <div style="margin-left: 560px">
-                        TOTAL:
+                    <div id ="footer">
+                        <div style="margin-left: 560px">
+                            TOTAL:
                         <input id="debtotal" style="width: 70px"  class ="" type="text"><input style="width: 70px"  class ="" id="habtotal" type="text">
 
-                    </div>
-                </div>
-                <ul id="pagination" class="pagination-sm"></ul>
-
-
-
-
-            </div>
-            <!--  <div class="modal fade" id="crea_com" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-            <!--      <div class="modal-dialog" role="document">-->
-            <!--          <div class="modal-content">-->
-            <!--              <div class="modal-header">-->
-            <!--                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>-->
-            <!--                  <h4 class="modal-title" id="myModalLabel">Create Item</h4>-->
-            <!--              </div>-->
-            <!---->
-            <!--              <div class="modal-body">-->
-            <!--                  <form id = "compro" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">-->
-            <!--                      <div class="container">-->
-            <!--                          <div class="row row-centered">-->
-            <!--                              <div class="col-sm-3 col-lg-3 col-centered">-->
-            <!--                                  <!-- <div class="form-group">-->
-            <!--                          <label for="input6" class="col-md-4 control-label">123456789012:</label>-->
-            <!--                          <div class="col-md-8">-->
-            <!--                          <input type="text" class="form-control" id="input6" placeholder="input 6">-->
-            <!--                        </div>-->
-            <!--                      </div> -->
-            <!---->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                      </div>-->
-            <!--                      <div class="row">-->
-            <!--                          <div class="col-sm-2 col-lg-2">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="serie">Serie:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="serie" name="serie">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-6">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="tipo_comprobante">Tipo de Comprobante:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="tipo_comprobante" name="tipo_comprobante">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-4">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="fecha">Fecha:</label>-->
-            <!--                                  <input  type="text" class="form-control " id="fecha" name="fecha">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                      </div>-->
-            <!--                      <div class="row">-->
-            <!--                          <div class="col-sm-2 col-lg-12">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="glosa">Glosa:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="glosa" name="glosa">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!---->
-            <!--                      </div>-->
-            <!--                      <div class="row">-->
-            <!---->
-            <!--                          <div class="col-sm-2 col-lg-3">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="tipo_cambio">Tipo de Cambio:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="tipo_cambio" name="tipo_cambio">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-5">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="moneda">Moneda:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="moneda" name="moneda">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-4">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="estado">Estado:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="estado" name="estado">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!---->
-            <!--                      </div>-->
-            <!---->
-            <!--                      <!-- /.row this actually does not appear to be needed with the form-horizontal -->
-            <!--                      <button type="submit" class="btn crud-submit btn-success crea">Agregar</button>-->
-            <!--                  </form>-->
-            <!---->
-            <!--              </div>-->
-            <!--          </div>-->
-            <!---->
-            <!--      </div>-->
-            <!--  </div>-->
-            <div class="modal fade" id="add_det" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Detalle Cuenta</h4>
                         </div>
-
-                        <div class="modal-body">
-                            <div data-toggle="validator" >
-
-                                <div class="form-group">
-                                    <label class="control-label" for="cuenta_cod">Cuenta:</label>
-                                    <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
-                                    <div class="help-block with-errors"></div>
-                                    <input type="hidden" name="id_cuenta_auto" id="id_cuenta_auto"></input>
+                        </div>
+                    <ul id="pagination" class="pagination-sm"></ul>
 
 
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label" for="glosa_detalle">Glosa:</label>
-                                    <input type="text" name="glosa_detalle" id="glosa_detalle" class="form-control" >
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="debe_detalle">Debe:</label>
-                                    <input type="number" step="0.01" name="debe_detalle"  id="debe_detalle" class="form-control" >
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="haber_detalle">Haber:</label>
-                                    <input type="number" step="0.01" name="haber_detalle"  id="haber_detalle" class="form-control" >
-                                    <div class="help-block with-errors"></div>
-                                    <input type="hidden" name="conteo" id="conteo">
-                                </div>
 
 
-                                <div class="form-group">
-                                    <button id="addToTable" type="button" class="btn crud-submit btn-success ">Agregar</button>
-                                </div>
+        </div>
+        <!--  <div class="modal fade" id="crea_com" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+        <!--      <div class="modal-dialog" role="document">-->
+        <!--          <div class="modal-content">-->
+        <!--              <div class="modal-header">-->
+        <!--                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+        <!--                  <h4 class="modal-title" id="myModalLabel">Create Item</h4>-->
+        <!--              </div>-->
+        <!---->
+        <!--              <div class="modal-body">-->
+        <!--                  <form id = "compro" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">-->
+        <!--                      <div class="container">-->
+        <!--                          <div class="row row-centered">-->
+        <!--                              <div class="col-sm-3 col-lg-3 col-centered">-->
+        <!--                                  <!-- <div class="form-group">-->
+        <!--                          <label for="input6" class="col-md-4 control-label">123456789012:</label>-->
+        <!--                          <div class="col-md-8">-->
+        <!--                          <input type="text" class="form-control" id="input6" placeholder="input 6">-->
+        <!--                        </div>-->
+        <!--                      </div> -->
+        <!---->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!--                      </div>-->
+        <!--                      <div class="row">-->
+        <!--                          <div class="col-sm-2 col-lg-2">-->
+        <!--                              <div class="form-group">-->
+        <!--                                  <label for="serie">Serie:</label>-->
+        <!--                                  <input  type="text" class="form-control" id="serie" name="serie">-->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!--                          <div class="col-sm-2 col-lg-6">-->
+        <!--                              <div class="form-group">-->
+        <!--                                  <label for="tipo_comprobante">Tipo de Comprobante:</label>-->
+        <!--                                  <input  type="text" class="form-control" id="tipo_comprobante" name="tipo_comprobante">-->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!--                          <div class="col-sm-2 col-lg-4">-->
+        <!--                              <div class="form-group">-->
+        <!--                                  <label for="fecha">Fecha:</label>-->
+        <!--                                  <input  type="text" class="form-control " id="fecha" name="fecha">-->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!--                      </div>-->
+        <!--                      <div class="row">-->
+        <!--                          <div class="col-sm-2 col-lg-12">-->
+        <!--                              <div class="form-group">-->
+        <!--                                  <label for="glosa">Glosa:</label>-->
+        <!--                                  <input  type="text" class="form-control" id="glosa" name="glosa">-->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!---->
+        <!--                      </div>-->
+        <!--                      <div class="row">-->
+        <!---->
+        <!--                          <div class="col-sm-2 col-lg-3">-->
+        <!--                              <div class="form-group">-->
+        <!--                                  <label for="tipo_cambio">Tipo de Cambio:</label>-->
+        <!--                                  <input  type="text" class="form-control" id="tipo_cambio" name="tipo_cambio">-->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!--                          <div class="col-sm-2 col-lg-5">-->
+        <!--                              <div class="form-group">-->
+        <!--                                  <label for="moneda">Moneda:</label>-->
+        <!--                                  <input  type="text" class="form-control" id="moneda" name="moneda">-->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!--                          <div class="col-sm-2 col-lg-4">-->
+        <!--                              <div class="form-group">-->
+        <!--                                  <label for="estado">Estado:</label>-->
+        <!--                                  <input  type="text" class="form-control" id="estado" name="estado">-->
+        <!--                              </div>-->
+        <!--                          </div>-->
+        <!---->
+        <!--                      </div>-->
+        <!---->
+        <!--                      <!-- /.row this actually does not appear to be needed with the form-horizontal -->
+        <!--                      <button type="submit" class="btn crud-submit btn-success crea">Agregar</button>-->
+        <!--                  </form>-->
+        <!---->
+        <!--              </div>-->
+        <!--          </div>-->
+        <!---->
+        <!--      </div>-->
+        <!--  </div>-->
+        <div class="modal fade" id="add_det" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Detalle Cuenta</h4>
+                    </div>
 
+                    <div class="modal-body">
+                        <div data-toggle="validator" >
+
+                            <div class="form-group">
+                                <label class="control-label" for="cuenta_cod">Cuenta:</label>
+                                <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
+                                <div class="help-block with-errors"></div>
+                                <input type="hidden" name="id_cuenta_auto" id="id_cuenta_auto"></input>
 
 
                             </div>
-                        </div>
 
+                            <div class="form-group">
+                                <label class="control-label" for="glosa_detalle">Glosa:</label>
+                                <input type="text" name="glosa_detalle" id="glosa_detalle" class="form-control" >
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="debe_detalle">Debe:</label>
+                                <input type="number" step="0.01" name="debe_detalle"  id="debe_detalle" class="form-control" >
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="haber_detalle">Haber:</label>
+                                <input type="number" step="0.01" name="haber_detalle"  id="haber_detalle" class="form-control" >
+                                <div class="help-block with-errors"></div>
+                                <input type="hidden" name="conteo" id="conteo">
+                            </div>
+
+
+                            <div class="form-group">
+                                <button id="addToTable" type="button" class="btn crud-submit btn-success ">Agregar</button>
+                            </div>
+
+
+
+                        </div>
                     </div>
 
                 </div>
+
             </div>
+        </div>
     </form>
 </div>
 <script language="javascript">
@@ -453,29 +496,39 @@ while ($row = $query->fetch_assoc()) {
         this.length = 0; //clear original array
         this.push.apply(this, array); //push all elements except the one we want to delete
     }
+
+
     $('#addToTable').click(function() {
         var codigo = $('#cuenta_cod').val();
         var glosa = $('#glosa_detalle').val();
         var debe = $('#debe_detalle').val();
         var haber = $('#haber_detalle').val();
         var id_detallecuenta = $('#id_cuenta_auto').val();
+
         var	rows = '';
         if(document.getElementById('debe_detalle').disabled){
             debe = 0.00;
+
         }
         if(document.getElementById('haber_detalle').disabled){
             haber = 0.00;
+
         }
         array_auto.removeValue('id', id_detallecuenta);
         rows = rows + '<tr id="'+i_detalle+'">';
         rows = rows + '<td>'+codigo+'</td>';
+
         rows = rows + '<td><input type="hidden" id="glosa'+i_detalle+'" name="glosa'+i_detalle+'" value="'+glosa+'">'+glosa+'</input></td>';
         rows = rows + '<td class= "cold"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
         rows = rows + '<td class= "colh"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
+
         rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
+
         rows = rows + '<button onclick="deleteRow(this)" class="btn btn-danger ">Delete</button>';
         rows = rows + '</td>';
         rows = rows + '</tr>';
+
+
         //$("tbody").html(rows);
         $('table tbody').append(rows);
         $('#conteo').val(i_detalle);
@@ -489,6 +542,9 @@ while ($row = $query->fetch_assoc()) {
         $('#haber_detalle').prop('disabled', false);;
         $('#id_cuenta_auto').val('');
         suma();
+
+
+
     });
     function deleteRow(btn) {
         var row = btn.parentNode.parentNode;
@@ -498,29 +554,47 @@ while ($row = $query->fetch_assoc()) {
     var getSum = function () {
         var sum = 0;
         var selector = '.cold' ;
+
         $('#tabla').find(selector).each(function (index, element) {
             sum += parseFloat($(element).text());
+
         });
+
         return Math.round(sum * 1e2) / 1e2  ;
+
     };
     var getSuma = function () {
         var suma = 0;
         var selector = '.colh' ;
+
         $('#tabla').find(selector).each(function (index, element) {
             suma += parseFloat($(element).text());
+
         });
+
         return Math.round(suma * 1e2) / 1e2  ;
+
     };
     function suma(){
+
+
         $('#debtotal').each(function (index, element) {
             $(this).val(getSum());
+
         });
         $('#habtotal').each(function (index, element) {
             $(this).val(getSuma());
+
         });
+
+
     }
+
+
     $(document).ready(function () {
+
         capturar_com();
+
         ocultar_div();
         $("#buscar").click( function()
             {
@@ -564,30 +638,38 @@ while ($row = $query->fetch_assoc()) {
         $("#div_monedase").hide();
         $("#div_estadose").hide();
         $("#div_cambiose").hide();
+
     }function mostrar_div(){
         $("#div_tipose").show();
         $("#div_monedase").show();
         $("#div_estadose").show();
         $("#div_cambiose").show();
         ocultar_input();
+
     }
     function mostrar_input(){
         $("#div_tipoin").show();
         $("#div_monedain").show();
         $("#div_estadoin").show();
         $("#div_cambioin").show();
+
     }
     function ocultar_input(){
         $("#div_tipoin").hide();
         $("#div_monedain").hide();
         $("#div_estadoin").hide();
         $("#div_cambioin").hide();
+
     }
     function buscar(){
 //             var f = $('#serie').val();
         var f = parseInt($('#buscar_serie').val());
+
+
         if(f>0)
         {
+
+
             $.ajax({
                 type: "POST",
                 url: "buscar_serie.php",
@@ -595,6 +677,7 @@ while ($row = $query->fetch_assoc()) {
                 dataType: "json",
                 cache: false,
                 success: function(data){
+
                     if(data['result']=='1') {
                         $("#serie").val(data['serie']);
                         $("#fecha").val(data['fecha']);
@@ -608,43 +691,66 @@ while ($row = $query->fetch_assoc()) {
                     {
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.error('Serie no encontrada');
+
+
                     }
                 },
                 error: function(){
+
                 }
             });
         }else{
             alertify.set('notifier', 'position', 'top-right');
             alertify.error('Ingrese un número válido');
+
         }
+
     }
     function disable(){
         $("#static").find("input[id='fecha']").prop('disabled', true);
         $("#static").find("input[id='glosa']").prop('disabled', true);
         ocultar_div();
         mostrar_input();
+
     }
     function nuevo(){
         $("#static").find("input[id='serie']").val("");
         $("#static").find("input[id='fecha']").val("");
         $("#static").find("input[id='glosa']").val("");
         mostrar_div();
+
         $("#static").find("input[id='fecha']").prop('disabled', false);
         $("#static").find("input[id='glosa']").prop('disabled', false);
         $('tbody').empty();
+
         $.ajax({
             dataType: 'json',
             type:'POST',
             url:  'serie_get.php',
             cache: false
+
+
+
         }).done(function(data){
+
+
             $("#static").find("input[id='serie']").val(data);
+
+
         });
+
+
+
     };
     function agregar(){
+
         var datastring = $("#static").serialize();
         var form_action = $("#static").attr("action");
+
 //donde carajo le meto el for each para cada fila
+
+
+
         $.ajax({
             dataType: 'json',
             type:'POST',
@@ -652,25 +758,44 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             data:
             datastring,
-        }).done(function(data){
-            $("#static").find("input[id='serie']").val(data.serie);
-            $("#static").find("input[id='fecha']").val(data.fecha);
-            $("#static").find("input[id='glosa']").val(data.glosa);
-            $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
-            $("#static").find("input[id='tipo_cambio']").val(data.cambio);
-            $("#static").find("input[id='moneda']").val(data.moneda);
-            $("#static").find("input[id='estado']").val(data.estado);
-            upResult();
-            alertify.set('notifier', 'position', 'top-right');
-            alertify.success('Datos ingresados Correctamente');
+
+        }).done(
+
+            function(data){
+                if(data.valido == 1) {
+
+                    $("#static").find("input[id='serie']").val(data.serie);
+                    $("#static").find("input[id='fecha']").val(data.fecha);
+                    $("#static").find("input[id='glosa']").val(data.glosa);
+                    $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
+                    $("#static").find("input[id='tipo_cambio']").val(data.cambio);
+                    $("#static").find("input[id='moneda']").val(data.moneda);
+                    $("#static").find("input[id='estado']").val(data.estado);
+
+
+                    upResult();
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success('Datos ingresados Correctamente');
+                }else{
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error('Fecha no pertenece a un periodo');
+
+                }
+
         });
+
+
     };
+
     function updateResult(){
 //             var f = $('#serie').val();
         var f = parseInt($('#serie').val());
         f=f+1;
+
         if(f>0)
         {
+
+
             $.ajax({
                 type: "POST",
                 url: "comproc.php",
@@ -686,10 +811,12 @@ while ($row = $query->fetch_assoc()) {
                     $("#moneda").val(data['moneda']);
                     $("#estado").val(data['estado']);
                     detalle(data['id']);
+
                 }
             });
         }
     }
+
     function upResult(){
         var data;
         $.ajax({
@@ -697,6 +824,7 @@ while ($row = $query->fetch_assoc()) {
             url: 'comprob.php',
             data: data,
             success: function (data) {
+
                 $("#serie").val(data['serie']);
                 $("#fecha").val(data['fecha']);
                 $("#glosa").val(data['glosa']);
@@ -704,7 +832,9 @@ while ($row = $query->fetch_assoc()) {
                 $("#tipo_cambio").val(data['cambio']);
                 $("#moneda").val(data['moneda']);
                 $("#estado").val(data['estado']);
+
                 detalle2(data['id']);
+
             }
         });
     }
@@ -712,8 +842,11 @@ while ($row = $query->fetch_assoc()) {
 //             var f = $('#serie').val();
         var f = parseInt($('#serie').val());
         f=f-1;
+
         if(f>0)
         {
+
+
             $.ajax({
                 type: "POST",
                 url: "comproc.php",
@@ -729,10 +862,14 @@ while ($row = $query->fetch_assoc()) {
                     $("#moneda").val(data['moneda']);
                     $("#estado").val(data['estado']);
                     detalle3(data['id']);
+
                 }
             });
         }
     }
+
+
+
     function capturar_com() {
         var data;
         var yo;
@@ -741,6 +878,8 @@ while ($row = $query->fetch_assoc()) {
             url: 'comprobanteregister.php',
             data: data,
             success: function (data) {
+
+
                 $("#serie").val(data['serie']);
                 $("#fecha").val(data['fecha']);
                 $("#glosa").val(data['glosa']);
@@ -748,9 +887,14 @@ while ($row = $query->fetch_assoc()) {
                 $("#tipo_cambio").val(data['cambio']);
                 $("#moneda").val(data['moneda']);
                 $("#estado").val(data['estado']);
+
                 detalle4(data['id']);
+
+
             }
         });
+
+
     }
     function detalle(a) {
         $.ajax({
@@ -761,6 +905,7 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+
             },
             success: function (yo) {
                 manageRow(yo.data);
@@ -776,9 +921,12 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+
             },
             success: function (yo) {
                 manageRow2(yo.data);
+
+
             }
         });
     }
@@ -791,9 +939,12 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+
             },
             success: function (yo) {
                 manageRow3(yo.data);
+
+
             }
         });
     }
@@ -806,9 +957,11 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+
             },
             success: function (yo) {
                 manageRow4(yo.data);
+
             }
         });
     }
@@ -817,29 +970,38 @@ while ($row = $query->fetch_assoc()) {
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
             rows = rows + '<td>'+value.glosa+'</td>';
             rows = rows + '<td>'+value.debe+'</td>';
             rows = rows + '<td>'+value.haber+'</td>';
+
             rows = rows + '<td data-id="'+value.id+'">';
+
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
+
         $("tbody").html(rows);
+
     }
     function manageRow2(data) {
         var	rows = '';
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
             rows = rows + '<td>'+value.glosa+'</td>';
             rows = rows + '<td>'+value.debe+'</td>';
             rows = rows + '<td>'+value.haber+'</td>';
+
             rows = rows + '<td data-id="'+value.id+'">';
+
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
+
         $("tbody").html(rows);
     }
     function manageRow3(data) {
@@ -847,64 +1009,109 @@ while ($row = $query->fetch_assoc()) {
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
             rows = rows + '<td>'+value.glosa+'</td>';
             rows = rows + '<td>'+value.debe+'</td>';
             rows = rows + '<td>'+value.haber+'</td>';
+
             rows = rows + '<td data-id="'+value.id+'">';
+
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
+
         $("tbody").html(rows);
+
     }
     function manageRow4(data) {
         var	rows = '';
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
+
             rows = rows + '<td>'+value.glosa+'</td>';
             rows = rows + '<td>'+value.debe+'</td>';
             rows = rows + '<td>'+value.haber+'</td>';
+
             rows = rows + '<td data-id="'+value.id+'">';
+
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
+
         $("tbody").html(rows);
+
     }
+
     $(function() {
+
         $('#cuenta_cod').autocomplete({
             source: array_auto,
             change: function (event, ui) {
+
+
                 $("#id_cuenta_auto").val(ui.item.id);
                 return false;
             } });
     });
+
 </script>
+<script type="text/javascript" src="js/alertify.min.js"></script>
 
 <script> //date picker js
     $(document).ready(function() {
+
         $('.datepicker').datepicker({
             todayHighlight: true,
             "autoclose": true,
             format: 'dd-mm-yyyy'
+
+
+
+        }).on('changeDate', function() {
+            var date= $('#fecha').val();
+
+
+                $.ajax
+                ({
+
+                    type: "POST",
+                    url: "fecha_per.php",
+                    data: "fecha_per="+date,
+
+                    success: function(result)
+                    {
+                        if(result !=0){
+                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.success(result);
+                        }else{
+                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.error('La fecha no pertenece a un periodo');
+
+                        }
+
+
+                    }
+                });
         });
     });
-    //input puede que funciones
     $('#debe_detalle').on('input', function() {
+
         if($(this).val().length)
             $('#haber_detalle').prop('disabled', true);
         else
             $('#haber_detalle').prop('disabled', false);
     });
     $('#haber_detalle').on('input', function() {
+
         if($(this).val().length)
             $('#debe_detalle').prop('disabled', true);
         else
             $('#debe_detalle').prop('disabled', false);
     });
 </script>
-<script type="text/javascript" src="js/alertify.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
 
 </body>
