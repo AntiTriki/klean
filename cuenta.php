@@ -224,82 +224,25 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
     <script type="text/javascript" src="js/jstree.min.js"></script>
 </head>
 <body>
-<div class="container" style="padding-left:150px;">
+<div class="container" style="padding-left:300px;">
     <div><h3>Plan de Cuentas</h3></div>
 
     <div class="btn-group" style="position: relative; ">
-      <button type="button" id="agre" class="btn btn-success alerta" style="border-radius: 0px"   ><span style="line-height: 1.5;" class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-      <button type="button" id="agr" class="btn btn-success " style="display: none;"  data-target="#agregarc" ><span style="line-height: 1.5;" class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-         <a class="btn btn-primary" id="rep" style="display: inline"><img style="width:20px;" src="css/s.png" /> Reporte</a>
-        <button type="button" id="edit" class="btn btn-success alerta" style=""  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Renombrar</button>
-        <button type="button" id="edi" class="btn btn-success " style="display: none;"  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Renombrar</button>
-        <button type="button" class="btn btn-primary alerta" id="elim" style="display: inline"><img style="width:20px;" src="css/s.png" /> Eliminar</button>
-        <button type="button" class="btn btn-primary " id="eli" data-target="#elimi" style="display: none; border-radius: 0px"><img style="width:20px;" src="css/s.png" /> Eliminar</button>
+        <a class="btn btn-primary" id="rep" style=" border-radius: 0px; line-height: 1.7;"><img style="width:20px;" src="css/s.png" /> </a>
+        <button type="button" id="agre" class="btn btn-success alerta" style="border-radius: 0px"   ><span style="line-height: 1.5;" class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <button type="button" id="agr" class="btn btn-success " style="display: none;"  data-target="#agregarc" ><span style="line-height: 1.5;" class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+        <button type="button" id="edit" class="btn btn-warning alerta" style=""  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> </button>
+        <button type="button" id="edi" class="btn btn-warning " style="display: none;"  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> </button>
+        <button type="button" class="btn btn-danger alerta" id="elim" style="display: inline"><span style="line-height: 1.5;" class="glyphicon glyphicon-trash" aria-hidden="true" ></span> </button>
+        <button type="button" class="btn btn-danger " id="eli" data-target="#elimi" style="display: none; border-radius: 0px"><span style="line-height: 1.5;" class="glyphicon glyphicon-trash" aria-hidden="true" ></span> </button>
     </div>
-    <div class="modal fade" id="agregarc" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Agregar Cuenta</h4>
-                </div>
-                <div class="modal-body">
-        <form id="forma" class="" role="form"  style="    margin-bottom: 0;" enctype="multipart/form-data">
-            <div class="container">
-                <div class="row row-centered">
-                    <div class="col-sm-3 col-lg-3 col-centered">
-                        <!-- <div class="form-group">
-                <label for="input6" class="col-md-4 control-label">123456789012:</label>
-                <div class="col-md-8">
-                <input type="text" class="form-control" id="input6" placeholder="input 6">
-              </div>
-            </div> -->
-
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-sm-2 col-lg-12">
-                    <div class="form-group">
-                        <label for="text">Cuenta:</label>
-                        <input  type="text" class="form-control" id="text" name="text">
-                    </div>
-                </div>
-                <input  type="hidden" id="nivel" name="nivel"  >
 
 
-                </input>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 col-lg-12">
-                    <div class="form-group">
-                        <button type="button" id ="guardar" class="btn btn-success" >Agregar</button>
-                        <input type="hidden"  id="id_tipocuenta" name="id_tipocuenta" >
 
-
-                    </div>
-                </div>
-
-            </div>
-            <!-- /.row this actually does not appear to be needed with the form-horizontal -->
-        </form>
-
-
-            </div>
-            </div>
-            </div>
-            </div>
-
-    <?php if(isset($_SESSION['id_emp']))
-    { ?>
 
 
         <div id="tree-container" ></div>
-         <?php } else{ ?>
 
-
-    <?php }?>
 
 </div>
 <!-- /.container -->
@@ -338,7 +281,60 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
     </div>
 </div>
+<div class="modal fade" id="agregarc" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Agregar Cuenta</h4>
+            </div>
+            <div class="modal-body">
+                <form id="forma" class="" role="form"  style="    margin-bottom: 0;" enctype="multipart/form-data">
+                    <div class="container">
+                        <div class="row row-centered">
+                            <div class="col-sm-3 col-lg-3 col-centered">
+                                <!-- <div class="form-group">
+                        <label for="input6" class="col-md-4 control-label">123456789012:</label>
+                        <div class="col-md-8">
+                        <input type="text" class="form-control" id="input6" placeholder="input 6">
+                      </div>
+                    </div> -->
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-2 col-lg-12">
+                            <div class="form-group">
+                                <label for="text">Cuenta:</label>
+                                <input  type="text" class="form-control" id="text" name="text">
+                            </div>
+                        </div>
+                        <input  type="hidden" id="nivel" name="nivel"  >
+
+
+                        </input>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 col-lg-12">
+                            <div class="form-group">
+                                <button type="button" id ="guardar" class="btn btn-success" >Agregar</button>
+                                <input type="hidden"  id="id_tipocuenta" name="id_tipocuenta" >
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.row this actually does not appear to be needed with the form-horizontal -->
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="elimi" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -408,6 +404,7 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success('Guardado');
                         $('#tree-container'). jstree("refresh");
+                        $('#agregarc').modal('hide');
                     }else {
 
                         alertify.set('notifier', 'position', 'top-right');
