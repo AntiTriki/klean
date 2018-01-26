@@ -888,6 +888,31 @@ while ($row = $query->fetch_assoc()) {
             todayHighlight: true,
             "autoclose": true,
             format: 'dd-mm-yyyy'
+        }).on('changeDate', function() {
+            var date= $('#fecha').val();
+
+
+            $.ajax
+            ({
+
+                type: "POST",
+                url: "fecha_per.php",
+                data: "fecha_per="+date,
+
+                success: function(result)
+                {
+                    if(result !=0){
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success(result);
+                    }else{
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.error('La fecha no pertenece a un periodo');
+
+                    }
+
+
+                }
+            });
         });
     });
     //input puede que funciones

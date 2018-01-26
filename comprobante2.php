@@ -1068,8 +1068,6 @@ while ($row = $query->fetch_assoc()) {
             "autoclose": true,
             format: 'dd-mm-yyyy'
 
-
-
         }).on('changeDate', function() {
             var date= $('#fecha').val();
 
