@@ -52,7 +52,7 @@ if(isset($_POST['nivel'])&&$_POST['text']!=''&&isset($_POST['id_tipocuenta'])) {
 
 
         $result = mysql_query("SELECT COUNT(*) AS conteo FROM cuenta where
-          text='" . $_POST["text"] . "' and id_empresa = " . $_SESSION["id_emp"] . ";");
+          text='" . $_POST["text"] . "' and nivel =".$_POST['nivel']." and id_empresa = " . $_SESSION["id_emp"] . ";");
         $row = mysql_fetch_array($result);
         if ($row['conteo'] == 0) {
             $result = mysql_query("INSERT INTO cuenta(text, nivel,id_tipocuenta,id_empresa,codigo,correlativo) VALUES(

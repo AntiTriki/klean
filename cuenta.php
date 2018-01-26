@@ -233,14 +233,15 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
          <a class="btn btn-primary" id="rep" style="display: inline"><img style="width:20px;" src="css/s.png" /> Reporte</a>
         <button type="button" id="edit" class="btn btn-success alerta" style=""  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Renombrar</button>
         <button type="button" id="edi" class="btn btn-success " style="display: none;"  data-target="#e"><span style="line-height: 1.5;" class="glyphicon glyphicon-edit" aria-hidden="true" ></span> Renombrar</button>
-         <a class="btn btn-primary alerta" id="elim" style="display: inline"><img style="width:20px;" src="css/s.png" /> Eliminar</a>
-         <a class="btn btn-primary " id="eli" style="display: none; border-radius: 0px"><img style="width:20px;" src="css/s.png" /> Eliminar</a>
+        <button type="button" class="btn btn-primary alerta" id="elim" style="display: inline"><img style="width:20px;" src="css/s.png" /> Eliminar</button>
+        <button type="button" class="btn btn-primary " id="eli" data-target="#elimi" style="display: none; border-radius: 0px"><img style="width:20px;" src="css/s.png" /> Eliminar</button>
     </div>
     <div class="modal fade" id="agregarc" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                     <h4 class="modal-title" id="myModalLabel">Agregar Cuenta</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Agregar Cuenta</h4>
                 </div>
                 <div class="modal-body">
         <form id="forma" class="" role="form"  style="    margin-bottom: 0;" enctype="multipart/form-data">
@@ -315,17 +316,54 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                     <form id="forme" class="" role="form"  style="    margin-bottom: 0;" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="control-label" for="cuenta_nom">Cuenta:</label>
-                        <input type="text" name="cuenta_nom" id="cuenta_nom" class="form-control"  />
+                        <input type="text" name="texte" id="cuenta_nom" class="form-control"  />
                         <div class="help-block with-errors"></div>
-                        <input type="hidden" name="id_cuenta_e" id="id_cuenta_e"></input>
-
+                        <input type="hidden" name="ide" id="id_cuenta_e"></input>
+                        <input  type="hidden" id="nivele" name="nivele"  >
 
                     </div>
 
                     </form>
 
                     <div class="form-group">
-                        <button id="edit" type="button" class="btn crud-submit btn-success ">Editar</button>
+                        <button id="editar" type="button" class="btn crud-submit btn-success ">Editar</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="elimi" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Eliminar Cuenta</h4>
+            </div>
+
+            <div class="modal-body">
+                <div data-toggle="validator" >
+                    <form id="formd" class="" role="form"  style="    margin-bottom: 0;" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="control-label" for="cuenta_nom">Esta seguro que desea eliminar la Cuenta: <p id="t"></p></label>
+
+                            <div class="help-block with-errors"></div>
+                            <input type="hidden" name="idel" id="idel"></input>
+
+
+                        </div>
+
+                    </form>
+
+                    <div class="form-group">
+                        <button id="eliminar" type="button" class="btn crud-submit btn-warning ">Eliminar</button>
+                        <button  type="button" data-dismiss="modal" class="btn crud-submit btn-warning ">Cancelar</button>
                     </div>
 
 
@@ -386,8 +424,9 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
                 success: function (data) {
                     if(data=='1'){
                         alertify.set('notifier', 'position', 'top-right');
-                        alertify.success('Guardado');
+                        alertify.success('Editado');
                         $('#tree-container'). jstree("refresh");
+                        $('#e').modal('hide');
                     }else {
 
                         alertify.set('notifier', 'position', 'top-right');
@@ -399,13 +438,14 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
         $('#eliminar').click(function(){
             $.ajax({
                 type: 'post',
-                url: 'cuentadelete.php',
+                url: 'cuentaelim.php',
                 data: $('#formd').serialize(),
                 success: function (data) {
                     if(data=='1'){
                         alertify.set('notifier', 'position', 'top-right');
-                        alertify.success('Guardado');
+                        alertify.success('Eliminado');
                         $('#tree-container'). jstree("refresh");
+                        $('#elimi').modal('hide');
                     }else {
 
                         alertify.set('notifier', 'position', 'top-right');
@@ -519,21 +559,25 @@ $_SESSION['nivel_empresa']=$row3['nivel'];
 
                     $("#id_padre").val(data['id']);
                     $("#id_cuenta_e").val(data['id']);
+                    $("#idel").val(data['id']);
 
                     $("#textopadre").val(data['text']);
                     $("#cuenta_nom").val(data['nombre']);
                     $("#id_tipocuenta").val(data['id_tipocuenta']);
                     $("#nivel").val(data['nivel']);
+                    $("#nivele").val(data['nivel']);
                     $("#text").val('');
                     $("#edi").attr('data-toggle','modal');
-
+                    $("#eli").attr('data-toggle','modal');
+                    document.getElementById("t").innerHTML = data['text'];
                     $("#agr").attr('data-toggle','modal');
 
 
                     document.getElementById("edi").style.display = "block";
                     document.getElementById("edit").style.display = "none";
                     document.getElementById("agr").style.display = "block";
-                    document.getElementById("agre").style.display = "none";
+                    document.getElementById("agre").style.display = "none";document.getElementById("eli").style.display = "block";
+                    document.getElementById("elim").style.display = "none";
 
                 }else {
                     alertify.set('notifier', 'position', 'top-right');
