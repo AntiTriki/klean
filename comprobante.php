@@ -86,8 +86,7 @@ while ($row = $query->fetch_assoc()) {
 
             <div class="btn-group-horizontal" style="position: relative;">
                 <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-                <button type="button" class="btn btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                <button type="button" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <button type="button" id="eliminar_com" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 <button type="button" id="crea" class="btn btn-success pull-right" style="margin-right: 220px;height: 30px" >Crear</button>
             </div>
 
@@ -148,7 +147,8 @@ while ($row = $query->fetch_assoc()) {
                     <div class="col-sm-2 col-lg-12">
                         <div class="form-group">
                             <label for="glosa">Glosa:</label>
-                            <input name="glosa" disabled type="text" class="form-control" id="glosa">
+                            <input name="glosa" oninput="doble()" disabled type="text" class="form-control" id="glosa">
+                            <input name="glosare"  type="hidden" class="form-control" id="glosare">
                         </div>
                     </div>
 
@@ -412,7 +412,7 @@ while ($row = $query->fetch_assoc()) {
 
                                 <div class="form-group">
                                     <label class="control-label" for="glosa_detalle">Glosa:</label>
-                                    <input type="text" name="glosa_detalle" id="glosa_detalle" class="form-control" >
+                                    <input type="text"  name="glosa_detalle" id="glosa_detalle" class="form-control" >
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
@@ -444,6 +444,23 @@ while ($row = $query->fetch_assoc()) {
     </form>
 </div>
 <script language="javascript">
+
+    $('#add_det').on('hidden.bs.modal', function () {
+        $('#cuenta_cod').val('');
+        var x = document.getElementById("glosare").value;
+        $('#glosa_detalle').val(x);
+        $('#debe_detalle').val('');
+        $('#haber_detalle').val('');
+        $('#debe_detalle').prop('disabled', false);;
+        $('#haber_detalle').prop('disabled', false);;
+        $('#id_cuenta_auto').val('');
+    })
+    function doble() {
+        var x = document.getElementById("glosa").value;
+        $('#glosare').val(x).trigger('change');
+    }
+
+
     var array_auto =  <?php echo json_encode($data); ?>;
     var i_detalle = 1;
     Array.prototype.removeValue = function(id, value){
@@ -482,7 +499,8 @@ while ($row = $query->fetch_assoc()) {
         i_detalle++;
         $('#add_det').modal('hide');
         $('#cuenta_cod').val('');
-        $('#glosa_detalle').val('');
+        var x = document.getElementById("glosa_detalle").value;
+        $('#glosare').val(x).trigger('change');
         $('#debe_detalle').val('');
         $('#haber_detalle').val('');
         $('#debe_detalle').prop('disabled', false);;
@@ -520,8 +538,35 @@ while ($row = $query->fetch_assoc()) {
         });
     }
     $(document).ready(function () {
+        $('#tipo_compro').change(function () {
+            var val = $('#tipo_compro option:selected').val();
+            if(val==9) {
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: 'tipo_get.php',
+                    cache: false
+                }).done(function (data) {
+                    if(data==0){
+
+                    }else{
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.error('Ya existe un comprobante de tipo Apertura');
+                        $('select[name=tipo]').val(1);
+                        $('#tipo_compro').selectpicker('refresh')
+                    }
+
+
+                });
+            }
+        });
+        $('#glosare').change(function() {
+            $('#glosa_detalle').val($(this).val());
+        });
         capturar_com();
         ocultar_div();
+
+
         $("#buscar").click( function()
             {
                 buscar();
@@ -645,25 +690,30 @@ while ($row = $query->fetch_assoc()) {
         var datastring = $("#static").serialize();
         var form_action = $("#static").attr("action");
 //donde carajo le meto el for each para cada fila
-        $.ajax({
-            dataType: 'json',
-            type:'POST',
-            url:  form_action,
-            cache: false,
-            data:
-            datastring,
-        }).done(function(data){
-            $("#static").find("input[id='serie']").val(data.serie);
-            $("#static").find("input[id='fecha']").val(data.fecha);
-            $("#static").find("input[id='glosa']").val(data.glosa);
-            $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
-            $("#static").find("input[id='tipo_cambio']").val(data.cambio);
-            $("#static").find("input[id='moneda']").val(data.moneda);
-            $("#static").find("input[id='estado']").val(data.estado);
-            upResult();
+        if($('#fecha').val()!='') {
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: form_action,
+                cache: false,
+                data: datastring,
+            }).done(function (data) {
+                $("#static").find("input[id='serie']").val(data.serie);
+                $("#static").find("input[id='fecha']").val(data.fecha);
+                $("#static").find("input[id='glosa']").val(data.glosa);
+                $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
+                $("#static").find("input[id='tipo_cambio']").val(data.cambio);
+                $("#static").find("input[id='moneda']").val(data.moneda);
+                $("#static").find("input[id='estado']").val(data.estado);
+                upResult();
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success('Datos ingresados Correctamente');
+            });
+        }else{
             alertify.set('notifier', 'position', 'top-right');
-            alertify.success('Datos ingresados Correctamente');
-        });
+            alertify.error('Ingrese una fecha correcta');
+
+        }
     };
     function updateResult(){
 //             var f = $('#serie').val();
@@ -905,6 +955,7 @@ while ($row = $query->fetch_assoc()) {
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.success(result);
                     }else{
+                        $('#fecha').val('');
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.error('La fecha no pertenece a un periodo');
 
