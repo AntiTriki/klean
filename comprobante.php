@@ -140,6 +140,7 @@ while ($row = $query->fetch_assoc()) {
                         <div class="form-group">
                             <label for="fecha">Fecha:</label>
                             <input name="fecha" disabled type="text" class="form-control datepicker" id="fecha">
+                            <input name="fecha_confirm" disabled type="text" class="" id="fecha_confirm">
                         </div>
                     </div>
                 </div>
@@ -471,42 +472,55 @@ while ($row = $query->fetch_assoc()) {
         this.push.apply(this, array); //push all elements except the one we want to delete
     }
     $('#addToTable').click(function() {
-        var codigo = $('#cuenta_cod').val();
-        var glosa = $('#glosa_detalle').val();
-        var debe = $('#debe_detalle').val();
-        var haber = $('#haber_detalle').val();
-        var id_detallecuenta = $('#id_cuenta_auto').val();
-        var	rows = '';
-        if(document.getElementById('debe_detalle').disabled){
-            debe = 0.00;
+        if($('#id_cuenta_auto').val()==''){
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error('Debe ingresar una cuenta válida');
+
+        }else {
+            if($('#glosa_detalle').val()=='') {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error('Debe llenar la glosa correctamente');
+            }else{
+                var codigo = $('#cuenta_cod').val();
+                var glosa = $('#glosa_detalle').val();
+                var debe = $('#debe_detalle').val();
+                var haber = $('#haber_detalle').val();
+                var id_detallecuenta = $('#id_cuenta_auto').val();
+                var rows = '';
+                if (document.getElementById('debe_detalle').disabled) {
+                    debe = 0.00;
+                }
+                if (document.getElementById('haber_detalle').disabled) {
+                    haber = 0.00;
+                }
+                array_auto.removeValue('id', id_detallecuenta);
+                rows = rows + '<tr id="' + i_detalle + '">';
+                rows = rows + '<td>' + codigo + '</td>';
+                rows = rows + '<td><input type="hidden" id="glosa' + i_detalle + '" name="glosa' + i_detalle + '" value="' + glosa + '">' + glosa + '</input></td>';
+                rows = rows + '<td class= "cold"><input type="hidden" id="debe' + i_detalle + '" name="debe' + i_detalle + '" value="' + debe + '">' + debe + '</input></td>';
+                rows = rows + '<td class= "colh"><input type="hidden" id="haber' + i_detalle + '" name="haber' + i_detalle + '" value="' + haber + '">' + haber + '</input></td>';
+                rows = rows + '<td id="' + id_detallecuenta + '"><input type="hidden" id="id_detalle' + i_detalle + '" name="id_detalle' + i_detalle + '" value="' + id_detallecuenta + '"></input>';
+                rows = rows + '<button onclick="deleteRow(this)" class="btn btn-danger ">Delete</button>';
+                rows = rows + '</td>';
+                rows = rows + '</tr>';
+                //$("tbody").html(rows);
+                $('table tbody').append(rows);
+                $('#conteo').val(i_detalle);
+                i_detalle++;
+                $('#add_det').modal('hide');
+                $('#cuenta_cod').val('');
+                var x = document.getElementById("glosa_detalle").value;
+                $('#glosare').val(x).trigger('change');
+                $('#debe_detalle').val('');
+                $('#haber_detalle').val('');
+                $('#debe_detalle').prop('disabled', false);
+                ;
+                $('#haber_detalle').prop('disabled', false);
+                ;
+                $('#id_cuenta_auto').val('');
+                suma();
+            }
         }
-        if(document.getElementById('haber_detalle').disabled){
-            haber = 0.00;
-        }
-        array_auto.removeValue('id', id_detallecuenta);
-        rows = rows + '<tr id="'+i_detalle+'">';
-        rows = rows + '<td>'+codigo+'</td>';
-        rows = rows + '<td><input type="hidden" id="glosa'+i_detalle+'" name="glosa'+i_detalle+'" value="'+glosa+'">'+glosa+'</input></td>';
-        rows = rows + '<td class= "cold"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
-        rows = rows + '<td class= "colh"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
-        rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
-        rows = rows + '<button onclick="deleteRow(this)" class="btn btn-danger ">Delete</button>';
-        rows = rows + '</td>';
-        rows = rows + '</tr>';
-        //$("tbody").html(rows);
-        $('table tbody').append(rows);
-        $('#conteo').val(i_detalle);
-        i_detalle++;
-        $('#add_det').modal('hide');
-        $('#cuenta_cod').val('');
-        var x = document.getElementById("glosa_detalle").value;
-        $('#glosare').val(x).trigger('change');
-        $('#debe_detalle').val('');
-        $('#haber_detalle').val('');
-        $('#debe_detalle').prop('disabled', false);;
-        $('#haber_detalle').prop('disabled', false);;
-        $('#id_cuenta_auto').val('');
-        suma();
     });
     function deleteRow(btn) {
         var row = btn.parentNode.parentNode;
@@ -537,7 +551,44 @@ while ($row = $query->fetch_assoc()) {
             $(this).val(getSuma());
         });
     }
+    function today() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd = '0'+dd
+        }
+        if(mm<10) {
+            mm = '0'+mm
+        }
+        today = dd + '-' + mm + '-' + yyyy;
+        $("#static").find("input[id='fecha']").val(today);
+    }
+    function confirmar_fecha() {
+        var date= $('#fecha').val();
+        $.ajax
+        ({
+            type: "POST",
+            url: "fecha_per.php",
+            data: "fecha_per="+date,
+            success: function(result)
+            {
+                if(result !=0){
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(result);
+                    return true;
+                }else{
+                    $('#fecha').val('');
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error('La fecha no pertenece a un periodo');
+                    return false;
+                }
+            }
+        });
+    }
     $(document).ready(function () {
+
         $('#tipo_compro').change(function () {
             var val = $('#tipo_compro option:selected').val();
             if(val==9) {
@@ -575,6 +626,7 @@ while ($row = $query->fetch_assoc()) {
         $("#nuevo_com").click( function()
             {
                 nuevo();
+
             }
         );
         $("#af").click( function()
@@ -676,6 +728,7 @@ while ($row = $query->fetch_assoc()) {
         mostrar_div();
         $("#static").find("input[id='fecha']").prop('disabled', false);
         $("#static").find("input[id='glosa']").prop('disabled', false);
+        today();
         $('tbody').empty();
         $.ajax({
             dataType: 'json',
@@ -687,33 +740,36 @@ while ($row = $query->fetch_assoc()) {
         });
     };
     function agregar(){
-        var datastring = $("#static").serialize();
-        var form_action = $("#static").attr("action");
-//donde carajo le meto el for each para cada fila
-        if($('#fecha').val()!='') {
-            $.ajax({
-                dataType: 'json',
-                type: 'POST',
-                url: form_action,
-                cache: false,
-                data: datastring,
-            }).done(function (data) {
-                $("#static").find("input[id='serie']").val(data.serie);
-                $("#static").find("input[id='fecha']").val(data.fecha);
-                $("#static").find("input[id='glosa']").val(data.glosa);
-                $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
-                $("#static").find("input[id='tipo_cambio']").val(data.cambio);
-                $("#static").find("input[id='moneda']").val(data.moneda);
-                $("#static").find("input[id='estado']").val(data.estado);
-                upResult();
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.success('Datos ingresados Correctamente');
-            });
-        }else{
-            alertify.set('notifier', 'position', 'top-right');
-            alertify.error('Ingrese una fecha correcta');
 
-        }
+
+            var datastring = $("#static").serialize();
+            var form_action = $("#static").attr("action");
+//donde carajo le meto el for each para cada fila
+            if ($('#fecha').val() != '' || ) {
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: form_action,
+                    cache: false,
+                    data: datastring,
+                }).done(function (data) {
+                    $("#static").find("input[id='serie']").val(data.serie);
+                    $("#static").find("input[id='fecha']").val(data.fecha);
+                    $("#static").find("input[id='glosa']").val(data.glosa);
+                    $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
+                    $("#static").find("input[id='tipo_cambio']").val(data.cambio);
+                    $("#static").find("input[id='moneda']").val(data.moneda);
+                    $("#static").find("input[id='estado']").val(data.estado);
+                    upResult();
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success('Datos ingresados Correctamente');
+                });
+            } else {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error('Ingrese una fecha correcta');
+
+            }
+        
     };
     function updateResult(){
 //             var f = $('#serie').val();
@@ -931,7 +987,6 @@ while ($row = $query->fetch_assoc()) {
             } });
     });
 </script>
-
 <script> //date picker js
     $(document).ready(function() {
         $('.datepicker').datepicker({
@@ -939,31 +994,8 @@ while ($row = $query->fetch_assoc()) {
             "autoclose": true,
             format: 'dd-mm-yyyy'
         }).on('changeDate', function() {
-            var date= $('#fecha').val();
 
-
-            $.ajax
-            ({
-
-                type: "POST",
-                url: "fecha_per.php",
-                data: "fecha_per="+date,
-
-                success: function(result)
-                {
-                    if(result !=0){
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success(result);
-                    }else{
-                        $('#fecha').val('');
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.error('La fecha no pertenece a un periodo');
-
-                    }
-
-
-                }
-            });
+           confirmar_fecha();
         });
     });
     //input puede que funciones
@@ -982,7 +1014,5 @@ while ($row = $query->fetch_assoc()) {
 </script>
 <script type="text/javascript" src="js/alertify.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
-
 </body>
-
 </html>
