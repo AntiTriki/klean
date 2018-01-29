@@ -41,7 +41,11 @@ where
 c.id=d.id_cuenta and d.id_comprobante=co.id and co.id=$qid");
 
 $i=1;
+$row['totald']=0;
+$row['totalh']=0;
 while ($row = mysql_fetch_assoc($result)) {
+    $row['totald']=$row['debe'] +  $row['totald'];
+    $row['totalh']=$row['haber'] +  $row['totalh'];
     $json[] = $row;
     $i++;
 }
