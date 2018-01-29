@@ -802,7 +802,7 @@ while ($row = $query->fetch_assoc()) {
     };
     function anular() {
         var ef = parseInt($('#idc').val());
-        var data;
+
         array_auto = array_original;
 
         $.ajax({
@@ -811,7 +811,12 @@ while ($row = $query->fetch_assoc()) {
             url: 'anular.php',
             cache: false,
             data: 'id=' + ef,
-            success: function (data){
+            success: function (){
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success('yo');
+                $("#static").find("input[id='estado']").val('ANULADO');
+            },
+            error: function () {
                 alertify.set('notifier', 'position', 'top-right');
                 alertify.success('Comprobante Anulado');
                 $("#static").find("input[id='estado']").val('ANULADO');
