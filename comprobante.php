@@ -111,6 +111,7 @@ while ($row = $query->fetch_assoc()) {
                             <label for="serie">Serie:</label>
                             <input  disabled type="text" class="form-control" id="serie">
                             <input name="serie" type="hidden" class="form-control" id="serie">
+                            <input name="idc" type="hidden" class="" id="idc">
                         </div>
                     </div>
                     <div id="div_tipoin" class="col-sm-2 col-lg-6">
@@ -658,7 +659,7 @@ while ($row = $query->fetch_assoc()) {
                         alertify.set('notifier', 'position', 'top-right');
                         alertify.error('Ya existe un comprobante de tipo Apertura');
                         $('select[name=tipo]').val(1);
-                        $('#tipo_compro').selectpicker('refresh')
+                        $('#tipo_compro').selectpicker('refresh');
                     }
 
                 });
@@ -758,6 +759,7 @@ while ($row = $query->fetch_assoc()) {
                         $("#tipo_cambio").val(data['cambio']);
                         $("#moneda").val(data['moneda']);
                         $("#estado").val(data['estado']);
+                        $("#idc").val(data['id']);
                         detalle(data['id']);
                     }else
                     {
@@ -798,26 +800,24 @@ while ($row = $query->fetch_assoc()) {
             $("#static").find("input[id='serie']").val(data);
         });
     };
-    function anular(){
-        $("#static").find("input[id='serie']").val("");
-        $("#static").find("input[id='fecha']").val("");
-        $("#static").find("input[id='glosa']").val("");
-        mostrar_div();
-        $("#static").find("input[id='fecha']").prop('disabled', false);
-        $("#static").find("input[id='glosa']").prop('disabled', false);
-        array_auto=array_original;
-        today();
-        $('tbody').empty();
+    function anular() {
+        var ef = parseInt($('#idc').val());
+        var data;
+        array_auto = array_original;
+
         $.ajax({
             dataType: 'json',
-            type:'POST',
-            url:  'anular.php',
-            cache: false
-        }).done(function(data){
-            $("#static").find("input[id='serie']").val(data);
+            type: 'POST',
+            url: 'anular.php',
+            cache: false,
+            data: 'id=' + ef,
+            success: function (data){
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success('Comprobante Anulado');
+                $("#static").find("input[id='estado']").val('ANULADO');
+            }
         });
     };
-
     function agregar(){
 
 
@@ -889,6 +889,7 @@ while ($row = $query->fetch_assoc()) {
                     $("#tipo_cambio").val(data['cambio']);
                     $("#moneda").val(data['moneda']);
                     $("#estado").val(data['estado']);
+                    $("#idc").val(data['id']);
                     detalle(data['id']);
                 }
             });
@@ -908,6 +909,7 @@ while ($row = $query->fetch_assoc()) {
                 $("#tipo_cambio").val(data['cambio']);
                 $("#moneda").val(data['moneda']);
                 $("#estado").val(data['estado']);
+                $("#idc").val(data['id']);
                 detalle2(data['id']);
             }
         });
@@ -932,6 +934,7 @@ while ($row = $query->fetch_assoc()) {
                     $("#tipo_cambio").val(data['cambio']);
                     $("#moneda").val(data['moneda']);
                     $("#estado").val(data['estado']);
+                    $("#idc").val(data['id']);
                     detalle3(data['id']);
                 }
             });
@@ -952,6 +955,7 @@ while ($row = $query->fetch_assoc()) {
                 $("#tipo_cambio").val(data['cambio']);
                 $("#moneda").val(data['moneda']);
                 $("#estado").val(data['estado']);
+                $("#idc").val(data['id']);
                 detalle4(data['id']);
             }
         });
