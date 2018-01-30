@@ -977,6 +977,8 @@ while ($row = $query->fetch_assoc()) {
             },
             success: function (yo) {
                 manageRow(yo.data);
+                $('#debtotal').val(yo.totald);
+                $('#habtotal').val(yo.totalh);
             }
         });
     }
@@ -992,6 +994,8 @@ while ($row = $query->fetch_assoc()) {
             },
             success: function (yo) {
                 manageRow2(yo.data);
+                $('#debtotal').val(yo.totald);
+                $('#habtotal').val(yo.totalh);
             }
         });
     }
@@ -1007,6 +1011,8 @@ while ($row = $query->fetch_assoc()) {
             },
             success: function (yo) {
                 manageRow3(yo.data);
+                $('#debtotal').val(yo.totald);
+                $('#habtotal').val(yo.totalh);
             }
         });
     }
@@ -1022,92 +1028,71 @@ while ($row = $query->fetch_assoc()) {
             },
             success: function (yo) {
                 manageRow4(yo.data);
+                $('#debtotal').val(yo.totald);
+                $('#habtotal').val(yo.totalh);
             }
         });
     }
     function manageRow(data) {
         var	rows = '';
-        var h=0;
-        var d=0;
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
             rows = rows + '<td>'+value.glosa+'</td>';
-            rows = rows + '<td class="cold">'+value.debe+'</td>';
-            rows = rows + '<td class="colh">'+value.haber+'</td>';
+            rows = rows + '<td>'+value.debe+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
         });
         $("tbody").html(rows);
-        $("#debtotal").val(d);
-        $("#habtotal").val(h);
+
     }
     function manageRow2(data) {
         var	rows = '';
-        var h=0;
-        var d=0;
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
             rows = rows + '<td>'+value.glosa+'</td>';
-            rows = rows + '<td class="cold">'+value.debe+'</td>';
-            rows = rows + '<td class="colh">'+value.haber+'</td>';
+            rows = rows + '<td>'+value.debe+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
         });
         $("tbody").html(rows);
-        $("#debtotal").val(d);
-        $("#habtotal").val(h);
     }
     function manageRow3(data) {
         var	rows = '';
-        var h=0;
-        var d=0;
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
             rows = rows + '<td>'+value.glosa+'</td>';
-            rows = rows + '<td class="cold">'+value.debe+'</td>';
-            rows = rows + '<td class="colh">'+value.haber+'</td>';
+            rows = rows + '<td>'+value.debe+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
         });
         $("tbody").html(rows);
-        $("#debtotal").val(d);
-        $("#habtotal").val(h);
     }
     function manageRow4(data) {
         var	rows = '';
-        var h=0;
-        var d=0;
         $.each( data, function( key, value ) {
             rows = rows + '<tr>';
             rows = rows + '<td>'+value.codigo+' - '+value.text+'</td>';
             rows = rows + '<td>'+value.glosa+'</td>';
-            rows = rows + '<td class="cold">'+value.debe+'</td>';
-            rows = rows + '<td class="colh">'+value.haber+'</td>';
+            rows = rows + '<td>'+value.debe+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
         });
         $("tbody").html(rows);
-        $("#debtotal").val(d);
-        $("#habtotal").val(h);
     }
     $(function() {
         $('#cuenta_cod').autocomplete({
