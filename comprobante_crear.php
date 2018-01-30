@@ -13,16 +13,16 @@ mysql_select_db("n", $con);
 $date = date('Y-m-d');
 $fecha = str_replace('-', '-', $_POST["fecha"]);
 $fecha = date('Y-m-d', strtotime($fecha));
-$result = mysql_query("INSERT INTO comprobante (serie,glosa,id_tipocomprobante,fecha,id_tipocambio,id_moneda,id_estado,id_empresa) 
+$result = mysql_query("INSERT INTO comprobante (serie,glosa,id_tipocomprobante,fecha,tipocambio,id_moneda,id_estado,id_empresa) 
 VALUES 
-(".$serie.",'".$glosa."',".$tipo_comprobante.",'".$fecha."',".$tipo_cambio.",".$moneda.",".$estado.",".$_SESSION['id_emp'].")");
+(".$serie.",'".$glosa."',".$tipo_comprobante.",'".$fecha."','".$tipo_cambio."',".$moneda.",".$estado.",".$_SESSION['id_emp'].")");
 $result = mysql_query("SELECT 
-c.id,c.serie , ti.tipocom, c.fecha,c.glosa, t.cambio,e.estado,m.moneda 
+c.id,c.serie , ti.tipocom, c.fecha,c.glosa, c.tipocambio as cambio,e.estado,m.moneda 
 FROM `comprobante` c,
  (select c.descripcion as estado,com.id as id from concepto c, comprobante com where com.id_estado=c.id) e,
   (select c.descripcion as tipocom,com.id as id from concepto c, comprobante com where com.id_tipocomprobante=c.id) ti,
-   (select c.descripcion as moneda,com.id as id from concepto c, comprobante com where com.id_moneda=c.id) m,
-    tipo_cambio t where c.id=e.id and ti.id = c.id and m.id = c.id and t.id = c.id_tipocambio ORDER by id DESC LIMIT 1");
+   (select c.descripcion as moneda,com.id as id from concepto c, comprobante com where com.id_moneda=c.id) m
+     where c.id=e.id and ti.id = c.id and m.id = c.id  ORDER by id DESC LIMIT 1");
 $i=1;
 while ($row = mysql_fetch_assoc($result)) {
     $array['id'] = $row['id'];

@@ -35,12 +35,11 @@ mysql_select_db("n", $con);
 //$i++;
 //   }
 $result = mysql_query("SELECT count(c.id) as conteo,
-c.id,c.serie , ti.tipocom, c.fecha,c.glosa, t.cambio,e.estado,m.moneda 
+c.id,c.serie , ti.tipocom, c.fecha,c.glosa, c.tipocambio as cambio,e.estado,m.moneda 
 FROM `comprobante` c,
  (select c.descripcion as estado,com.id as id from concepto c, comprobante com where com.id_estado=c.id) e,
   (select c.descripcion as tipocom,com.id as id from concepto c, comprobante com where com.id_tipocomprobante=c.id) ti,
-   (select c.descripcion as moneda,com.id as id from concepto c, comprobante com where com.id_moneda=c.id) m,
-    tipo_cambio t where c.id=e.id and ti.id = c.id and m.id = c.id and t.id = c.id_tipocambio and c.id_empresa=" . $_SESSION["id_emp"] . " $qid ORDER by id ASC LIMIT 1");
+   (select c.descripcion as moneda,com.id as id from concepto c, comprobante com where com.id_moneda=c.id) m where c.id=e.id and ti.id = c.id and m.id = c.id  and c.id_empresa=" . $_SESSION["id_emp"] . " $qid ORDER by id ASC LIMIT 1");
 
     $i = 1;
     while ($row = mysql_fetch_assoc($result)) {

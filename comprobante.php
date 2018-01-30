@@ -82,13 +82,20 @@ while ($row = $query->fetch_assoc()) {
 <body>
 <div id="crea_com">
     <form id="static" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">
-        <div class="container-fluid" style="margin-left: 250px">
+        <div class="container-fluid" style="padding-left: 250px">
 
-            <div class="btn-group-horizontal" style="position: relative;">
+            <div class="btn-group-horizontal" style="position: inherit;">
+               <div id="btnd" style="width: 100px;position: fixed">
                 <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
                 <button type="button" id="eliminar_com" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <button type="button" id="crea" class="btn btn-success pull-right" style="margin-right: 220px;height: 30px" >Crear</button>
-            </div>
+               </div>
+                <div id="btnc" style="position: fixed">
+                    <button type="button" id="cancelar" class="btn btn-danger" style="height: 30px">Cancelar</button>
+                </div>
+                <div  style="width: 100px;margin-left: 820px;position: inherit">
+                   <button type="button" disabled id="crea" class="btn btn-success " style="height: 30px" >Crear</button>
+                </div>
+                </div>
 
             <div style="position: relative;" class="borde">
 
@@ -166,19 +173,19 @@ while ($row = $query->fetch_assoc()) {
                     <div id="div_cambiose" class="col-sm-2 col-lg-3">
                         <div class="form-group">
                             <label for="tipo_cam">Tipo de Cambio:</label>
+                            <?php
+                            $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
+                            $cxn->set_charset("utf8");
+                            $result = $cxn->query("SELECT * from tipo_cambio where activo=1");
+                            while($row = $result->fetch_assoc())
 
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo_cambio" id="tipo_cam" placeholder="Csmbio">
+                            { ?>
+                            <input class="form-control " type="number" step="0.01" name="tipo_cambio" id="tipo_cam" value="<?php echo $row['cambio']; ?>" placeholder="Cambio">
 
-                                <?php
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from tipo_cambio where activo=1");
-                                while($row = $result->fetch_assoc())
-                                    echo '<option value="'.$row['id'].'">'.$row['cambio'].'</option>';
-                                $cxn->close();
-                                ?>
+                              <?php }  $cxn->close();
+                            ?>
 
-                            </select>
+                            </input>
                         </div>
                     </div>
                     <div id="div_monedain" class="col-sm-2 col-lg-5">
@@ -268,7 +275,7 @@ while ($row = $query->fetch_assoc()) {
                 </div>
             </div>
             <div class="btn-group-horizontal" style="position: relative;">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_det"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+                <button type="button" id="add_deta" disabled class="btn btn-primary" data-toggle="modal" data-target="#add_det"><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
 
             </div>
             <div style="position: relative;   " class="borde">
@@ -466,8 +473,9 @@ while ($row = $query->fetch_assoc()) {
     var array_auto =  <?php echo json_encode($data); ?>;
     var array_original = array_auto;
     var array_save =[];
+    var array_save[0] = array_auto;
     var i_detalle = 1;
-    var ai=0
+    var ai=0;
     Array.prototype.removeValue = function(id, value){
         var array = $.map(this, function(v,i){
             return v[id] === value ? null : v;
@@ -515,10 +523,10 @@ while ($row = $query->fetch_assoc()) {
                     }
                     array_save[ai] = array_auto.slice(0);
 
-                    console.log(array_save[ai]);
+
 
                     array_auto.removeValue('id', id_detallecuenta);
-                    console.log(array_auto);
+
                     rows = rows + '<tr id="' + i_detalle + '">';
                     rows = rows + '<td>' + codigo + '</td>';
                     rows = rows + '<td><input type="hidden" id="glosa' + i_detalle + '" name="glosa' + i_detalle + '" value="' + glosa + '">' + glosa + '</input></td>';
@@ -700,6 +708,16 @@ while ($row = $query->fetch_assoc()) {
                 disable();
             }
         );
+        $("#cancelar").click( function()
+            {
+                downResult();
+                disable();
+                array_auto = array_save[0];
+                i_detalle=1;
+                ai=0;
+                $('#cuenta_cod').autocomplete("option", { source: array_auto });
+            }
+        );
         $("#first").click( function()
             {
                 capturar_com();
@@ -720,11 +738,14 @@ while ($row = $query->fetch_assoc()) {
         $("#div_monedase").hide();
         $("#div_estadose").hide();
         $("#div_cambiose").hide();
+        $("#btnc").hide();
+
     }function mostrar_div(){
         $("#div_tipose").show();
         $("#div_monedase").show();
         $("#div_estadose").show();
         $("#div_cambiose").show();
+        $("#btnc").show();
         ocultar_input();
     }
     function mostrar_input(){
@@ -732,9 +753,12 @@ while ($row = $query->fetch_assoc()) {
         $("#div_monedain").show();
         $("#div_estadoin").show();
         $("#div_cambioin").show();
+        $("#btnd").show();
     }
     function ocultar_input(){
+
         $("#div_tipoin").hide();
+        $("#btnd").hide();
         $("#div_monedain").hide();
         $("#div_estadoin").hide();
         $("#div_cambioin").hide();
@@ -778,13 +802,32 @@ while ($row = $query->fetch_assoc()) {
     function disable(){
         $("#static").find("input[id='fecha']").prop('disabled', true);
         $("#static").find("input[id='glosa']").prop('disabled', true);
+        $('#crea').prop('disabled', true);
+        $('#add_deta').prop('disabled', true);
+        $('#first').prop('disabled', false);
+        $('#last').prop('disabled', false);
+        $('#af').prop('disabled', false);
+        $('#be').prop('disabled', false);
+        $('#buscar_serie').prop('disabled', false);
+        $('#buscar').prop('disabled', false);
         ocultar_div();
         mostrar_input();
     }
     function nuevo(){
+        $('#add_deta').prop('disabled', false);
+        $('#crea').prop('disabled', false);
+        $('#first').prop('disabled', true);
+        $('#last').prop('disabled', true);
+        $('#af').prop('disabled', true);
+        $('#buscar_serie').prop('disabled', true);
+        $('#buscar').prop('disabled', true);
+        $('#be').prop('disabled', true);
         $("#static").find("input[id='serie']").val("");
         $("#static").find("input[id='fecha']").val("");
         $("#static").find("input[id='glosa']").val("");
+        $("#debtotal").val("");
+        $("#habtotal").val("");
+
         mostrar_div();
         $("#static").find("input[id='fecha']").prop('disabled', false);
         $("#static").find("input[id='glosa']").prop('disabled', false);
@@ -834,6 +877,8 @@ while ($row = $query->fetch_assoc()) {
                 if ($('#glosa').val() != '') {
                     if (i_detalle > 2) {
                         if ($('#debtotal').val() == $('#habtotal').val()) {
+                        if ($('#tipo_cam').val() !='') {
+
                             $.ajax({
                                 dataType: 'json',
                                 type: 'POST',
@@ -848,12 +893,19 @@ while ($row = $query->fetch_assoc()) {
                                 $("#static").find("input[id='tipo_cambio']").val(data.cambio);
                                 $("#static").find("input[id='moneda']").val(data.moneda);
                                 $("#static").find("input[id='estado']").val(data.estado);
-                                array_auto = array_original;
-                                $('#cuenta_cod').autocomplete("option", {source: array_auto});
+                                array_auto = array_save[0];
+i_detalle=1;
+ai=0;
+                                $('#cuenta_cod').autocomplete("option", { source: array_auto });
                                 upResult();
+                                disable();
                                 alertify.set('notifier', 'position', 'top-right');
                                 alertify.success('Datos ingresados Correctamente');
                             });
+                        } else {
+                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.error('El tipo de cambio no debe estar vacio');
+                        }
                         } else {
                             alertify.set('notifier', 'position', 'top-right');
                             alertify.error('Los montos totales de Haber y Deber deben ser iguales');
@@ -974,6 +1026,8 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+                $("#habtotal").val('');
+                $("#debtotal").val('');
             },
             success: function (yo) {
                 manageRow(yo.data);
@@ -989,6 +1043,8 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+                $("#habtotal").val('');
+                $("#debtotal").val('');
             },
             success: function (yo) {
                 manageRow2(yo.data);
@@ -1004,6 +1060,8 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+                $("#habtotal").val('');
+                $("#debtotal").val('');
             },
             success: function (yo) {
                 manageRow3(yo.data);
@@ -1019,6 +1077,8 @@ while ($row = $query->fetch_assoc()) {
             cache: false,
             beforeSend: function(){
                 jQuery('tbody').html('');
+                $("#habtotal").val('');
+                $("#debtotal").val('');
             },
             success: function (yo) {
                 manageRow4(yo.data);
@@ -1039,8 +1099,8 @@ while ($row = $query->fetch_assoc()) {
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
+            d=d+parseFloat(value.debe);
+            h=h+parseFloat(value.haber);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -1060,8 +1120,8 @@ while ($row = $query->fetch_assoc()) {
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
+            d=d+parseFloat(value.debe);
+            h=h+parseFloat(value.haber);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -1081,8 +1141,8 @@ while ($row = $query->fetch_assoc()) {
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
+            d=d+parseFloat(value.debe);
+            h=h+parseFloat(value.haber);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -1102,8 +1162,8 @@ while ($row = $query->fetch_assoc()) {
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseInt(value.debe);
-            h=h+parseInt(value.haber);
+            d=d+parseFloat(value.debe);
+            h=h+parseFloat(value.haber);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
