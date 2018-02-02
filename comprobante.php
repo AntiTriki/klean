@@ -473,7 +473,7 @@ while ($row = $query->fetch_assoc()) {
     var array_auto =  <?php echo json_encode($data); ?>;
     var array_original = array_auto;
     var array_save =[];
-    var array_save[0] = array_auto;
+    array_save[0] = array_auto;
     var i_detalle = 1;
     var ai=0;
     Array.prototype.removeValue = function(id, value){
@@ -901,7 +901,16 @@ ai=0;
                                 disable();
                                 alertify.set('notifier', 'position', 'top-right');
                                 alertify.success('Datos ingresados Correctamente');
-                            });
+                            }).fail(function(data){
+                                array_auto = array_save[0];
+                                i_detalle=1;
+                                ai=0;
+                                $('#cuenta_cod').autocomplete("option", { source: array_auto });
+                                upResult();
+                                disable();
+                                alertify.set('notifier', 'position', 'top-right');
+                                alertify.success('Datos ingresados Correctamente');
+                                });
                         } else {
                             alertify.set('notifier', 'position', 'top-right');
                             alertify.error('El tipo de cambio no debe estar vacio');
