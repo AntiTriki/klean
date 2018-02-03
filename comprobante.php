@@ -85,9 +85,10 @@ while ($row = $query->fetch_assoc()) {
         <div class="container-fluid" style="padding-left: 250px">
 
             <div class="btn-group-horizontal" style="position: inherit;">
-               <div id="btnd" style="width: 100px;position: fixed">
+               <div id="btnd" style="width: 200px;position: fixed">
                 <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
                 <button type="button" id="eliminar_com" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                   <a class="btn btn-primary" id="rep" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
                </div>
                 <div id="btnc" style="position: fixed">
                     <button type="button" id="cancelar" class="btn btn-danger" style="height: 30px">Cancelar</button>
@@ -473,9 +474,9 @@ while ($row = $query->fetch_assoc()) {
     var array_auto =  <?php echo json_encode($data); ?>;
     var array_original = array_auto;
     var array_save =[];
-    array_save[0] = array_auto;
+    array_save[0] = array_auto.slice(0);
     var i_detalle = 1;
-    var ai=0;
+    var ai=1;
     Array.prototype.removeValue = function(id, value){
         var array = $.map(this, function(v,i){
             return v[id] === value ? null : v;
@@ -712,9 +713,9 @@ while ($row = $query->fetch_assoc()) {
             {
                 downResult();
                 disable();
-                array_auto = array_save[0];
+                array_auto = array_original;
                 i_detalle=1;
-                ai=0;
+                ai=1;
                 $('#cuenta_cod').autocomplete("option", { source: array_auto });
             }
         );
@@ -893,9 +894,10 @@ while ($row = $query->fetch_assoc()) {
                                 $("#static").find("input[id='tipo_cambio']").val(data.cambio);
                                 $("#static").find("input[id='moneda']").val(data.moneda);
                                 $("#static").find("input[id='estado']").val(data.estado);
+                                x='';
                                 array_auto = array_save[0];
 i_detalle=1;
-ai=0;
+ai=1;
                                 $('#cuenta_cod').autocomplete("option", { source: array_auto });
                                 upResult();
                                 disable();
@@ -904,7 +906,7 @@ ai=0;
                             }).fail(function(data){
                                 array_auto = array_save[0];
                                 i_detalle=1;
-                                ai=0;
+                                ai=1;
                                 $('#cuenta_cod').autocomplete("option", { source: array_auto });
                                 upResult();
                                 disable();
