@@ -85,11 +85,15 @@ while ($row = $query->fetch_assoc()) {
         <div class="container-fluid" style="padding-left: 250px">
 
             <div class="btn-group-horizontal" style="position: inherit;">
-               <div id="btnd" style="width: 200px;position: fixed">
+               <div id="btnd" style="width: 400px;position: fixed">
                 <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
                 <button type="button" id="eliminar_com" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                    <a class="btn btn-primary" id="rep" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
                    <a class="btn btn-success" id="repd" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                   <a class="btn btn-primary" id="red" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                   <a class="btn btn-success" id="redd" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                   <a class="btn btn-primary" id="rei" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                   <a class="btn btn-success" id="reid" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
                </div>
                 <div id="btnc" style="position: fixed">
                     <button type="button" id="cancelar" class="btn btn-danger" style="height: 30px">Cancelar</button>
@@ -757,11 +761,24 @@ while ($row = $query->fetch_assoc()) {
                     dataType: "json",
                     cache: false,
                     success: function(e){
-                        e.preventDefault(); window.open("libro_mayor/index.php", 'mywin',
+                        e.preventDefault(); window.open("libro_mayord/index.php", 'mywin',
                             'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0');  return false;
                         },
                     error: function(){
                     }
+                });
+            }
+        );
+        $("#red").click( function()
+            {
+                $.ajax({
+                    dataType: 'json',
+                    type:'POST',
+                    url:  'diario.php',
+                    cache: false
+                }).done(function(data){
+                    window.open("libro_diario/index.php", 'mywin',
+                        'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0');
                 });
             }
         );
