@@ -42,9 +42,12 @@ FROM `comprobante` c,
             $i++;
         }
         for ($i = 1; $i < $_POST['conteo'] + 1; $i++) {
-            $result = mysql_query("INSERT INTO detalle_comprobante (glosa,id_cuenta,id_comprobante,debe,haber, id_periodo) 
+            $dd=$_POST['debe' . $i] * $row['cambio'];
+            $hd=$_POST['haber' . $i] * $row['cambio'];
+
+            $result = mysql_query("INSERT INTO detalle_comprobante (glosa,id_cuenta,id_comprobante,debe,haber, debe_dol, haber_dol, id_periodo) 
 VALUES 
-('" . $_POST['glosa' . $i] . "'," . $_POST['id_detalle' . $i] . "," . $id_comprobante . ",'" . $_POST['debe' . $i] . "','" . $_POST['haber' . $i] . "',".$id_f.")");
+('" . $_POST['glosa' . $i] . "'," . $_POST['id_detalle' . $i] . "," . $id_comprobante . ",'" . $_POST['debe' . $i] . "','" . $_POST['haber' . $i] . "','" . $dd . "','" . $hd . "',".$id_f.")");
         }
     }
 }

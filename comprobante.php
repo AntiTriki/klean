@@ -89,6 +89,7 @@ while ($row = $query->fetch_assoc()) {
                 <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
                 <button type="button" id="eliminar_com" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                    <a class="btn btn-primary" id="rep" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                   <a class="btn btn-success" id="repd" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
                </div>
                 <div id="btnc" style="position: fixed">
                     <button type="button" id="cancelar" class="btn btn-danger" style="height: 30px">Cancelar</button>
@@ -703,6 +704,7 @@ while ($row = $query->fetch_assoc()) {
                 disable();
             }
         );
+
         $("#be").click( function()
             {
                 downResult();
@@ -733,6 +735,36 @@ while ($row = $query->fetch_assoc()) {
         $("#crea").click(function(){
             agregar();
         });
+        $("#rep").click( function()
+            {
+                $.ajax({
+                    dataType: 'json',
+                    type:'POST',
+                    url:  'mayor.php',
+                    cache: false
+                }).done(function(data){
+                    window.open("libro_mayor/index.php", 'mywin',
+                        'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0');
+                });
+            }
+        );
+        $("#repd").click( function()
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "mayord.php",
+
+                    dataType: "json",
+                    cache: false,
+                    success: function(e){
+                        e.preventDefault(); window.open("libro_mayor/index.php", 'mywin',
+                            'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0');  return false;
+                        },
+                    error: function(){
+                    }
+                });
+            }
+        );
     });
     function ocultar_div(){
         $("#div_tipose").hide();
