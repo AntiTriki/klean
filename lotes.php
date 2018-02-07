@@ -58,13 +58,9 @@ $link = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
 
             actions: {
                 //READ
-                listAction: 'lotesabm.php?accion=listar',
+                listAction: 'lotesabm.php?accion=listar'
                 //CREATE
-                createAction: 'lotesabm.php?accion=crear',
-                //UPDATE
-                updateAction: 'lotesabm.php?accion=actualizar',
-                //DELETE
-                deleteAction: 'lotesabm.php?accion=eliminar'
+
             },
             fields: {
                 id: {

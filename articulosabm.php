@@ -26,8 +26,8 @@ try{
         if ($row['conteo'] < 1) {
            
 
-                $result = mysql_query("INSERT INTO articulo(descripcion, precio_venta, nombre,cantidad,id_empresa,id_categoria) VALUES(
-'" . $_POST["descripcion"] . "','" . $_POST["precio_venta"] . "','" . $_POST["nombre"] . "'," . $_POST["cantidad"] . "," . $_SESSION["id_emp"] . "," . $_POST['id_categoria'] . ")");
+                $result = mysql_query("INSERT INTO articulo(descripcion, nombre,id_empresa,id_categoria) VALUES(
+'" . $_POST["descripcion"] . "','" . $_POST["nombre"] . "'," . $_SESSION["id_emp"] . "," . $_POST['id_categoria'] . ")");
                 $result = mysql_query("SELECT * FROM articulo WHERE id = LAST_INSERT_ID();");
                 $row = mysql_fetch_array($result);
                 $jTableResult = array();
@@ -49,8 +49,8 @@ try{
         if ($row['conteo'] < 1) {
 
 
-                $result = mysql_query("UPDATE articulo SET descripcion='" . $_POST["descripcion"] . "', precio_venta='" . $_POST["precio_venta"] . "', id_categoria=" . $_POST["id_categoria"] . ", nombre='" . $_POST["nombre"] . "',
-		 cantidad=" . $_POST["cantidad"] . " WHERE id=" . $_POST["id"] . ";");
+                $result = mysql_query("UPDATE articulo SET descripcion='" . $_POST["descripcion"] . "', id_categoria=" . $_POST["id_categoria"] . ", nombre='" . $_POST["nombre"] . "'
+		  WHERE id=" . $_POST["id"] . ";");
                 $jTableResult = array();
                 $jTableResult['Result'] = "OK";
                 print json_encode($jTableResult);

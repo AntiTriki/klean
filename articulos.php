@@ -161,8 +161,8 @@ if(isset($_SESSION['id_lot'])) {
                     },
             cantidad: {
                         title: 'cantidad',
-                        create: true,
-                        edit: true,
+                        create: false,
+                        edit: false,
                         list: true
                     },
             id_categoria: {
@@ -173,12 +173,7 @@ if(isset($_SESSION['id_lot'])) {
                 list: true,
                 options:'categorialist.php'
             },
-            precio_venta: {
-                        title: 'Precio',
-                        create: true,
-                        edit: true,
-                        list: true
-                    },
+
                     ShowDetailColumn: {
                         title: 'Lotes',
                         create: false,
