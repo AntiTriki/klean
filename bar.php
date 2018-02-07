@@ -186,7 +186,7 @@ if (isset($_SESSION['name'])){
           </li><li>
               <a href="nota_venta.php" >Nota Venta</a>
           </li><li>
-            <a href="categoria.php" >Categoria</a>
+            <a href="categorias.php" >Categoria</a>
         </li><li>
             <a href="articulos.php" >Articulo</a>
         </li>

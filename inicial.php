@@ -14,8 +14,8 @@ for ($i = $_SESSION['nivel_empresa']; $i > 0; $i--) {
     $result1 = mysql_query("select c.* from cuenta c, detalle_comprobante d where c.id = d.id_cuenta and c.nivel=".$i."  and c.id_empresa=".$_SESSION['id_emp']."  order by id asc");
     while ($row1 = mysql_fetch_array($result1)) {
         $resulti = mysql_query("INSERT INTO inicial (haber,debe, id_cuenta)
-//VALUES
-//('" . $hab . "','" . $deb . "'," . $row1['id'] . ")");
+VALUES
+('" . $hab . "','" . $deb . "'," . $row1['id'] . ")");
     }
 
 }
