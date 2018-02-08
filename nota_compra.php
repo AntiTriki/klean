@@ -82,7 +82,7 @@ while ($row = $query->fetch_assoc()) {
 </head>
 <body>
 <div id="crea_com">
-    <form id="static" class="" role="form" method="post" action="notav_crear.php" enctype="multipart/form-data">
+    <form id="static" class="" role="form" method="post" action="notac_crear.php" enctype="multipart/form-data">
         <div class="container-fluid" style="padding-left: 250px">
 
             <div class="btn-group-horizontal" style="position: inherit;">
@@ -188,9 +188,10 @@ while ($row = $query->fetch_assoc()) {
                         <thead>
                         <tr>
 
-                            <th>Articulo</th>
+                            <th width="120px">Articulo</th>
 
                             <th width="70px">Cantidad</th>
+                            <th width="70px">Precio Compra</th>
                             <th width="70px">SubTotal</th>
                             <th width="90px">Eliminar</th>
                         </tr>
@@ -349,8 +350,9 @@ while ($row = $query->fetch_assoc()) {
 
                     rows = rows + '<tr id="' + i_detalle + '">';
                     rows = rows + '<td>' + codigo + '</td>';
-                        rows = rows + '<td class= "cold"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
-                        rows = rows + '<td class= "colh"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+debe*haber+'">'+debe*haber+'</input></td>';
+                        rows = rows + '<td class= "co"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
+                        rows = rows + '<td class= "co"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
+                        rows = rows + '<td class= "colh"><input type="hidden" id="sub'+i_detalle+'" name="sub'+i_detalle+'" value="'+debe*haber+'">'+debe*haber+'</input></td>';
 
                         rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
 
@@ -599,7 +601,7 @@ while ($row = $query->fetch_assoc()) {
         $.ajax({
             dataType: 'json',
             type:'POST',
-            url:  'serien_get.php',
+            url:  'serienc_get.php',
             cache: false
         }).done(function(data){
             $("#static").find("input[id='serie']").val(data);
@@ -613,7 +615,7 @@ while ($row = $query->fetch_assoc()) {
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: 'anularn.php',
+            url: 'anularnc.php',
             cache: false,
             data: 'id=' + ef,
             success: function (){
@@ -694,7 +696,7 @@ ai=1;
         {
             $.ajax({
                 type: "POST",
-                url: "notac.php",
+                url: "notacc.php",
                 data: 'dato='+f,
                 dataType: "json",
                 cache: false,
@@ -713,7 +715,7 @@ ai=1;
         var data;
         $.ajax({
             dataType: "json",
-            url: 'notab.php',
+            url: 'notabc.php',
             data: data,
             success: function (data) {
 
@@ -733,7 +735,7 @@ ai=1;
         {
             $.ajax({
                 type: "POST",
-                url: "notac.php",
+                url: "notacc.php",
                 data: 'dato='+f,
                 dataType: "json",
                 cache: false,
@@ -753,7 +755,7 @@ ai=1;
         var yo;
         $.ajax({
             dataType: "json",
-            url: 'notaregister.php',
+            url: 'notaregisterc.php',
             data: data,
             success: function (data) {
                 $("#serie").val(data['serie']);
@@ -768,7 +770,7 @@ ai=1;
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detallen_get.php',
+            url: 'detallenc_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -784,7 +786,7 @@ ai=1;
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detallen_get2.php',
+            url: 'detallenc_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -800,7 +802,7 @@ ai=1;
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detallen_get3.php',
+            url: 'detallenc_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -816,7 +818,7 @@ ai=1;
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detallen_get4.php',
+            url: 'detallenc_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -838,15 +840,15 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
 
 
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
 
@@ -861,13 +863,13 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -883,13 +885,14 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -905,13 +908,13 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);

@@ -18,7 +18,7 @@ $result = mysql_query("INSERT INTO nota_compra (nro_nota,descripcion,fecha,id_em
 VALUES 
 (".$serie.",'".$glosa."','".$fecha."',".$_SESSION['id_emp'].")");
 
-$result = mysql_query("SELECT * from nota_venta
+$result = mysql_query("SELECT * from nota_compra
  ORDER by id DESC LIMIT 1");
 
 $i=1;
@@ -38,13 +38,20 @@ for($i=1;$i<$_POST['conteo']+1;$i++) {
     $result = mysql_query("INSERT INTO detalle_nota (id_articulo,id_notac,cantidad) 
 VALUES 
 (" . $_POST['id_detalle' . $i] . "," . $id_comprobante . "," . $_POST['debe' . $i] . ")");
-    $result = mysql_query("INSERT INTO lote (id_articulo,fecha_ing,precio_compra,cantidad) 
+    $last_id = mysql_insert_id();
+    $result = mysql_query("SELECT max(nro_lote) AS cor FROM lote where id_articulo = " . $_POST['id_detalle' . $i] . ";") or die(mysql_error());
+    $row = mysql_fetch_array($result);
+    $cor = $row['cor'];
+    $cor = $cor + 1;
+
+
+    $result = mysql_query("INSERT INTO lote (id_articulo,id_notadc,nro_lote,fecha_ing,precio_compra,cantidad) 
 VALUES 
-(" . $_POST['id_detalle' . $i] . ",'" . $fecha . "'," . $_POST['debe' . $i] . ")");
+(" . $_POST['id_detalle' . $i] . ",".$last_id.",".$cor.",'" . $fecha . "','" . $_POST['haber' . $i] . "'," . $_POST['debe' . $i] . ")");
 
 }
 
-
+$cor=0;
 
 print json_encode($array);
 
