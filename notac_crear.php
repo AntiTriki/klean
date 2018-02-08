@@ -14,7 +14,7 @@ mysql_select_db("n", $con);
 $date = date('Y-m-d');
 $fecha = str_replace('-', '-', $_POST["fecha"]);
 $fecha = date('Y-m-d', strtotime($fecha));
-$result = mysql_query("INSERT INTO nota_venta (nro_nota,descripcion,fecha,id_empresa) 
+$result = mysql_query("INSERT INTO nota_compra (nro_nota,descripcion,fecha,id_empresa) 
 VALUES 
 (".$serie.",'".$glosa."','".$fecha."',".$_SESSION['id_emp'].")");
 
@@ -35,9 +35,12 @@ while ($row = mysql_fetch_assoc($result)) {
     $i++;
 }
 for($i=1;$i<$_POST['conteo']+1;$i++) {
-    $result = mysql_query("INSERT INTO detalle_nota (id_articulo,id_notav,cantidad) 
+    $result = mysql_query("INSERT INTO detalle_nota (id_articulo,id_notac,cantidad) 
 VALUES 
 (" . $_POST['id_detalle' . $i] . "," . $id_comprobante . "," . $_POST['debe' . $i] . ")");
+    $result = mysql_query("INSERT INTO lote (id_articulo,fecha_ing,precio_compra,cantidad) 
+VALUES 
+(" . $_POST['id_detalle' . $i] . ",'" . $fecha . "'," . $_POST['debe' . $i] . ")");
 
 }
 

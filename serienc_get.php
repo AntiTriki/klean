@@ -2,15 +2,10 @@
 session_name('nilds');
 session_start();
 include_once('conexion.php');
-if(!isset($_POST['dato'])){
-    $qid='';
-
-}else{
 
 
-}
 
-$date = date('Y-m-d');
+
 
 
 
@@ -37,20 +32,13 @@ mysql_select_db("n", $con);
 //    $array[$i]['moneda'] = $row['moneda'];
 //$i++;
 //   }
-$result = mysql_query("SELECT * from nota_venta where id_empresa=" . $_SESSION["id_emp"] . "  ORDER by id ASC LIMIT 1");
+$result = mysql_query("SELECT max(nro_nota) AS cor FROM nota_compra where id_empresa = " . $_SESSION["id_emp"] . ";") or die(mysql_error());
+$row = mysql_fetch_array($result);
+$cor = $row['cor'];
+$cor = $cor + 1;
 
-$i=1;
-while ($row = mysql_fetch_assoc($result)) {
-    $array['id'] = $row['id'];
-    $array['serie'] = $row['nro_nota'];
 
-    $row['fecha'] = date("d-m-Y", strtotime($row['fecha']));
-    $array['fecha'] = $row['fecha'];
-    $array['glosa'] = $row['descripcion'];
-
-    $i++;
-}
-print json_encode($array);
+print $cor;
 
 
 

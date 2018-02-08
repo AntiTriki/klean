@@ -13,7 +13,7 @@ $dbName = 'n';
 $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 //get search term
 //get matched data from skills table
-$query = $db->query("SELECT * FROM articulo where  id_empresa=".$_SESSION['id_emp']." ");
+$query = $db->query("SELECT * FROM articulo where  id_empresa=".$_SESSION['id_emp']."; ");
 $data = array();
 while ($row = $query->fetch_assoc()) {
     array_push($data, array('label'=> $row['nombre'], 'value' => $row['nombre'], 'id'=>$row['id']));
@@ -70,7 +70,7 @@ while ($row = $query->fetch_assoc()) {
 </head>
 <body>
 <div id="crea_com">
-    <form id="static" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">
+    <form id="static" class="" role="form" method="post" action="notav_crear.php" enctype="multipart/form-data">
         <div class="container-fluid" style="padding-left: 250px">
 
             <div class="btn-group-horizontal" style="position: inherit;">
@@ -110,129 +110,29 @@ while ($row = $query->fetch_assoc()) {
                 <div class="row">
                     <div class="col-sm-2 col-lg-2">
                         <div class="form-group">
-                            <label for="serie">Serie:</label>
+                            <label for="serie">Nro:</label>
                             <input  disabled type="text" class="form-control" id="serie">
                             <input name="serie" type="hidden" class="form-control" id="serie">
                             <input name="idc" type="hidden" class="" id="idc">
                         </div>
                     </div>
-                    <div id="div_tipoin" class="col-sm-2 col-lg-6">
+                    <div  class="col-sm-2 col-lg-6">
                         <div class="form-group">
-                            <label for="tipo_comprobante">Tipo de Comprobante:</label>
-                            <input  disabled type="text" class="form-control" id="tipo_comprobante" >
+                            <label for="tipo_comprobante">Descripcion:</label>
+                            <input  disabled type="text" class="form-control" id="glosa" >
                         </div>
                     </div>
-                    <div id="div_tipose" class="col-sm-2 col-lg-6">
-                        <div class="form-group">
-                            <label for="tipo_compro">Tipo de Comprobante:</label>
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="tipo" id="tipo_compro" placeholder="Tipo Comprobante">
 
-                                <?php
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from concepto where id >=6 and id <= 10");
-                                while($row = $result->fetch_assoc())
-                                    echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
-                                $cxn->close();
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-sm-2 col-lg-4">
                         <div class="form-group">
                             <label for="fecha">Fecha:</label>
                             <input name="fecha" disabled type="text" class="form-control datepicker" id="fecha">
-                            <input name="fecha_confirm" disabled type="hidden" class="" id="fecha_confirm">
+
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2 col-lg-12">
-                        <div class="form-group">
-                            <label for="glosa">Glosa:</label>
-                            <input name="glosa" oninput="doble()" disabled type="text" class="form-control" id="glosa">
-                            <input name="glosare"  type="hidden" class="form-control" id="glosare">
-                        </div>
-                    </div>
 
-                </div>
-                <div class="row">
 
-                    <div id="div_cambioin" class="col-sm-2 col-lg-3">
-                        <div class="form-group">
-                            <label for="tipo_cambio">Tipo de Cambio:</label>
-                            <input disabled type="text" class="form-control" id="tipo_cambio">
-                        </div>
-                    </div>
-                    <div id="div_cambiose" class="col-sm-2 col-lg-3">
-                        <div class="form-group">
-                            <label for="tipo_cam">Tipo de Cambio:</label>
-                            <?php
-                            $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                            $cxn->set_charset("utf8");
-                            $result = $cxn->query("SELECT * from tipo_cambio where activo=1");
-                            while($row = $result->fetch_assoc())
-
-                            { ?>
-                            <input class="form-control " type="number" step="0.01" name="tipo_cambio" id="tipo_cam" value="<?php echo $row['cambio']; ?>" placeholder="Cambio">
-
-                              <?php }  $cxn->close();
-                            ?>
-
-                            </input>
-                        </div>
-                    </div>
-                    <div id="div_monedain" class="col-sm-2 col-lg-5">
-                        <div class="form-group">
-                            <label for="moneda">Moneda:</label>
-                            <input disabled type="text" class="form-control" id="moneda">
-                        </div>
-                    </div>
-                    <div id="div_monedase" class="col-sm-2 col-lg-5">
-                        <div class="form-group">
-                            <label for="mone">Moneda:</label>
-
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="moneda" id="mone" placeholder="Moneda">
-
-                                <?php
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from concepto where id >=1 and id <= 2");
-                                while($row = $result->fetch_assoc())
-                                    echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
-                                $cxn->close();
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
-                    <div id="div_estadoin" class="col-sm-2 col-lg-4">
-                        <div class="form-group">
-                            <label for="estado">Estado:</label>
-                            <input disabled type="text" class="form-control" id="estado">
-                        </div>
-                    </div>
-                    <div id="div_estadose" class="col-sm-2 col-lg-4">
-                        <div class="form-group">
-                            <label for="esta">Estado:</label>
-
-                            <select class="form-control selectpicker show-menu-arrow show-tick" data-dropup-auto="false" name="estado" id="esta" placeholder="Estado">
-
-                                <?php
-                                $cxn = new mysqli($mysql_host, $mysql_user, $mysql_password, $my_database);
-                                $cxn->set_charset("utf8");
-                                $result = $cxn->query("SELECT * from concepto where id >=3 and id <= 5 order by descripcion");
-                                while($row = $result->fetch_assoc())
-                                    echo '<option value="'.$row['id'].'">'.$row['descripcion'].'</option>';
-                                $cxn->close();
-                                ?>
-
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
 
                 <!-- /.row this actually does not appear to be needed with the form-horizontal -->
 
@@ -253,14 +153,7 @@ while ($row = $query->fetch_assoc()) {
                             </button>
 
                         </div>
-                        <div class="col-xs-2 pull-right">
-                            <div class="input-group">
-                                <input type="number" id="buscar_serie" class="form-control" placeholder="Buscar por serie">
-                                <span class="input-group-btn">
-        <button class="btn btn-default" id="buscar" type="button">Ir</button>
-      </span>
-                            </div><!-- /input-group -->
-                        </div><!-- /.col-lg-6 -->
+
                         <!--                 <div class="btn-group btn-group-lg pull-right" role="group" aria-label="...">-->
                         <!--                 <button name="" type="button" class="btn btn-default pull-right"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>-->
                         <!---->
@@ -285,10 +178,10 @@ while ($row = $query->fetch_assoc()) {
                         <thead>
                         <tr>
 
-                            <th>Cuenta</th>
-                            <th width="250px">Glosa</th>
-                            <th width="70px">Debe</th>
-                            <th width="70px">Haber</th>
+                            <th>Articulo</th>
+                            <th width="250px">Fecha Vencimiento</th>
+                            <th width="70px">Cantidad</th>
+                            <th width="70px">Precio Compra</th>
                             <th width="90px">Eliminar</th>
                         </tr>
                         </thead>
@@ -310,90 +203,7 @@ while ($row = $query->fetch_assoc()) {
 
 
             </div>
-            <!--  <div class="modal fade" id="crea_com" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-            <!--      <div class="modal-dialog" role="document">-->
-            <!--          <div class="modal-content">-->
-            <!--              <div class="modal-header">-->
-            <!--                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>-->
-            <!--                  <h4 class="modal-title" id="myModalLabel">Create Item</h4>-->
-            <!--              </div>-->
-            <!---->
-            <!--              <div class="modal-body">-->
-            <!--                  <form id = "compro" class="" role="form" method="post" action="comprobante_crear.php" enctype="multipart/form-data">-->
-            <!--                      <div class="container">-->
-            <!--                          <div class="row row-centered">-->
-            <!--                              <div class="col-sm-3 col-lg-3 col-centered">-->
-            <!--                                  <!-- <div class="form-group">-->
-            <!--                          <label for="input6" class="col-md-4 control-label">123456789012:</label>-->
-            <!--                          <div class="col-md-8">-->
-            <!--                          <input type="text" class="form-control" id="input6" placeholder="input 6">-->
-            <!--                        </div>-->
-            <!--                      </div> -->
-            <!---->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                      </div>-->
-            <!--                      <div class="row">-->
-            <!--                          <div class="col-sm-2 col-lg-2">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="serie">Serie:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="serie" name="serie">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-6">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="tipo_comprobante">Tipo de Comprobante:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="tipo_comprobante" name="tipo_comprobante">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-4">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="fecha">Fecha:</label>-->
-            <!--                                  <input  type="text" class="form-control " id="fecha" name="fecha">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                      </div>-->
-            <!--                      <div class="row">-->
-            <!--                          <div class="col-sm-2 col-lg-12">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="glosa">Glosa:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="glosa" name="glosa">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!---->
-            <!--                      </div>-->
-            <!--                      <div class="row">-->
-            <!---->
-            <!--                          <div class="col-sm-2 col-lg-3">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="tipo_cambio">Tipo de Cambio:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="tipo_cambio" name="tipo_cambio">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-5">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="moneda">Moneda:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="moneda" name="moneda">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                          <div class="col-sm-2 col-lg-4">-->
-            <!--                              <div class="form-group">-->
-            <!--                                  <label for="estado">Estado:</label>-->
-            <!--                                  <input  type="text" class="form-control" id="estado" name="estado">-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!---->
-            <!--                      </div>-->
-            <!---->
-            <!--                      <!-- /.row this actually does not appear to be needed with the form-horizontal -->
-            <!--                      <button type="submit" class="btn crud-submit btn-success crea">Agregar</button>-->
-            <!--                  </form>-->
-            <!---->
-            <!--              </div>-->
-            <!--          </div>-->
-            <!---->
-            <!--      </div>-->
-            <!--  </div>-->
+
             <div class="modal fade" id="add_det" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -406,7 +216,7 @@ while ($row = $query->fetch_assoc()) {
                             <div data-toggle="validator" >
 
                                 <div class="form-group">
-                                    <label class="control-label" for="cuenta_cod">Cuenta:</label>
+                                    <label class="control-label" for="cuenta_cod">Articulo:</label>
                                     <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
                                     <div class="help-block with-errors"></div>
                                     <input type="hidden" name="id_cuenta_auto" id="id_cuenta_auto"></input>
@@ -415,12 +225,12 @@ while ($row = $query->fetch_assoc()) {
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label" for="glosa_detalle">Glosa:</label>
-                                    <input type="text"  name="glosa_detalle" id="glosa_detalle" class="form-control" >
+                                    <label class="control-label" for="glosa_detalle">Cantidad:</label>
+                                    <input type="number"  name="glosa_detalle" id="glosa_detalle" class="form-control" >
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="debe_detalle">Debe:</label>
+                                    <label class="control-label" for="debe_detalle">Precio Compra:</label>
                                     <input type="number" step="0.01" name="debe_detalle"  id="debe_detalle" class="form-control" >
                                     <div class="help-block with-errors"></div>
                                 </div>

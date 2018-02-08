@@ -6,7 +6,7 @@ if(!isset($_POST['dato'])){
     $qid='';
 
 }else{
-
+   
 
 }
 
@@ -37,7 +37,7 @@ mysql_select_db("n", $con);
 //    $array[$i]['moneda'] = $row['moneda'];
 //$i++;
 //   }
-$result = mysql_query("SELECT * from nota_venta where id_empresa=" . $_SESSION["id_emp"] . "  ORDER by id ASC LIMIT 1");
+$result = mysql_query("SELECT * from nota_compra where id_empresa=" . $_SESSION["id_emp"] . "  ORDER by id ASC LIMIT 1");
 
 $i=1;
 while ($row = mysql_fetch_assoc($result)) {
