@@ -35,9 +35,22 @@ while ($row = mysql_fetch_assoc($result)) {
     $i++;
 }
 for($i=1;$i<$_POST['conteo']+1;$i++) {
-    $result = mysql_query("INSERT INTO detalle_nota (id_articulo,id_notav,cantidad) 
+    $result = mysql_query("INSERT INTO detalle_nota (id_articulo,id_notav,cantidad,precio_venta) 
 VALUES 
-(" . $_POST['id_detalle' . $i] . "," . $id_comprobante . "," . $_POST['debe' . $i] . ")");
+(" . $_POST['id_detalle' . $i] . "," . $id_comprobante . "," . $_POST['debe' . $i] . ",'" . $_POST['haber' . $i] . "')");
+
+    $cor=0;
+    $result = mysql_query("SELECT cantidad FROM articulo where id = " . $_POST['id_detalle' . $i] . ";") or die(mysql_error());
+    $row = mysql_fetch_array($result);
+    $cant = $row['cantidad'];
+    $cant = $cant - $_POST['debe' . $i];
+    $result = mysql_query("UPDATE ARTICULO SET CANTIDAD =".$cant."  where id = " . $_POST['id_detalle' . $i] . "; ");
+
+    $cant=0;
+
+
+
+
 
 }
 

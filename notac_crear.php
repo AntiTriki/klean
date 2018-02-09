@@ -35,23 +35,28 @@ while ($row = mysql_fetch_assoc($result)) {
     $i++;
 }
 for($i=1;$i<$_POST['conteo']+1;$i++) {
-    $result = mysql_query("INSERT INTO detalle_nota (id_articulo,id_notac,cantidad) 
-VALUES 
-(" . $_POST['id_detalle' . $i] . "," . $id_comprobante . "," . $_POST['debe' . $i] . ")");
-    $last_id = mysql_insert_id();
+
     $result = mysql_query("SELECT max(nro_lote) AS cor FROM lote where id_articulo = " . $_POST['id_detalle' . $i] . ";") or die(mysql_error());
     $row = mysql_fetch_array($result);
     $cor = $row['cor'];
     $cor = $cor + 1;
 
 
-    $result = mysql_query("INSERT INTO lote (id_articulo,id_notadc,nro_lote,fecha_ing,precio_compra,cantidad) 
+    $result = mysql_query("INSERT INTO lote (id_articulo,id_notac,nro_lote,fecha_ing,precio_compra,cantidad) 
 VALUES 
-(" . $_POST['id_detalle' . $i] . ",".$last_id.",".$cor.",'" . $fecha . "','" . $_POST['haber' . $i] . "'," . $_POST['debe' . $i] . ")");
+(" . $_POST['id_detalle' . $i] . ",".$id_comprobante .",".$cor.",'" . $fecha . "','" . $_POST['haber' . $i] . "'," . $_POST['debe' . $i] . ")");
+    $cor=0;
+    $result = mysql_query("SELECT cantidad FROM articulo where id = " . $_POST['id_detalle' . $i] . ";") or die(mysql_error());
+    $row = mysql_fetch_array($result);
+    $cant = $row['cantidad'];
+    $cant = $cant + $_POST['debe' . $i];
+    $result = mysql_query("UPDATE ARTICULO SET CANTIDAD =".$cant."  where id = " . $_POST['id_detalle' . $i] . "; ");
 
+    $cant=0;
 }
 
-$cor=0;
+
+
 
 print json_encode($array);
 

@@ -615,7 +615,7 @@ while ($row = $query->fetch_assoc()) {
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: 'anularnc.php',
+            url: 'anularn.php',
             cache: false,
             data: 'id=' + ef,
             success: function (){
@@ -851,7 +851,7 @@ ai=1;
             h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
-
+        $("#habtotal").val(h);
     }
     function manageRow2(data) {
         var	rows = '';

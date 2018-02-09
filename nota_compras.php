@@ -28,7 +28,7 @@ $db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 
 
 //get matched data from skills table
-$query = $db->query("SELECT * FROM articulo  ");
+$query = $db->query("SELECT * FROM articulo where id_empresa =".$_SESSION['id_emp']." ; ");
 $data = array();
 while ($row = $query->fetch_assoc()) {
 

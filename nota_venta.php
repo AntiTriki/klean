@@ -86,23 +86,23 @@ while ($row = $query->fetch_assoc()) {
         <div class="container-fluid" style="padding-left: 250px">
 
             <div class="btn-group-horizontal" style="position: inherit;">
-               <div id="btnd" style="width: 400px;position: fixed">
-                <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
-                <button type="button" id="eliminar_com" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                   <a class="btn btn-primary" id="rep" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
-                   <a class="btn btn-success" id="repd" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
-                   <a class="btn btn-primary" id="red" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
-                   <a class="btn btn-success" id="redd" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
-                   <a class="btn btn-primary" id="rei" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
-                   <a class="btn btn-success" id="reid" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
-               </div>
+                <div id="btnd" style="width: 400px;position: fixed">
+                    <button type="button" id="nuevo_com" class="btn btn-" ><span class="glyphicon glyphicon-plus" aria-hidden="true" ></span></button>
+                    <button type="button" id="eliminar_com" class="btn btn-"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <a class="btn btn-primary" id="rep" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                    <a class="btn btn-success" id="repd" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                    <a class="btn btn-primary" id="red" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                    <a class="btn btn-success" id="redd" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                    <a class="btn btn-primary" id="rei" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                    <a class="btn btn-success" id="reid" style=" border-radius: 0px; line-height: 1.7;"><img style="width:15px;" src="css/s.png" /> </a>
+                </div>
                 <div id="btnc" style="position: fixed">
                     <button type="button" id="cancelar" class="btn btn-danger" style="height: 30px">Cancelar</button>
                 </div>
                 <div  style="width: 100px;margin-left: 820px;position: inherit">
-                   <button type="button" disabled id="crea" class="btn btn-success " style="height: 30px" >Crear</button>
+                    <button type="button" disabled id="crea" class="btn btn-success " style="height: 30px" >Crear</button>
                 </div>
-                </div>
+            </div>
 
             <div style="position: relative;" class="borde">
 
@@ -188,9 +188,10 @@ while ($row = $query->fetch_assoc()) {
                         <thead>
                         <tr>
 
-                            <th>Articulo</th>
+                            <th width="120px">Articulo</th>
 
                             <th width="70px">Cantidad</th>
+                            <th width="70px">Precio Venta</th>
                             <th width="70px">SubTotal</th>
                             <th width="90px">Eliminar</th>
                         </tr>
@@ -299,7 +300,7 @@ while ($row = $query->fetch_assoc()) {
             change: function (event, ui) {
                 $("#id_cuenta_auto").val(ui.item.id);
 
-               // return false;
+                // return false;
             } });
     });
     function precios()
@@ -327,13 +328,13 @@ while ($row = $query->fetch_assoc()) {
 
 
             } else
-                {
-                    if($('#debe_detalle').val()=='' && $('#haber_detalle').val()==''){
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.error('Debe ingresar algun monto');
+            {
+                if($('#debe_detalle').val()=='' && $('#haber_detalle').val()==''){
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error('Debe ingresar algun monto');
 
-                    }
-                    else{
+                }
+                else{
                     var codigo = $('#cuenta_cod').val();
                     var glosa = $('#glosa_detalle').val();
                     var debe = $('#debe_detalle').val();
@@ -349,12 +350,13 @@ while ($row = $query->fetch_assoc()) {
 
                     rows = rows + '<tr id="' + i_detalle + '">';
                     rows = rows + '<td>' + codigo + '</td>';
-                        rows = rows + '<td class= "cold"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
-                        rows = rows + '<td class= "colh"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+debe*haber+'">'+debe*haber+'</input></td>';
+                    rows = rows + '<td class= "co"><input type="hidden" id="debe'+i_detalle+'" name="debe'+i_detalle+'" value="'+debe+'">'+debe+'</input></td>';
+                    rows = rows + '<td class= "co"><input type="hidden" id="haber'+i_detalle+'" name="haber'+i_detalle+'" value="'+haber+'">'+haber+'</input></td>';
+                    rows = rows + '<td class= "colh"><input type="hidden" id="sub'+i_detalle+'" name="sub'+i_detalle+'" value="'+debe*haber+'">'+debe*haber+'</input></td>';
 
-                        rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
+                    rows = rows + '<td id="'+id_detallecuenta+'"><input type="hidden" id="id_detalle'+i_detalle+'" name="id_detalle'+i_detalle+'" value="'+id_detallecuenta+'"></input>';
 
-                        rows = rows + '<button onclick="deleteRow(this)" class="btn btn-danger ">Delete</button>';
+                    rows = rows + '<button onclick="deleteRow(this)" class="btn btn-danger ">Delete</button>';
 
                     rows = rows + '</td>';
                     rows = rows + '</tr>';
@@ -510,7 +512,7 @@ while ($row = $query->fetch_assoc()) {
                     success: function(e){
                         e.preventDefault(); window.open("libro_mayord/index.php", 'mywin',
                             'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0');  return false;
-                        },
+                    },
                     error: function(){
                     }
                 });
@@ -613,7 +615,7 @@ while ($row = $query->fetch_assoc()) {
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: 'anularn.php',
+            url: 'anularnc.php',
             cache: false,
             data: 'id=' + ef,
             success: function (){
@@ -631,57 +633,57 @@ while ($row = $query->fetch_assoc()) {
     function agregar(){
 
 
-            var datastring = $("#static").serialize();
-            var form_action = $("#static").attr("action");
+        var datastring = $("#static").serialize();
+        var form_action = $("#static").attr("action");
 //donde carajo le meto el for each para cada fila
 
 
-                if ($('#glosa').val() != '') {
-                    if (i_detalle > 0) {
+        if ($('#glosa').val() != '') {
+            if (i_detalle > 0) {
 
 
-                            $.ajax({
-                                dataType: 'json',
-                                type: 'POST',
-                                url: form_action,
-                                cache: false,
-                                data: datastring,
-                            }).done(function (data) {
-                                $("#static").find("input[id='serie']").val(data.serie);
-                                $("#static").find("input[id='fecha']").val(data.fecha);
-                                $("#static").find("input[id='glosa']").val(data.glosa);
-                                $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
-                                $("#static").find("input[id='tipo_cambio']").val(data.cambio);
-                                $("#static").find("input[id='moneda']").val(data.moneda);
-                                $("#static").find("input[id='estado']").val(data.estado);
-                                x='';
-                                array_auto = array_save[0];
-i_detalle=1;
-ai=1;
-                                $('#cuenta_cod').autocomplete("option", { source: array_auto });
-                                upResult();
-                                disable();
-                                alertify.set('notifier', 'position', 'top-right');
-                                alertify.success('Datos ingresados Correctamente');
-                            }).fail(function(data){
-                                array_auto = array_save[0];
-                                i_detalle=1;
-                                ai=1;
-                                $('#cuenta_cod').autocomplete("option", { source: array_auto });
-                                upResult();
-                                disable();
-                                alertify.set('notifier', 'position', 'top-right');
-                                alertify.success('Datos ingresados Correctamente');
-                                });
-
-                    } else {
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.error('Ingrese la cantidad suficiente de Articuloa');
-                    }
-                } else {
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: form_action,
+                    cache: false,
+                    data: datastring,
+                }).done(function (data) {
+                    $("#static").find("input[id='serie']").val(data.serie);
+                    $("#static").find("input[id='fecha']").val(data.fecha);
+                    $("#static").find("input[id='glosa']").val(data.glosa);
+                    $("#static").find("input[id='tipo_comprobante']").val(data.tipocom);
+                    $("#static").find("input[id='tipo_cambio']").val(data.cambio);
+                    $("#static").find("input[id='moneda']").val(data.moneda);
+                    $("#static").find("input[id='estado']").val(data.estado);
+                    x='';
+                    array_auto = array_save[0];
+                    i_detalle=1;
+                    ai=1;
+                    $('#cuenta_cod').autocomplete("option", { source: array_auto });
+                    upResult();
+                    disable();
                     alertify.set('notifier', 'position', 'top-right');
-                    alertify.error('Debe llenar la Descripcion');
-                }
+                    alertify.success('Datos ingresados Correctamente');
+                }).fail(function(data){
+                    array_auto = array_save[0];
+                    i_detalle=1;
+                    ai=1;
+                    $('#cuenta_cod').autocomplete("option", { source: array_auto });
+                    upResult();
+                    disable();
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success('Datos ingresados Correctamente');
+                });
+
+            } else {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error('Ingrese la cantidad suficiente de Articuloa');
+            }
+        } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error('Debe llenar la Descripcion');
+        }
 
 
 
@@ -768,7 +770,7 @@ ai=1;
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detallen_get.php',
+            url: 'detallen_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -800,7 +802,7 @@ ai=1;
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detallen_get3.php',
+            url: 'detallen_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -816,7 +818,7 @@ ai=1;
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: 'detallen_get4.php',
+            url: 'detallen_get2.php',
             data: 'dato=' + a,
             cache: false,
             beforeSend: function(){
@@ -838,18 +840,18 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
 
 
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
-
+        $("#habtotal").val(h);
     }
     function manageRow2(data) {
         var	rows = '';
@@ -861,13 +863,13 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -883,13 +885,14 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -905,13 +908,13 @@ ai=1;
 
 
             rows = rows + '<td>'+value.debe+'</td>';
-            rows = rows + '<td>'+value.debe*value.haber+'</td>';
+            rows = rows + '<td>'+value.haber+'</td>';
+            rows = rows + '<td class= "colh">'+value.debe*value.haber+'</td>';
             rows = rows + '<td data-id="'+value.id+'">';
             rows = rows + '<button disabled class="btn btn-danger ">Delete</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
-            d=d+parseFloat(value.debe);
-            h=h+parseFloat(value.haber);
+            h=h+parseFloat(value.haber)*parseFloat(value.debe);
         });
         $("tbody").html(rows);
         $("#debtotal").val(d);
@@ -928,7 +931,7 @@ ai=1;
             format: 'dd-mm-yyyy'
         }).on('changeDate', function() {
 
-           confirmar_fecha();
+            confirmar_fecha();
         });
     });
     //input puede que funciones

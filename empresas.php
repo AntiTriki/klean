@@ -190,6 +190,58 @@ unset($_SESSION['nombreemp']);
   <div class="container" style="padding-top: 100px">
 
       <div id="Productos" style="width: 60%;margin:auto"></div>
+      <div class="modal fade" id="conf" tabindex="-1" role="dialog" aria-labelledby="myModalLabl">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Detalle Cuenta</h4>
+                  </div>
+
+                  <div class="modal-body">
+                      <div data-toggle="validator" >
+
+                          <div class="form-group">
+                              <label class="control-label" for="cuenta_cod">Cuenta:</label>
+                              <input type="text" name="cuenta_cod" id="cuenta_cod" class="form-control"  />
+                              <div class="help-block with-errors"></div>
+                              <input type="hidden" name="id_cuenta_auto" id="id_cuenta_auto"></input>
+
+
+                          </div>
+
+                          <div class="form-group">
+                              <label class="control-label" for="glosa_detalle">Glosa:</label>
+                              <input type="text"  name="glosa_detalle" id="glosa_detalle" class="form-control" >
+                              <div class="help-block with-errors"></div>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label" for="debe_detalle">Debe:</label>
+                              <input type="number" step="0.01" name="debe_detalle"  id="debe_detalle" class="form-control" >
+                              <div class="help-block with-errors"></div>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label" for="haber_detalle">Haber:</label>
+                              <input type="number" step="0.01" name="haber_detalle"  id="haber_detalle" class="form-control" >
+                              <div class="help-block with-errors"></div>
+                              <input type="hidden" name="conteo" id="conteo">
+                          </div>
+
+
+                          <div class="form-group">
+                              <button id="addToTable" type="button" class="btn crud-submit btn-success ">Agregar</button>
+                          </div>
+
+
+
+                      </div>
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+
   </div>
   <!-- <script>
       $(document).ready(function() {
@@ -212,6 +264,7 @@ unset($_SESSION['nombreemp']);
       });
 
   </script> -->
+
 	<script type="text/javascript">
     $(document).ready(function () {
         $('#Productos').jtable({
@@ -299,6 +352,26 @@ unset($_SESSION['nombreemp']);
                 },
 	width: '2%'
 },
+                    ShowDetailColum: {
+                        title: '',
+                        create: false,
+                        edit: false,
+                        list: true,
+                        display: function (data) {
+                            return '<a href="inicio.php?id=' + data.record.id + '&nivel='+data.record.nivel+'"><img style="width:20px" src="33.png" /></a>';
+                        },
+                        width: '2%'
+                    },
+                    ShowDetailColun: {
+                        title: '',
+                        create: false,
+                        edit: false,
+                        list: true,
+                        display: function (data) {
+                            return '<a href="inicio.php?id=' + data.record.id + '&nivel='+data.record.nivel+'"><img style="width:20px" src="44.png" /></a>';
+                        },
+                        width: '2%'
+                    },
         },
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
