@@ -348,30 +348,11 @@ unset($_SESSION['nombreemp']);
                 edit: false,
                 list: true,
     display: function (data) {
-                    return '<a href="inicio.php?id=' + data.record.id + '&nivel='+data.record.nivel+'"><img style="width:20px" src="22.png" /></a>';
+        return '<a href="inicio.php?id=' + data.record.id + '&nivel='+data.record.nivel+'"><img style="width:20px" src="22.png" /></a>';
                 },
 	width: '2%'
 },
-                    ShowDetailColum: {
-                        title: '',
-                        create: false,
-                        edit: false,
-                        list: true,
-                        display: function (data) {
-                            return '<a href="inicio.php?id=' + data.record.id + '&nivel='+data.record.nivel+'"><img style="width:20px" src="33.png" /></a>';
-                        },
-                        width: '2%'
-                    },
-                    ShowDetailColun: {
-                        title: '',
-                        create: false,
-                        edit: false,
-                        list: true,
-                        display: function (data) {
-                            return '<a href="inicio.php?id=' + data.record.id + '&nivel='+data.record.nivel+'"><img style="width:20px" src="44.png" /></a>';
-                        },
-                        width: '2%'
-                    },
+
         },
             //Initialize validation logic when a form is created
             formCreated: function (event, data) {
@@ -405,7 +386,7 @@ unset($_SESSION['nombreemp']);
 
 			//Load person list from server
 			$('#Productos').jtable('load');
-			$('#Edit-nit').setAttribute("type", "number");
+
 
 
 		});

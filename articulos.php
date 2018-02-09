@@ -128,7 +128,25 @@ if(isset($_SESSION['id_lot'])) {
     $(document).ready(function () {
         $('#Productos').jtable({
 				title: 'Articulos',
+            messages: {
+                addNewRecord: 'Nuevo Articulo'
+            },
+            toolbar: {
+                hoverAnimation: true,
+                hoverAnimationDuration: 60,
+                hoverAnimationEasing: undefined,
+                items: [{
+                    icon: 'css/s.png',
+                    tooltip: 'Imprimir',
+                    text: 'Reportes',
+                    click: function () {
 
+
+                        window.open("articulos/index.php", 'mywin',
+                            'left=150,top=1000,width=1000,height=600,toolbar=1,resizable=0'); return false;
+                    }
+                }]
+            },
 				defaultSorting: 'id ASC',
 				actions: {
             //READ
